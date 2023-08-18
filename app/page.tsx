@@ -9,7 +9,7 @@ async function getData() {
   language = "vi-VN";
 
   const res = await fetch(
-    `https://api.themoviedb.org/3/trending/movie/day?language=${language}&page=2`,
+    `https://api.themoviedb.org/3/trending/movie/day?language=${language}&page=1`,
     {
       method: "GET",
       headers: {

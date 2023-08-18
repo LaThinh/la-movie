@@ -5,25 +5,27 @@ import React from "react";
 import Comments from "@/app/components/Comments";
 import { Metadata } from "next";
 
-type Params = {
-  params: {
-    movieId: string;
-  };
-};
-
 export async function generateMetadata({
   params,
 }: {
   params: { movieId: string };
-}): Promise<Metadata> {
+}) {
   //console.log("generateMetadata meta data");
-  const data: Movie = await getDataMovie(`${params.movieId}`);
+  const data: Movie = await getDataMovie(`${params?.movieId}`);
 
   return {
     title: `${data?.title} | La Movie`,
     description: data?.overview,
   };
 }
+
+// export async function generateStaticParams() {
+//   const posts = await fetch('https://.../posts').then((res) => res.json())
+
+//   return posts.map((post) => ({
+//     slug: post.slug,
+//   }))
+// }
 
 async function getDataMovie(id: string) {
   let language = "en-EN" || "vi-VN";
@@ -38,7 +40,7 @@ async function getDataMovie(id: string) {
           "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3YzQxODJmN2Y4M2U1MTMwZmE2ZjRiOTRlMGM2OGE3NyIsInN1YiI6IjY0YjYwN2VlMzc4MDYyMDBmZjNhMmNkYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nv6BfKpMo2TI6mBuoJaOcXGOdKmZEd2F7E7Q01RkaGY",
       },
       next: {
-        revalidate: 60,
+        //revalidate: 60,
         tags: ["comment"],
         //revalidateTag: "Comment"
       },
@@ -50,13 +52,13 @@ async function getDataMovie(id: string) {
   return url.json();
 }
 
-export async function MovieId({ params }: { params: { movieId: string } }) {
-  const movie: Movie = await getDataMovie(params.movieId);
+export async function MovieDetail({ params }: { params: { movieId: string } }) {
+  const movie: Movie = await getDataMovie(params?.movieId);
   console.log(movie);
 
   return (
     <div className="min-h-screen p-10">
-      <p>Movie Id = {params.movieId}</p>
+      <p>Movie Id = {params?.movieId}</p>
       <div className="movie-detail-view max-w-[1920px]  m-auto ">
         <div className="banner h-[40vh] max-h-[540px] relative overflow-hidden">
           <Image
@@ -76,7 +78,7 @@ export async function MovieId({ params }: { params: { movieId: string } }) {
               <li className="flex gap-3">
                 <h4>HomePage</h4>
                 <p>
-                  <Link href={movie?.homepage} target="_blank">
+                  <Link href={movie?.homepage || "/"} target="_blank">
                     {movie?.original_title}
                   </Link>
                 </p>
@@ -122,4 +124,4 @@ export async function MovieId({ params }: { params: { movieId: string } }) {
   );
 }
 
-export default MovieId;
+export default MovieDetail;
