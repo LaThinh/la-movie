@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Fjalla+One&family=Pacifico&family=Roboto+Condensed:wght@300;400;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -18,10 +20,47 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
+
+  /*background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
+    rgb(var(--background-start-rgb)); */
+  font-family: "Roboto Condensed", "sans-serif";
+  /* font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif; */
+}
+
+main {
+  min-height: 80vh;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Fjalla One";
+}
+
+.font-script {
+  @apply font-pacifico;
+}
+
+a {
+  @apply text-c-blue hover:text-c-blue-light;
+}
+
+.form-control {
+  @apply focus:outline-0;
+}
+
+.movie-info-list li {
+  @apply flex gap-3;
+}
+.movie-info-list h4 {
+  @apply w-1/5;
+}
+
+.movie-info-list p {
+  @apply flex-1;
 }
