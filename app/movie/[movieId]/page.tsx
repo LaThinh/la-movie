@@ -7,11 +7,6 @@ import { revalidateTag } from "next/cache";
 import { Metadata } from "next";
 import Head from "next/head";
 
-export const metadata: Metadata = {
-  title: "Movied detail",
-  description: "Mô tả",
-};
-
 export async function generateMetadata({
   params,
 }: {
