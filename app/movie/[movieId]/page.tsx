@@ -3,17 +3,21 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import Comments from "@/app/components/Comments";
-import { revalidateTag } from "next/cache";
 import { Metadata } from "next";
-import Head from "next/head";
+
+type Params = {
+  params: {
+    movieId: string;
+  };
+};
 
 export async function generateMetadata({
   params,
 }: {
   params: { movieId: string };
-}) {
-  console.log("generateMetadata meta data");
-  const data: Movie = await getDataMovie(params.movieId);
+}): Promise<Metadata> {
+  //console.log("generateMetadata meta data");
+  const data: Movie = await getDataMovie(`${params.movieId}`);
 
   return {
     title: `${data?.title} | La Movie`,
@@ -23,7 +27,7 @@ export async function generateMetadata({
 
 async function getDataMovie(id: string) {
   let language = "en-EN" || "vi-VN";
-  language = "vi-VN";
+  //language = "vi-VN";
   const url = await fetch(
     `https://api.themoviedb.org/3/movie/${id}?language=${language}`,
     {
@@ -49,14 +53,6 @@ async function getDataMovie(id: string) {
 export async function MovieId({ params }: { params: { movieId: string } }) {
   const movie: Movie = await getDataMovie(params.movieId);
   console.log(movie);
-  // generateMetadata({
-  //   title: movie?.title,
-  //   description: movie?.overview,
-  // });
-
-  <Head>
-    <title>movie?.title</title>
-  </Head>;
 
   return (
     <div className="min-h-screen p-10">
