@@ -53,70 +53,6 @@ async function getDataMovie(id: string) {
   return url.json();
 }
 
-// export async function getServerSideProps(context: any) {
-//   console.log("run get server side props");
-//   const movieId = context.params.movieId;
-//   let language = "en-EN" || "vi-VN";
-//   //language = "vi-VN";
-//   const res = await fetch(
-//     `https://api.themoviedb.org/3/movie/${movieId}?language=${language}`,
-//     {
-//       method: "GET",
-//       headers: {
-//         accept: "application/json",
-//         Authorization: process.env.THE_MOVIE_DATABASE_API as string,
-//       },
-//       next: {
-//         //revalidate: 60,
-//         tags: ["comment"],
-//         //revalidateTag: "Comment"
-//       },
-//     }
-//   );
-
-//   const data = await res.json();
-
-//   return {
-//     props: {
-//       movieId: movieId,
-//       data: data,
-//       message: `Next.js is awesome`,
-//     }, // will be passed to the page component as props
-//   };
-// }
-
-// export async function getStaticProps(context: any) {
-//   console.log("run get static props");
-//   const movieId = context.params.movieId;
-//   let language = "en-EN" || "vi-VN";
-//   //language = "vi-VN";
-//   const res = await fetch(
-//     `https://api.themoviedb.org/3/movie/${movieId}?language=${language}`,
-//     {
-//       method: "GET",
-//       headers: {
-//         accept: "application/json",
-//         Authorization: process.env.THE_MOVIE_DATABASE_API as string,
-//       },
-//       next: {
-//         //revalidate: 60,
-//         tags: ["comment"],
-//         //revalidateTag: "Comment"
-//       },
-//     }
-//   );
-
-//   const data = await res.json();
-
-//   return {
-//     props: {
-//       movieId: movieId,
-//       data: data,
-//       message: `Next.js is awesome`,
-//     }, // will be passed to the page component as props
-//   };
-// }
-
 export async function MovieDetailPage(props: any) {
   const { params, searchParams, data } = props;
 
@@ -129,8 +65,6 @@ export async function MovieDetailPage(props: any) {
 
   const movie: Movie = await getDataMovie(params?.movieId);
   console.log(movie);
-
-  //const movie = props.data;
 
   return (
     <div className="min-h-screen p-10">
@@ -148,53 +82,57 @@ export async function MovieDetailPage(props: any) {
 
         <h1 className="text-5xl my-5 leading-normal ">{movie?.title}</h1>
 
-        <div className="flex flex-col lg:flex-row gap-5 mt-10 rounded-2xl">
-          <div className="left-info lg:w-1/2 font-medium bg-slate-200/50 p-5 rounded-xl">
-            <ul className="movie-info-list flex flex-col gap-2 p-4 text-left">
-              <li className="flex gap-3">
-                <h4>HomePage</h4>
-                <p>
-                  <Link href={movie?.homepage || "/"} target="_blank">
-                    {movie?.original_title}
-                  </Link>
-                </p>
-              </li>
-              <li className="flex gap-3">
-                <h4>Overview</h4>
-                <p>{movie?.overview}</p>
-              </li>
-              <li className="flex gap-3">
-                <h4>Release Date</h4>
-                <p>{movie?.release_date}</p>
-              </li>
-              <li>
-                <h4>Average</h4>
-                <p>{movie?.vote_average}</p>
-              </li>
-              <li>
-                <h4>Tagline</h4>
-                <p>{movie?.tagline}</p>
-              </li>
-              <li>
-                <h4>Genres</h4>
-                <div className="flex gap-3 flex-1 flex-wrap">
-                  {movie?.genres.map((item) => (
-                    <span
-                      key={item.id}
-                      className="genre bg-gray-300 rounded-md py-2 px-4 cursor-pointer whitespace-nowrap hover:bg-blue-500 hover:text-white"
-                    >
-                      {item?.name}
-                    </span>
-                  ))}
-                </div>
-              </li>
-            </ul>
-          </div>
+        {movie && (
+          <div className="flex flex-col lg:flex-row gap-5 mt-10 rounded-2xl">
+            <div className="left-info lg:w-1/2 font-medium bg-slate-200/50 p-5 rounded-xl">
+              <ul className="movie-info-list flex flex-col gap-2 p-4 text-left">
+                <li className="flex gap-3">
+                  <h4>HomePage</h4>
+                  {movie?.homepage && (
+                    <p>
+                      <Link href={movie?.homepage || "/"} target="_blank">
+                        {movie?.original_title}
+                      </Link>
+                    </p>
+                  )}
+                </li>
+                <li className="flex gap-3">
+                  <h4>Overview</h4>
+                  <p>{movie?.overview}</p>
+                </li>
+                <li className="flex gap-3">
+                  <h4>Release Date</h4>
+                  <p>{movie?.release_date}</p>
+                </li>
+                <li>
+                  <h4>Average</h4>
+                  <p>{movie?.vote_average}</p>
+                </li>
+                <li>
+                  <h4>Tagline</h4>
+                  <p>{movie?.tagline}</p>
+                </li>
+                <li>
+                  <h4>Genres</h4>
+                  <div className="flex gap-3 flex-1 flex-wrap">
+                    {movie?.genres.map((item) => (
+                      <span
+                        key={item.id}
+                        className="genre bg-gray-300 rounded-md py-2 px-4 cursor-pointer whitespace-nowrap hover:bg-blue-500 hover:text-white"
+                      >
+                        {item?.name}
+                      </span>
+                    ))}
+                  </div>
+                </li>
+              </ul>
+            </div>
 
-          <div className="right-content lg:w-1/2 font-medium flex-1 ">
-            <Comments id={movie?.id} />
+            <div className="right-content lg:w-1/2 font-medium flex-1 ">
+              <Comments id={movie?.id} />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
