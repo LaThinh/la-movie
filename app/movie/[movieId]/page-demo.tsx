@@ -48,79 +48,31 @@ async function getDataMovie(id: string) {
     }
   );
 
-  console.log("Fetch Data Movie from server. Function getDataMovie");
+  console.log("Fetch Data Movie from server");
 
   return url.json();
 }
 
-// export async function getServerSideProps(context: any) {
-//   console.log("run get server side props");
-//   const movieId = context.params.movieId;
-//   let language = "en-EN" || "vi-VN";
-//   //language = "vi-VN";
-//   const res = await fetch(
-//     `https://api.themoviedb.org/3/movie/${movieId}?language=${language}`,
-//     {
-//       method: "GET",
-//       headers: {
-//         accept: "application/json",
-//         Authorization: process.env.THE_MOVIE_DATABASE_API as string,
-//       },
-//       next: {
-//         //revalidate: 60,
-//         tags: ["comment"],
-//         //revalidateTag: "Comment"
-//       },
-//     }
-//   );
+export function MovieDetail2() {
+  // const router = useRouter();
+  // const movieId = router.query.movieId;
+  // return <h1>This is detail Movie {movieId}</h1>;
+}
 
-//   const data = await res.json();
+export async function getServerSideProps(context: any) {
+  const movieId = context.params.movieId;
+  return {
+    props: {
+      movieId: movieId,
+      message: `Next.js is awesome`,
+    }, // will be passed to the page component as props
+  };
+}
 
-//   return {
-//     props: {
-//       movieId: movieId,
-//       data: data,
-//       message: `Next.js is awesome`,
-//     }, // will be passed to the page component as props
-//   };
-// }
+export async function MovieDetail(props: any) {
+  const { params, searchParams } = props;
 
-// export async function getStaticProps(context: any) {
-//   console.log("run get static props");
-//   const movieId = context.params.movieId;
-//   let language = "en-EN" || "vi-VN";
-//   //language = "vi-VN";
-//   const res = await fetch(
-//     `https://api.themoviedb.org/3/movie/${movieId}?language=${language}`,
-//     {
-//       method: "GET",
-//       headers: {
-//         accept: "application/json",
-//         Authorization: process.env.THE_MOVIE_DATABASE_API as string,
-//       },
-//       next: {
-//         //revalidate: 60,
-//         tags: ["comment"],
-//         //revalidateTag: "Comment"
-//       },
-//     }
-//   );
-
-//   const data = await res.json();
-
-//   return {
-//     props: {
-//       movieId: movieId,
-//       data: data,
-//       message: `Next.js is awesome`,
-//     }, // will be passed to the page component as props
-//   };
-// }
-
-export async function MovieDetailPage(props: any) {
-  const { params, searchParams, data } = props;
-
-  console.log("Render function MovieDetailPage");
+  console.log("222222222222222222222222222222222222222222222222222222");
   console.log(props);
 
   // const router = useRouter();
@@ -130,16 +82,14 @@ export async function MovieDetailPage(props: any) {
   const movie: Movie = await getDataMovie(params?.movieId);
   console.log(movie);
 
-  //const movie = props.data;
-
   return (
     <div className="min-h-screen p-10">
       <p>Movie Id = {params?.movieId}</p>
       <div className="movie-detail-view max-w-[1920px]  m-auto ">
         <div className="banner h-[40vh] max-h-[540px] relative overflow-hidden">
           <Image
-            alt={movie?.title}
-            src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
+            alt={movie.title}
+            src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
             className="object-cover w-full rounded-lg"
             fill
             loading="lazy"
@@ -200,4 +150,4 @@ export async function MovieDetailPage(props: any) {
   );
 }
 
-export default MovieDetailPage;
+export default MovieDetail;
