@@ -4,12 +4,13 @@ import Link from "next/link";
 import React from "react";
 import Comments from "@/app/components/Comments";
 import { Metadata } from "next";
+import { useRouter } from "next/router";
 
 export async function generateMetadata({
   params,
 }: {
   params: { movieId: string };
-}) {
+}): Promise<Metadata> {
   //console.log("generateMetadata meta data");
   const data: Movie = await getDataMovie(`${params?.movieId}`);
 
@@ -52,7 +53,32 @@ async function getDataMovie(id: string) {
   return url.json();
 }
 
-export async function MovieDetail({ params }: { params: { movieId: string } }) {
+export function MovieDetail2() {
+  // const router = useRouter();
+  // const movieId = router.query.movieId;
+  // return <h1>This is detail Movie {movieId}</h1>;
+}
+
+export async function getServerSideProps(context: any) {
+  const movieId = context.params.movieId;
+  return {
+    props: {
+      movieId: movieId,
+      message: `Next.js is awesome`,
+    }, // will be passed to the page component as props
+  };
+}
+
+export async function MovieDetail(props: any) {
+  const { params, searchParams } = props;
+
+  console.log("222222222222222222222222222222222222222222222222222222");
+  console.log(props);
+
+  // const router = useRouter();
+  // const movieId = router.query.movieId || "976573";
+  // console.log(movieId);
+
   const movie: Movie = await getDataMovie(params?.movieId);
   console.log(movie);
 
