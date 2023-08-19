@@ -4,7 +4,6 @@ import Link from "next/link";
 import React from "react";
 import Comments from "@/app/components/Comments";
 import { Metadata } from "next";
-import { useRouter } from "next/router";
 
 export async function generateMetadata({
   params,
@@ -70,15 +69,16 @@ export async function MovieDetailPage(props: any) {
     <div className="min-h-screen p-10">
       <p>Movie Id = {params?.movieId}</p>
       <div className="movie-detail-view max-w-[1920px]  m-auto ">
-        <div className="banner h-[40vh] max-h-[540px] relative overflow-hidden">
-          <Image
-            alt={movie?.title}
-            src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
-            className="object-cover w-full rounded-lg"
-            fill
-            loading="lazy"
-          />
-        </div>
+        {movie?.title && movie?.backdrop_path && (
+          <div className="banner h-[40vh] max-h-[540px] relative overflow-hidden">
+            <Image
+              alt={movie?.title}
+              src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
+              className="object-cover w-full rounded-lg"
+              fill
+            />
+          </div>
+        )}
 
         <h1 className="text-5xl my-5 leading-normal ">{movie?.title}</h1>
 
