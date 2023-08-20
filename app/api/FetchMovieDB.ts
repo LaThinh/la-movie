@@ -13,7 +13,7 @@ const options: RequestInit = {
 };
 
 let language = "en-EN" || "vi-VN";
-language = "vi-VN";
+//language = "vi-VN";
 
 export async function getTrending(page?: number) {
   const pageCurrent: number = page || 1;

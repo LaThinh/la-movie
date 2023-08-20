@@ -1,16 +1,29 @@
+"use client";
 import { getRecommendations } from "@/app/api/FetchMovieDB";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CardMovie from "./CardMovie";
 import { IMovieItem } from "@/app/interfaces";
 
-export default async function Recommendations({
-  movieId,
-}: {
-  movieId: string;
-}) {
-  const data = await getRecommendations(movieId);
-  console.log(data);
-  const listMovie = data?.results;
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
+
+export default function Recommendations({ movieId }: { movieId: string }) {
+  const [listMovie, setListMovie] = useState<IMovieItem[]>([]);
+
+  useEffect(() => {
+    async function getData() {
+      const data = await getRecommendations(movieId);
+      console.log(data);
+      //const listMovie = data?.results;
+      setListMovie(data?.results);
+    }
+
+    getData();
+  }, []);
+
   return (
     <div className="movie-recommend">
       {listMovie && listMovie.length > 0 && (
@@ -18,14 +31,49 @@ export default async function Recommendations({
           <h3 className="text-3xl my-10 text-gray-700 text-left">
             Recommendations
           </h3>
-          <div
-            className="movie-grid grid gap-4 grid-cols-2 sm-grid-cols-2  
-        md:grid-cols-3 md:gap-6 lg:grid-cols-4 lg:gap-8 2xl:grid-cols-5"
+
+          <Swiper
+            className="mySwiper"
+            spaceBetween={20}
+            slidesPerView={2}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            pagination={{
+              clickable: true,
+            }}
+            navigation={true}
+            modules={[Autoplay, Pagination, Navigation]}
+            breakpoints={{
+              // when window width is >= 640px
+              320: {
+                slidesPerView: 1,
+                spaceBetween: 20,
+              },
+              // when window width is >= 480px
+              480: {
+                slidesPerView: 2,
+                spaceBetween: 30,
+              },
+              // when window width is >= 768px
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 40,
+              },
+              1200: {
+                width: 1024,
+                slidesPerView: 4,
+              },
+            }}
           >
             {listMovie.map((movie: IMovieItem) => (
-              <CardMovie movie={movie} key={movie.id} />
+              <SwiperSlide key={movie.id} className="">
+                {/* {movie?.overview} */}
+                <CardMovie movie={movie} />
+              </SwiperSlide>
             ))}
-          </div>
+          </Swiper>
         </>
       )}
     </div>
