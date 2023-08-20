@@ -2,12 +2,13 @@ import React from "react";
 import { ITrending } from "../interfaces";
 import Link from "next/link";
 import Image from "next/image";
+import CardMovie from "./movie/CardMovie";
 
-async function getDataTrending(page: string) {
+async function getDataTrending(page?: number) {
   var language = "en-EN" || "vi-VN";
   language = "vi-VN";
 
-  page = page || "1";
+  page = page || 1;
 
   const res = await fetch(
     `https://api.themoviedb.org/3/trending/movie/day?page=${page}&language=${language}`,
@@ -40,46 +41,12 @@ async function Trending({ page }: { page: string }) {
         {data?.results &&
           data.results?.length > 0 &&
           data.results.map((movieItem) => (
-            <div
-              className="movie-item flex flex-col rounded-lg overflow-hidden border bg-white"
-              key={movieItem.id}
-            >
-              <Link
-                className="group relative block h-80 overflow-hidden  bg-gray-100 md:h-[500px]"
-                href={`/movie/${movieItem.id}`}
-              >
-                <Image
-                  src={`https://image.tmdb.org/t/p/w500/${movieItem.poster_path}`}
-                  alt={movieItem.title}
-                  width={300}
-                  height={500}
-                  className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
-                />
-              </Link>
-              <div className="flex flex-1 flex-col justify-between text-gray-700 text-left p-4 sm:p-5">
-                <h3 className="mb-2 text-lg font-semibold ">
-                  <Link
-                    className="text-gray-700"
-                    href={`/movie/${movieItem.id}`}
-                    title={movieItem?.original_title}
-                  >
-                    {movieItem.title}
-                  </Link>
-                </h3>
-                <p
-                  className="text-gray-500 line-clamp-3"
-                  title={movieItem.overview}
-                >
-                  {movieItem.overview}
-                </p>
-                <p className="release-date mt-2">
-                  Popularity: <span>{movieItem?.popularity}</span>
-                </p>
-              </div>
-            </div>
+            <CardMovie movie={movieItem} key={movieItem.id} />
           ))}
       </div>
-      <h3 className="text-lg text-gray-700 my-5">End Trending page {page}</h3>
+      <h3 className="text-lg hidden text-gray-700 my-5">
+        End Trending page {page}
+      </h3>
     </div>
   );
 }

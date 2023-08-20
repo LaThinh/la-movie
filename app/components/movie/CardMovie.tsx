@@ -18,8 +18,18 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
           alt={movie?.title || "Title"}
           sizes="240"
           fill
-          className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
+          className="absolute inset-0 h-full w-full object-cover object-center transition duration-300 group-hover:scale-110"
         />
+
+        <span
+          className="absolute z-10 top-2 right-2 border-2 p-4
+        w-14 h-14 flex justify-center items-center box-border rounded-full 
+        border-c-green bg-white text-c-green font-extrabold text-xl
+        group-hover:border-c-blue-light group-hover:text-c-blue-light
+        "
+        >
+          {movie?.vote_average?.toFixed(1)}
+        </span>
       </Link>
       <div className="flex flex-1 flex-col justify-between text-gray-700 text-left p-4 sm:p-5">
         <h3 className="mb-2 text-lg font-semibold ">
@@ -31,12 +41,13 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
             {movie.title}
           </Link>
         </h3>
-        <p className="text-gray-500 line-clamp-3" title={movie.overview}>
+        <p className="text-gray-500 line-clamp-4" title={movie.overview}>
           {movie.overview}
         </p>
-        <p className="release-date mt-2">
-          Popularity: <span>{movie?.popularity}</span>
-        </p>
+        <div className="card-footer flex justify-between items-center mt-5">
+          <div className="vote">Votes: {movie?.vote_count}</div>
+          <div className="point"></div>
+        </div>
       </div>
     </div>
   );

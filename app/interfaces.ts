@@ -24,6 +24,8 @@ export interface IMovieItem {
   genre_ids: number[];
   release_date: Date;
   popularity?: string;
+  vote_average?: number;
+  vote_count?: number;
 }
 
 export interface Movie {

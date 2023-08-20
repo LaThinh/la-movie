@@ -96,7 +96,8 @@ export default async function Home() {
             ))}
         </div> */}
 
-          <InfiniteScrollMovie />
+          <Trending />
+          <InfiniteScrollMovie fromPage={2} />
         </div>
       </div>
     </>

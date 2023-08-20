@@ -37,11 +37,8 @@ export default function Recommendations({ movieId }: { movieId: string }) {
             spaceBetween={20}
             slidesPerView={2}
             autoplay={{
-              delay: 2500,
+              delay: 5000,
               disableOnInteraction: false,
-            }}
-            pagination={{
-              clickable: true,
             }}
             navigation={true}
             modules={[Autoplay, Pagination, Navigation]}
@@ -49,26 +46,26 @@ export default function Recommendations({ movieId }: { movieId: string }) {
               // when window width is >= 640px
               320: {
                 slidesPerView: 1,
-                spaceBetween: 20,
+                spaceBetween: 0,
               },
               // when window width is >= 480px
-              480: {
+              640: {
                 slidesPerView: 2,
-                spaceBetween: 30,
+                spaceBetween: 20,
               },
               // when window width is >= 768px
               768: {
                 slidesPerView: 3,
-                spaceBetween: 40,
+                spaceBetween: 24,
               },
-              1200: {
-                width: 1024,
+              1024: {
                 slidesPerView: 4,
+                spaceBetween: 30,
               },
             }}
           >
             {listMovie.map((movie: IMovieItem) => (
-              <SwiperSlide key={movie.id} className="">
+              <SwiperSlide key={movie.id} className="w-[240px]">
                 {/* {movie?.overview} */}
                 <CardMovie movie={movie} />
               </SwiperSlide>
