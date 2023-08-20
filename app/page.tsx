@@ -1,8 +1,11 @@
 import Image from "next/image";
-import { Trending } from "./interfaces";
+import { ITrending } from "./interfaces";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSearchParams } from "next/navigation";
+import Trending from "./components/Trending";
+import Head from "next/head";
+import { Metadata } from "next";
 
 async function getData() {
   var language = "en-EN" || "vi-VN";
@@ -24,20 +27,30 @@ async function getData() {
 
   return res.json();
 }
+export const metadata: Metadata = {
+  title: "Welcome to La Movies page",
+  description:
+    "La Movie developed by Paul La use Next.js and The Movie Database API",
+};
+
 export default async function Home() {
-  const data: Trending = await getData();
-  console.log(data.results[0]);
+  //const data: ITrending = await getData();
+  //console.log(data.results[0]);
 
   return (
-    <div className="bg-white py-6 sm:py-8 lg:py-12">
-      <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
-        <div className="mb-10 md:mb-16">
-          <h2 className="mb-4 text-center text-2xl font-bold text-gray-700 lg:text-3xl">
-            Top Trending Movies
-          </h2>
-        </div>
+    <>
+      <Head>
+        <title>Welcome to La Movies</title>
+      </Head>
+      <div className="bg-white py-6 sm:py-8 lg:py-12">
+        <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
+          <div className="mb-10 md:mb-16">
+            <h2 className="mb-4 text-center text-2xl font-bold text-gray-700 lg:text-3xl">
+              Top Trending Movies
+            </h2>
+          </div>
 
-        <div
+          {/* <div
           className="movie-grid grid gap-4 grid-cols-2 sm-grid-cols-2  
         md:grid-cols-3 md:gap-6 lg:grid-cols-4 lg:gap-8 2xl:grid-cols-5"
         >
@@ -79,8 +92,12 @@ export default async function Home() {
                 </div>
               </div>
             ))}
+        </div> */}
+          <Trending page="1" />
+          <Trending page="2" />
+          <Trending page="3" />
         </div>
       </div>
-    </div>
+    </>
   );
 }

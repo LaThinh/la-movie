@@ -54,11 +54,14 @@ a {
   @apply focus:outline-0;
 }
 
+.movie-info-list {
+  @apply flex flex-col gap-5;
+}
 .movie-info-list li {
-  @apply flex gap-3;
+  @apply flex flex-col gap-3 lg:flex-row;
 }
 .movie-info-list h4 {
-  @apply w-1/5;
+  @apply w-full lg:w-1/5;
 }
 
 .movie-info-list p {

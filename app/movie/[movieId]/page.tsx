@@ -66,11 +66,10 @@ export async function MovieDetailPage(props: any) {
   console.log(movie);
 
   return (
-    <div className="min-h-screen p-10">
-      <p>Movie Id = {params?.movieId}</p>
-      <div className="movie-detail-view max-w-[1920px]  m-auto ">
+    <div className="min-h-screen p-3 lg:p-4 xl:p-8">
+      <div className="movie-detail-view max-w-screen-2xl  m-auto ">
         {movie?.title && movie?.backdrop_path && (
-          <div className="banner h-[40vh] max-h-[540px] relative overflow-hidden">
+          <div className="banner h-[50vh] max-h-[540px] relative overflow-hidden">
             <Image
               alt={movie?.title}
               src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
@@ -83,9 +82,9 @@ export async function MovieDetailPage(props: any) {
         <h1 className="text-5xl my-5 leading-normal ">{movie?.title}</h1>
 
         {movie && (
-          <div className="flex flex-col lg:flex-row gap-5 mt-10 rounded-2xl">
-            <div className="left-info lg:w-1/2 font-medium bg-slate-200/50 p-5 rounded-xl">
-              <ul className="movie-info-list flex flex-col gap-2 p-4 text-left">
+          <div className="flex flex-col lg:flex-row gap-5 rounded-2xl">
+            <div className="left-info lg:w-1/2 font-medium bg-slate-200/50 p-5 lg:p-8 rounded-xl">
+              <ul className="movie-info-list flex flex-col gap-2 text-left">
                 <li className="flex gap-3">
                   <h4>HomePage</h4>
                   {movie?.homepage && (
@@ -118,13 +117,23 @@ export async function MovieDetailPage(props: any) {
                     {movie?.genres.map((item) => (
                       <span
                         key={item.id}
-                        className="genre bg-gray-300 rounded-md py-2 px-4 cursor-pointer whitespace-nowrap hover:bg-blue-500 hover:text-white"
+                        className="genre bg-gray-300 rounded-md py-2 px-3 cursor-pointer whitespace-nowrap hover:bg-blue-500 hover:text-white"
                       >
                         {item?.name}
                       </span>
                     ))}
                   </div>
                 </li>
+                {movie?.spoken_languages && (
+                  <li>
+                    <h4>Languages:</h4>
+                    <div className="language flex gap-2">
+                      {movie?.spoken_languages.map((item) => (
+                        <span key={item.iso_639_1}>{item.name}</span>
+                      ))}
+                    </div>
+                  </li>
+                )}
               </ul>
             </div>
 

@@ -7,22 +7,24 @@ export default function Header() {
 
   return (
     <header className="flex sticky top-0 z-30 justify-between items-center px-10 py-2 bg-gray-200">
-      <Link
-        href="/"
-        className="font-script text-3xl p-3 font-bold text-blue-500"
-      >
-        La <span className=" ">Movie</span>
-      </Link>
-      <nav className="flex gap-5 text-c-blue font-bold text-xl">
-        <Link href="/" prefetch>
-          Home
+      <div className="header-container max-w-screen-2xl flex justify-between items-center w-full m-auto">
+        <Link
+          href="/"
+          className="font-script text-3xl p-3 font-bold text-blue-500"
+        >
+          La <span className=" ">Movie</span>
         </Link>
-        <Link href="/about">About</Link>
-        <Link href="/movie">Movie</Link>
-        <Link href="/dashboard">Dashboard</Link>
-      </nav>
+        <nav className="gap-5 text-c-blue font-bold text-xl hidden lg:flex">
+          <Link href="/" prefetch>
+            Home
+          </Link>
+          <Link href="/about">About</Link>
+          <Link href="/movie">Movie</Link>
+          <Link href="/dashboard">Dashboard</Link>
+        </nav>
 
-      <Link href="login">Login</Link>
+        <Link href="login">Login</Link>
+      </div>
     </header>
   );
 }

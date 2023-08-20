@@ -1,4 +1,4 @@
-//export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 import React from "react";
 import { db } from "../db";
@@ -50,7 +50,10 @@ async function Comments({ id }: { id: string }) {
   return (
     <div className="rounded-lg">
       <h4 className="text-xl font-semibold mb-5">
-        Comments Components Id= {id}
+        Comments Components{" "}
+        <span className="text-sm text-gray-200 font-normal ">
+          Movie Id= {id}
+        </span>
       </h4>
 
       <div className="mb-5 flex flex-col gap-y-3">
