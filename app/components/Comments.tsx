@@ -28,7 +28,6 @@ async function postData(formData: FormData) {
       movieId: formData.get("id") as string,
     },
   });
-
   revalidateTag("comment");
   //revalidatePath("/movie/[movieId]");
   //revalidateTag("comment");
