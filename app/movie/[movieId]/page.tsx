@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 import Comments from "@/app/components/Comments";
 import { Metadata } from "next";
+import Recommendations from "@/app/components/movie/Recommendations";
 
 export async function generateMetadata({
   params,
@@ -82,65 +83,69 @@ export async function MovieDetailPage(props: any) {
         <h1 className="text-5xl my-5 leading-normal ">{movie?.title}</h1>
 
         {movie && (
-          <div className="flex flex-col lg:flex-row gap-5 rounded-2xl">
-            <div className="left-info lg:w-1/2 font-medium bg-slate-200/50 p-5 lg:p-8 rounded-xl">
-              <ul className="movie-info-list flex flex-col gap-2 text-left">
-                <li className="flex gap-3">
-                  <h4>HomePage</h4>
-                  {movie?.homepage && (
-                    <p>
-                      <Link href={movie?.homepage || "/"} target="_blank">
-                        {movie?.original_title}
-                      </Link>
-                    </p>
-                  )}
-                </li>
-                <li className="flex gap-3">
-                  <h4>Overview</h4>
-                  <p>{movie?.overview}</p>
-                </li>
-                <li className="flex gap-3">
-                  <h4>Release Date</h4>
-                  <p>{movie?.release_date}</p>
-                </li>
-                <li>
-                  <h4>Average</h4>
-                  <p>{movie?.vote_average}</p>
-                </li>
-                <li>
-                  <h4>Tagline</h4>
-                  <p>{movie?.tagline}</p>
-                </li>
-                <li>
-                  <h4>Genres</h4>
-                  <div className="flex gap-3 flex-1 flex-wrap">
-                    {movie?.genres.map((item) => (
-                      <span
-                        key={item.id}
-                        className="genre bg-gray-300 rounded-md py-2 px-3 cursor-pointer whitespace-nowrap hover:bg-blue-500 hover:text-white"
-                      >
-                        {item?.name}
-                      </span>
-                    ))}
-                  </div>
-                </li>
-                {movie?.spoken_languages && (
+          <>
+            <div className="flex flex-col lg:flex-row gap-5 rounded-2xl">
+              <div className="left-info lg:w-1/2 font-medium bg-slate-200/50 p-5 lg:p-8 rounded-xl">
+                <ul className="movie-info-list flex flex-col gap-2 text-left">
+                  <li className="flex gap-3">
+                    <h4>HomePage</h4>
+                    {movie?.homepage && (
+                      <p>
+                        <Link href={movie?.homepage || "/"} target="_blank">
+                          {movie?.original_title}
+                        </Link>
+                      </p>
+                    )}
+                  </li>
+                  <li className="flex gap-3">
+                    <h4>Overview</h4>
+                    <p>{movie?.overview}</p>
+                  </li>
+                  <li className="flex gap-3">
+                    <h4>Release Date</h4>
+                    <p>{movie?.release_date}</p>
+                  </li>
                   <li>
-                    <h4>Languages:</h4>
-                    <div className="language flex gap-2">
-                      {movie?.spoken_languages.map((item) => (
-                        <span key={item.iso_639_1}>{item.name}</span>
+                    <h4>Average</h4>
+                    <p>{movie?.vote_average}</p>
+                  </li>
+                  <li>
+                    <h4>Tagline</h4>
+                    <p>{movie?.tagline}</p>
+                  </li>
+                  <li>
+                    <h4>Genres</h4>
+                    <div className="flex gap-3 flex-1 flex-wrap">
+                      {movie?.genres.map((item) => (
+                        <span
+                          key={item.id}
+                          className="genre bg-gray-300 rounded-md py-2 px-3 cursor-pointer whitespace-nowrap hover:bg-blue-500 hover:text-white"
+                        >
+                          {item?.name}
+                        </span>
                       ))}
                     </div>
                   </li>
-                )}
-              </ul>
+                  {movie?.spoken_languages && (
+                    <li>
+                      <h4>Languages:</h4>
+                      <div className="language flex gap-2">
+                        {movie?.spoken_languages.map((item) => (
+                          <span key={item.iso_639_1}>{item.name}</span>
+                        ))}
+                      </div>
+                    </li>
+                  )}
+                </ul>
+              </div>
+
+              <div className="right-content lg:w-1/2 font-medium flex-1 ">
+                <Comments id={movie?.id} />
+              </div>
             </div>
 
-            <div className="right-content lg:w-1/2 font-medium flex-1 ">
-              <Comments id={movie?.id} />
-            </div>
-          </div>
+            <Recommendations movieId={movie.id} />
+          </>
         )}
       </div>
     </div>

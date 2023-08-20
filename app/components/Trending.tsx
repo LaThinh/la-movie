@@ -7,6 +7,8 @@ async function getDataTrending(page: string) {
   var language = "en-EN" || "vi-VN";
   language = "vi-VN";
 
+  page = page || "1";
+
   const res = await fetch(
     `https://api.themoviedb.org/3/trending/movie/day?page=${page}&language=${language}`,
     {

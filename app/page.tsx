@@ -6,6 +6,8 @@ import { useSearchParams } from "next/navigation";
 import Trending from "./components/Trending";
 import Head from "next/head";
 import { Metadata } from "next";
+import ScrollLoadMore from "./components/InfiniteScrollMovie";
+import InfiniteScrollMovie from "./components/InfiniteScrollMovie";
 
 async function getData() {
   var language = "en-EN" || "vi-VN";
@@ -93,9 +95,8 @@ export default async function Home() {
               </div>
             ))}
         </div> */}
-          <Trending page="1" />
-          <Trending page="2" />
-          <Trending page="3" />
+
+          <InfiniteScrollMovie />
         </div>
       </div>
     </>

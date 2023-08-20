@@ -1,16 +1,29 @@
 export interface ITrending {
-  results: {
-    id: number;
-    title: string;
-    original_title: string;
-    poster_path: string;
-    overview: string;
-    genre_ids: number[];
-    release_date: Date;
-    popularity?: string;
-  }[];
+  // results: {
+  //   id: number;
+  //   title: string;
+  //   original_title: string;
+  //   poster_path: string;
+  //   overview: string;
+  //   genre_ids: number[];
+  //   release_date: Date;
+  //   popularity?: string;
+  // }[];
+  page: number;
+  results: IMovieItem[];
   total_results: number;
   total_pages: number;
+}
+
+export interface IMovieItem {
+  id: number;
+  title: string;
+  original_title: string;
+  poster_path: string;
+  overview: string;
+  genre_ids: number[];
+  release_date: Date;
+  popularity?: string;
 }
 
 export interface Movie {
