@@ -1,10 +1,11 @@
-import { Movie } from "@/app/interfaces";
+import { IMovie } from "@/app/interfaces";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import Comments from "@/app/components/Comments";
 import { Metadata } from "next";
 import Recommendations from "@/app/components/movie/Recommendations";
+import MovieInfo from "@/app/components/movie/MovieInfo";
 
 export async function generateMetadata({
   params,
@@ -12,7 +13,7 @@ export async function generateMetadata({
   params: { movieId: string };
 }): Promise<Metadata> {
   //console.log("generateMetadata meta data");
-  const data: Movie = await getDataMovie(`${params?.movieId}`);
+  const data: IMovie = await getDataMovie(`${params?.movieId}`);
 
   return {
     title: `${data?.title} | La Movie`,
@@ -63,7 +64,7 @@ export async function MovieDetailPage(props: any) {
   // const movieId = router.query.movieId || "976573";
   // console.log(movieId);
 
-  const movie: Movie = await getDataMovie(params?.movieId);
+  const movie: IMovie = await getDataMovie(params?.movieId);
   console.log(movie);
 
   return (
@@ -75,6 +76,7 @@ export async function MovieDetailPage(props: any) {
               alt={movie?.title}
               src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
               className="object-cover w-full rounded-lg"
+              priority={true}
               fill
             />
           </div>
@@ -85,58 +87,8 @@ export async function MovieDetailPage(props: any) {
         {movie && (
           <>
             <div className="flex flex-col lg:flex-row gap-5 rounded-2xl">
-              <div className="left-info lg:w-1/2 font-medium bg-slate-200/50 p-5 lg:p-8 rounded-xl">
-                <ul className="movie-info-list flex flex-col gap-2 text-left">
-                  <li className="flex gap-3">
-                    <h4>HomePage</h4>
-                    {movie?.homepage && (
-                      <p>
-                        <Link href={movie?.homepage || "/"} target="_blank">
-                          {movie?.original_title}
-                        </Link>
-                      </p>
-                    )}
-                  </li>
-                  <li className="flex gap-3">
-                    <h4>Overview</h4>
-                    <p>{movie?.overview}</p>
-                  </li>
-                  <li className="flex gap-3">
-                    <h4>Release Date</h4>
-                    <p>{movie?.release_date}</p>
-                  </li>
-                  <li>
-                    <h4>Average</h4>
-                    <p>{movie?.vote_average}</p>
-                  </li>
-                  <li>
-                    <h4>Tagline</h4>
-                    <p>{movie?.tagline}</p>
-                  </li>
-                  <li>
-                    <h4>Genres</h4>
-                    <div className="flex gap-3 flex-1 flex-wrap">
-                      {movie?.genres.map((item) => (
-                        <span
-                          key={item.id}
-                          className="genre bg-gray-300 rounded-md py-2 px-3 cursor-pointer whitespace-nowrap hover:bg-blue-500 hover:text-white"
-                        >
-                          {item?.name}
-                        </span>
-                      ))}
-                    </div>
-                  </li>
-                  {movie?.spoken_languages && (
-                    <li>
-                      <h4>Languages:</h4>
-                      <div className="language flex gap-2">
-                        {movie?.spoken_languages.map((item) => (
-                          <span key={item.iso_639_1}>{item.name}</span>
-                        ))}
-                      </div>
-                    </li>
-                  )}
-                </ul>
+              <div className="@container left-info lg:w-1/2 font-medium bg-slate-200/50 p-5 lg:p-8 rounded-xl">
+                <MovieInfo movie={movie} />
               </div>
 
               <div className="right-content lg:w-1/2 font-medium flex-1 ">

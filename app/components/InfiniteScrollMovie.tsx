@@ -8,9 +8,11 @@ import { getTrending } from "../api/FetchMovieDB";
 import CardMovie from "./movie/CardMovie";
 
 export default function InfiniteScrollMovie({
+  movieData,
   fromPage,
   toPage,
 }: {
+  movieData?: IMovieItem[] | null;
   fromPage?: number;
   toPage?: number;
 }) {
@@ -18,7 +20,7 @@ export default function InfiniteScrollMovie({
   const [page, setPage] = useState(fromPage || 1);
   const [loading, setLoading] = useState(true);
 
-  const maxPage = toPage ? toPage : (fromPage || 1) + 2;
+  const maxPage = toPage ? toPage : (fromPage || 1) + 3;
 
   const { ref } = useInView({
     onChange(inView, entry) {
@@ -35,7 +37,7 @@ export default function InfiniteScrollMovie({
       try {
         setLoading(true);
         const data: ITrending = await getTrending(page);
-        console.log(data);
+        console.log(data.page);
         //console.log(data?.results);
         if (movieList.length < 1) setMovieList(data?.results);
         else {
@@ -59,8 +61,10 @@ export default function InfiniteScrollMovie({
   return (
     <div>
       <div
-        className="movie-grid grid gap-4 grid-cols-2 sm-grid-cols-2  
-        md:grid-cols-3 md:gap-6 lg:grid-cols-4 lg:gap-8 2xl:grid-cols-5"
+        className="movie-grid grid grid-cols-1 gap-2
+        mobile:grid-cols-2 mobile:gap-3 sm:gap-4
+        tablet:grid-cols-3 lg:gap-6 
+        xl:grid-cols-4 xl:gap-y-8 2xl:grid-cols-5"
       >
         {movieList &&
           movieList?.length > 0 &&

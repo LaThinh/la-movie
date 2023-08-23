@@ -28,7 +28,7 @@ export interface IMovieItem {
   vote_count?: number;
 }
 
-export interface Movie {
+export interface IMovie {
   id: string;
   title: string;
   homepage: string;

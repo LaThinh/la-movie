@@ -33,13 +33,13 @@ export default function Recommendations({ movieId }: { movieId: string }) {
           </h3>
 
           <Swiper
-            className="mySwiper"
+            className="mySwiper "
             spaceBetween={20}
             slidesPerView={2}
-            autoplay={{
-              delay: 5000,
-              disableOnInteraction: false,
-            }}
+            // autoplay={{
+            //   delay: 5000,
+            //   disableOnInteraction: false,
+            // }}
             navigation={true}
             modules={[Autoplay, Pagination, Navigation]}
             breakpoints={{
@@ -58,7 +58,7 @@ export default function Recommendations({ movieId }: { movieId: string }) {
                 slidesPerView: 3,
                 spaceBetween: 24,
               },
-              1024: {
+              1200: {
                 slidesPerView: 4,
                 spaceBetween: 30,
               },

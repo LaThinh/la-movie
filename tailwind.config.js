@@ -11,6 +11,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        'mobile': '380px',
+        'tablet': '920px',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
@@ -35,5 +39,8 @@ module.exports = {
 
 
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/container-queries'),
+
+  ],
 }
