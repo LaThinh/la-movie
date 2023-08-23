@@ -34,8 +34,10 @@ async function Trending({ page }: { page: string }) {
   return (
     <div className="trending">
       <div
-        className="movie-grid grid gap-4 grid-cols-2 sm-grid-cols-2
-        md:grid-cols-3 md:gap-6 lg:grid-cols-4 lg:gap-8 2xl:grid-cols-5"
+        className="movie-grid grid grid-cols-1 gap-2 mb-5
+         mobile:grid-cols-2 mobile:gap-3 sm:gap-4
+         tablet:grid-cols-3 lg:gap-6 
+         xl:grid-cols-4 xl:gap-y-8 2xl:grid-cols-5"
       >
         {data?.results &&
           data.results?.length > 0 &&

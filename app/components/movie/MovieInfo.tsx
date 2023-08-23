@@ -1,8 +1,11 @@
 import React from "react";
 import { IMovie } from "@/app/interfaces";
 import Link from "next/link";
+import Rating from "./Rating";
 
 function MovieInfo({ movie }: { movie: IMovie }) {
+  let vote = movie?.vote_average ? movie.vote_average / 2 : 0;
+
   return (
     <div>
       <ul className="movie-info-list flex flex-col  gap-2 text-left">
@@ -27,6 +30,16 @@ function MovieInfo({ movie }: { movie: IMovie }) {
         <li>
           <h4>Average</h4>
           <p>{movie?.vote_average}</p>
+        </li>
+        <li>
+          <h4>Rating:</h4>
+          <p>
+            <Rating
+              rating={Math.ceil(vote)}
+              showLabel
+              label={`${vote.toFixed(1)} starts`}
+            />
+          </p>
         </li>
         <li>
           <h4>Tagline</h4>

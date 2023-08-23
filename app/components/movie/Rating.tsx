@@ -3,9 +3,11 @@ import React from "react";
 export default function Rating({
   rating,
   showLabel = false,
+  label,
 }: {
   rating: number;
   showLabel?: boolean;
+  label?: string;
 }) {
   const value = Math.min(rating | 0, 5);
 
@@ -33,7 +35,7 @@ export default function Rating({
       {ratingElm}
       {showLabel && (
         <span className="label whitespace-nowrap">
-          {showLabel ? `${rating} stars` : ""}
+          {showLabel ? label || `${rating} stars` : ""}
         </span>
       )}
     </div>
