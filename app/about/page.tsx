@@ -14,12 +14,23 @@ export default function AboutPage() {
       <div className="container m-auto max-w-5xl p-10 text-center">
         <h1 className="page-title">About Us</h1>
         <h5>My name: La Quoc Thinh</h5>
-        <p className="flex m-auto gap-1 items-center justify-center">
+        <p className="flex m-auto gap-1 flex-wrap items-center justify-center">
           La Movies App use
-          <Link href="https://nextjs.org/">Nextjs 13</Link>,
-          <Link href="https://tailwindcss.com/">Tailwindcss</Link>
+          <Link href="https://nextjs.org/" target="_blank" rel="noopener">
+            Nextjs 13
+          </Link>
+          ,
+          <Link href="https://tailwindcss.com/" target="_blank" rel="noopener">
+            TailWind Css
+          </Link>
           and
-          <Link href={"https://www.themoviedb.org/"}>TheMovieBD API</Link>
+          <Link
+            href={"https://www.themoviedb.org/"}
+            target="_blank"
+            rel="noopener"
+          >
+            TheMovieBD API
+          </Link>
         </p>
       </div>
     </div>

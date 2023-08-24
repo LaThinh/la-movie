@@ -21,7 +21,6 @@ export default function CarouselSliderMovie({
 }: {
   movieList: IMovieListPage;
 }) {
-  console.log(movieList?.results[0]);
   return (
     <div>
       <div className="movie-recommend  mb-20">
@@ -52,10 +51,10 @@ export default function CarouselSliderMovie({
                   modifier: 1,
                   slideShadows: true,
                 }}
-                pagination={true}
+                pagination={{ clickable: true }}
                 navigation={true}
                 loop={true}
-                modules={[EffectCoverflow, Autoplay, Pagination, Navigation]}
+                modules={[EffectCoverflow, Pagination, Navigation]}
               >
                 {movieList.results.map((movie: IMovieItem) => (
                   <SwiperSlide
@@ -76,10 +75,10 @@ export default function CarouselSliderMovie({
                           width={320}
                           height={500}
                           className={`image-slider-shadow`}
-                          style={{ objectFit: "contain" }}
+                          style={{ objectFit: "cover" }}
                         />
-                        <div className="movie-info absolute bottom-36 bg-white/80 p-3 text-left">
-                          <h3 className="text-gray-700 font-bold text-xl">
+                        <div className="movie-info absolute bottom-36 bg-gradient-to-t from-white from-50% vie-white/50 vie-70% to-transparent p-3 pt-20 text-left">
+                          <h3 className="text-c-primary font-bold text-xl hover:text-c-primary-light">
                             {movie?.title}
                           </h3>
                           <p className="line-clamp-2 text-gray-500">

@@ -59,12 +59,13 @@ export default function InfiniteScrollMovie({
   };
 
   return (
-    <div>
+    <div className="@container">
       <div
         className="movie-grid grid grid-cols-1 gap-2
-        mobile:grid-cols-2 mobile:gap-3 sm:gap-4
-        tablet:grid-cols-3 lg:gap-6 
-        xl:grid-cols-4 xl:gap-y-8 2xl:grid-cols-5"
+        @xs:grid-cols-2 @xs:gap-3 
+        @3xl:grid-cols-3 @3xl:gap-4
+        @5xl:grid-cols-4 @5xl:gap-6 
+        @7xl:grid-cols-5 #7xl:gap-8"
       >
         {movieList &&
           movieList?.length > 0 &&
