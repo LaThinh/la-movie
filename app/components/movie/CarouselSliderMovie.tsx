@@ -58,7 +58,13 @@ export default function CarouselSliderMovie({
                 pagination={{ clickable: true }}
                 navigation={true}
                 loop={true}
-                modules={[EffectCoverflow, Pagination, Navigation, Keyboard]}
+                modules={[
+                  EffectCoverflow,
+                  Autoplay,
+                  Pagination,
+                  Navigation,
+                  Keyboard,
+                ]}
               >
                 {movieList.results.map((movie: IMovieItem) => (
                   <SwiperSlide
