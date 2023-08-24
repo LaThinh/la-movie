@@ -1,8 +1,7 @@
 export default function Dashboard() {
   return (
     <div>
-      <h1>helo fronm dashboard</h1>
-      <p>Demo 222</p>
+      <h1 className="page-title">Dashboard</h1>
     </div>
   );
 }

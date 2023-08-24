@@ -15,10 +15,7 @@ export default function DashboardLayout({
           <Link href="/dashboard/sales">Sales</Link>
         </nav>
       </div>
-      <div className="main w-[70%]">
-        <p>This is dashboard content</p>
-        {children}
-      </div>
+      <div className="main w-[70%]">{children}</div>
     </section>
   );
 }

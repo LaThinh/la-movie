@@ -10,7 +10,7 @@ export default function Header() {
       <div className="header-container max-w-screen-2xl flex justify-between items-center w-full m-auto">
         <Link
           href="/"
-          className="font-script text-3xl p-3 font-bold text-blue-500 text-white"
+          className="font-script text-3xl p-3 font-bold text-blue-500 text-white hover:text-yellow-400"
         >
           La <span className=" ">Movie</span>
         </Link>

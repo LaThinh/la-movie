@@ -11,14 +11,15 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="about about-page">
-      <div className="container max-w-5xl p-10 text-center">
+      <div className="container m-auto max-w-5xl p-10 text-center">
         <h1 className="page-title">About Us</h1>
         <h5>My name: La Quoc Thinh</h5>
         <p className="flex m-auto gap-1 items-center justify-center">
-          La Movies use
-          <Link href="https://nextjs.org/">Nextjs 13</Link>
-          and TheMovie BD API
-          <Link href={"https://www.themoviedb.org/"}></Link>
+          La Movies App use
+          <Link href="https://nextjs.org/">Nextjs 13</Link>,
+          <Link href="https://tailwindcss.com/">Tailwindcss</Link>
+          and
+          <Link href={"https://www.themoviedb.org/"}>TheMovieBD API</Link>
         </p>
       </div>
     </div>

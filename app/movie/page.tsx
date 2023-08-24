@@ -17,7 +17,7 @@ export default async function Movie() {
   console.log(dataPopular.results[0]);
 
   return (
-    <div className="layout-movie flex gap-10 w-full m-auto p-5 relative">
+    <div className="layout-movie flex gap-10 w-full m-auto max-w-[1920px] p-5 relative">
       <div className="sidebar movie-sidebar sticky top-20 bg-gray-200 rounded-lg w-1/5 hidden xl:block">
         Sidebar
       </div>
