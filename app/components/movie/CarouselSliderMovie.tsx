@@ -8,6 +8,7 @@ import {
   EffectCoverflow,
   Navigation,
   Pagination,
+  Keyboard,
 } from "swiper/modules";
 
 import "swiper/css";
@@ -51,15 +52,18 @@ export default function CarouselSliderMovie({
                   modifier: 1,
                   slideShadows: true,
                 }}
+                keyboard={{
+                  enabled: true,
+                }}
                 pagination={{ clickable: true }}
                 navigation={true}
                 loop={true}
-                modules={[EffectCoverflow, Pagination, Navigation]}
+                modules={[EffectCoverflow, Pagination, Navigation, Keyboard]}
               >
                 {movieList.results.map((movie: IMovieItem) => (
                   <SwiperSlide
                     key={movie.id}
-                    className={`slider-item flex flex-col max-w-[320px] overflow-hidden rounded-2xl `}
+                    className={`slider-item flex flex-col !w-[70%] max-w-[320px] overflow-hidden rounded-2xl `}
                   >
                     {/* {movie?.overview} */}
                     <div className="movie-banner relative w-320 rounded-2xl overflow-hidden pb-36">

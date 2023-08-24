@@ -1,5 +1,6 @@
 import getConfig from "next/config";
 
+const baseUrl = "https://api.themoviedb.org/3";
 const options: RequestInit = {
   method: "GET",
   headers: {
@@ -18,7 +19,7 @@ let language = "en-EN" || "vi-VN";
 
 export async function getTrending(page?: number) {
   const pageCurrent: number = page || 1;
-  const url = `https://api.themoviedb.org/3/trending/movie/day?page=${pageCurrent}&language=${language}`;
+  const url = `${baseUrl}/trending/movie/day?page=${pageCurrent}&language=${language}`;
   const res = await fetch(url, options);
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
@@ -30,7 +31,7 @@ export async function getTrending(page?: number) {
 
 export async function getPopular(page?: number) {
   const pageCurrent: number = page || 1;
-  const url = `https://api.themoviedb.org/3/movie/popular?page=${pageCurrent}&language=${language}`;
+  const url = `${baseUrl}/movie/popular?page=${pageCurrent}&language=${language}`;
   const res = await fetch(url, options);
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
@@ -41,12 +42,22 @@ export async function getPopular(page?: number) {
 }
 
 export async function getRecommendations(movieId: string) {
-  const url = `https://api.themoviedb.org/3/movie/${movieId}/recommendations?language=${language}&page=1`;
-  console.log(url);
+  const url = `${baseUrl}/movie/${movieId}/recommendations?language=${language}&page=1`;
   const res = await fetch(url, options);
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
+
+//const url = 'https://api.themoviedb.org/3/movie/976573/videos?language=en-US';
+export async function getVideosTrailer(movieId: string) {
+  const url = `${baseUrl}/movie/${movieId}/videos?language=${language}`;
+  const res = await fetch(url, options);
+  if (!res.ok) {
+    throw new Error("Failed to fetch data trailer. URL Link: " + url);
   }
 
   return res.json();

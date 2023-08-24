@@ -2,6 +2,7 @@ import React from "react";
 import { IMovie } from "@/app/interfaces";
 import Link from "next/link";
 import Rating from "./Rating";
+import Trailer from "@/app/components/movie/Trailer";
 
 function MovieInfo({ movie }: { movie: IMovie }) {
   let vote = movie?.vote_average ? movie.vote_average / 2 : 0;
@@ -33,14 +34,13 @@ function MovieInfo({ movie }: { movie: IMovie }) {
         </li>
         <li>
           <h4>Rating:</h4>
-          <p>
-            <Rating
-              rating={Math.ceil(vote)}
-              showLabel
-              size="medium"
-              label={`${vote.toFixed(1)} starts`}
-            />
-          </p>
+
+          <Rating
+            rating={Math.ceil(vote)}
+            showLabel
+            size="medium"
+            label={`${vote.toFixed(1)} starts`}
+          />
         </li>
         <li>
           <h4>Tagline</h4>
@@ -70,6 +70,7 @@ function MovieInfo({ movie }: { movie: IMovie }) {
           </li>
         )}
       </ul>
+      {/* <Trailer movieId={movie.id} /> */}
     </div>
   );
 }

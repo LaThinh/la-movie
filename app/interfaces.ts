@@ -1,14 +1,4 @@
 export interface ITrending {
-  // results: {
-  //   id: number;
-  //   title: string;
-  //   original_title: string;
-  //   poster_path: string;
-  //   overview: string;
-  //   genre_ids: number[];
-  //   release_date: Date;
-  //   popularity?: string;
-  // }[];
   page: number;
   results: IMovieItem[];
   total_results: number;
@@ -63,4 +53,20 @@ export interface IMovie {
   production_countries: {
     name: string;
   }[];
+}
+
+export interface IVideos {
+  id: number;
+  results: IVideoItem[];
+}
+
+export interface IVideoItem {
+  id: string;
+  name: string;
+  key: string;
+  site: string;
+  size: string;
+  type: string;
+  official: string;
+  published_at: Date;
 }

@@ -57,12 +57,13 @@ export default async function HomePage() {
 
   return (
     <div className="home-page main">
-      <div className="mx-auto bg-white py-6 lg:py-8  w-full max-w-screen-2xl px-3 md:px-5 lg:px-8">
-        <h1 className="text-c-blue-light font-script text-3xl lg:text-4xl xl:text-5xl mb-5 lg:mb-10">
-          Welcome to La Movies
-        </h1>
+      <h1 className="text-c-blue-light font-script text-3xl lg:text-4xl xl:text-5xl my-5 lg:my-10">
+        Welcome to La Movies
+      </h1>
+      <div className="md:px-3 lg:px-5 2xl:px-8">
         <CarouselSliderMovie movieList={dataPopular} />
-
+      </div>
+      <div className="mx-auto bg-white py-6 lg:py-8  w-full max-w-screen-2xl px-3 md:px-5 lg:px-8">
         <h2 className="mb-10 text-center text-2xl font-bold text-gray-700 lg:text-3xl">
           {"Top Trending Movies"}
         </h2>
