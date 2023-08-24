@@ -46,12 +46,20 @@ h4 {
   @apply font-pacifico;
 }
 
+header nav a {
+  @apply text-white hover:text-yellow-400;
+}
+
 a {
   @apply text-c-blue hover:text-c-blue-light;
 }
 
 .form-control {
   @apply focus:outline-0;
+}
+
+.page-title {
+  @apply font-bold text-5xl my-4;
 }
 
 .movie-info-list {
@@ -66,4 +74,10 @@ a {
 
 .movie-info-list p {
   @apply flex-1;
+}
+
+.image-slider-shadow {
+  display: block;
+  -webkit-box-reflect: below 1px
+    linear-gradient(transparent, transparent, #0004, #000400);
 }

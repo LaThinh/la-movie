@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ITrending } from "./interfaces";
+import { IMovieListPage, ITrending } from "./interfaces";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSearchParams } from "next/navigation";
@@ -8,7 +8,9 @@ import Head from "next/head";
 import { Metadata } from "next";
 import ScrollLoadMore from "./components/InfiniteScrollMovie";
 import InfiniteScrollMovie from "./components/InfiniteScrollMovie";
-import { getTrending } from "./api/FetchMovieDB";
+import { getPopular, getTrending } from "./api/FetchMovieDB";
+import CarouselSliderMovie from "./components/movie/CarouselSliderMovie";
+import CarouselSlider2 from "./components/movie/CarouselSlider2";
 
 async function getData() {
   var language = "en-EN" || "vi-VN";
@@ -49,17 +51,24 @@ export default async function HomePage() {
   const dataTrending: ITrending = (await getTrending(1)) || null;
   console.log(dataTrending.results[0]);
 
+  console.log("Get Movie Popular");
+  const dataPopular: IMovieListPage = await getPopular();
+  console.log(dataPopular.results[0]);
+
   return (
-    <>
-      <div className="mx-auto bg-white py-6 sm:py-8 lg:py-12 max-w-screen-2xl px-4 md:px-5 lg:px-8">
-        <div className="mb-6 md:mb-8 lg:mb-10 2xl:mb-12">
-          <h2 className="mb-4 text-center text-2xl font-bold text-gray-700 lg:text-3xl">
-            {"Top Trending Movies"}
-          </h2>
-        </div>
-        {<Trending page={"1"} />}
-        <InfiniteScrollMovie movieData={dataTrending.results} fromPage={2} />
+    <div className="home-page main">
+      <div className="mx-auto bg-white py-6 lg:py-8  w-full max-w-screen-2xl px-4 md:px-5 lg:px-8">
+        <h1 className="text-c-blue-light font-script text-3xl lg:text-4xl xl:text-5xl">
+          Welcome to La Movies
+        </h1>
+        <CarouselSliderMovie movieList={dataPopular} />
+
+        <h2 className="mb-10 text-center text-2xl font-bold text-gray-700 lg:text-3xl">
+          {"Top Trending Movies"}
+        </h2>
+        {/* {<Trending page={"1"} />} */}
+        <InfiniteScrollMovie movieData={dataTrending.results} fromPage={1} />
       </div>
-    </>
+    </div>
   );
 }

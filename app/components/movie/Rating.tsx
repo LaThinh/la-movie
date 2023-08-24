@@ -4,12 +4,20 @@ export default function Rating({
   rating,
   showLabel = false,
   label,
+  size,
 }: {
   rating: number;
   showLabel?: boolean;
   label?: string;
+  size?: "small" | "medium" | "large";
 }) {
   const value = Math.min(rating | 0, 5);
+  let sizeClass = "w-4 h-4";
+  if (size && size == "medium") {
+    sizeClass = "w-6 h-6";
+  } else if (size && size == "large") {
+    sizeClass = "w-8 h-8";
+  }
 
   let ratingElm = [];
 
@@ -19,7 +27,7 @@ export default function Rating({
     ratingElm.push(
       <svg
         key={i}
-        className={`w-4 h-4 ${classStart} `}
+        className={`${sizeClass} ${classStart} `}
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         fill="currentColor"

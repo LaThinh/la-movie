@@ -37,6 +37,7 @@ function MovieInfo({ movie }: { movie: IMovie }) {
             <Rating
               rating={Math.ceil(vote)}
               showLabel
+              size="medium"
               label={`${vote.toFixed(1)} starts`}
             />
           </p>

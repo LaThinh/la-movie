@@ -68,7 +68,7 @@ export async function MovieDetailPage(props: any) {
   console.log(movie);
 
   return (
-    <div className="min-h-screen p-3 lg:p-4 xl:p-8">
+    <div className="min-h-screen p-3 md:p-4 lg:p-6 xl:p-8">
       <div className="movie-detail-view max-w-screen-2xl  m-auto ">
         {movie?.title && movie?.backdrop_path && (
           <div className="banner h-[50vh] max-h-[540px] relative overflow-hidden">
