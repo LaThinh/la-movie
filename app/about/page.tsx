@@ -1,8 +1,4 @@
-"use client";
-
-import { Button } from "@nextui-org/react";
 import { Metadata } from "next";
-import Head from "next/head";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -35,12 +31,6 @@ export default function AboutPage() {
             TheMovieBD API
           </Link>
         </p>
-      </div>
-
-      <div>
-        <Button color="primary" size="lg">
-          Click me
-        </Button>
       </div>
     </div>
   );
