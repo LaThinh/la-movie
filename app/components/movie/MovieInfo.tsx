@@ -52,7 +52,7 @@ function MovieInfo({ movie }: { movie: IMovie }) {
             {movie?.genres.map((item) => (
               <span
                 key={item.id}
-                className="genre bg-gray-300 rounded-md py-2 px-3 cursor-pointer whitespace-nowrap hover:bg-blue-500 hover:text-white"
+                className="genre bg-gray-300 dark:bg-transparent dark:border rounded-md py-2 px-3 cursor-pointer whitespace-nowrap hover:bg-blue-500 hover:text-white"
               >
                 {item?.name}
               </span>

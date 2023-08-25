@@ -1,7 +1,9 @@
+"use client";
+
+import { Button } from "@nextui-org/react";
 import { Metadata } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import React from "react";
 
 export const metadata: Metadata = {
   title: "About Us | La Movie",
@@ -13,6 +15,7 @@ export default function AboutPage() {
     <div className="about about-page">
       <div className="container m-auto max-w-5xl p-10 text-center">
         <h1 className="page-title">About Us</h1>
+
         <h5>My name: La Quoc Thinh</h5>
         <p className="flex m-auto gap-1 flex-wrap items-center justify-center">
           La Movies App use
@@ -32,6 +35,12 @@ export default function AboutPage() {
             TheMovieBD API
           </Link>
         </p>
+      </div>
+
+      <div>
+        <Button color="primary" size="lg">
+          Click me
+        </Button>
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
 
   return (
     <div
-      className="card-movie flex flex-col rounded-lg overflow-hidden border bg-white hover:shadow-sm "
+      className="card-movie flex flex-col rounded-lg overflow-hidden border dark:border-c-dark  bg-white dark:bg-gray-800 hover:shadow-sm "
       key={movie.id}
     >
       <Link
@@ -35,17 +35,20 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
           {movie?.vote_average?.toFixed(1)}
         </span>
       </Link>
-      <div className="flex flex-1 flex-col justify-between text-gray-700 text-left p-4 lg:p-5">
+      <div className="flex flex-1 flex-col justify-between text-gray-700 dark:text-white text-left p-4 lg:p-5">
         <h3 className="mb-2 text-lg font-semibold ">
           <Link
-            className="text-gray-700"
+            className="text-gray-700 dark:text-gray-200"
             href={`/movie/${movie.id}`}
             title={movie?.original_title}
           >
             {movie.title}
           </Link>
         </h3>
-        <p className="text-gray-500 line-clamp-4" title={movie.overview}>
+        <p
+          className="text-gray-500 dark:text-gray-200 line-clamp-4"
+          title={movie.overview}
+        >
           {movie.overview}
         </p>
         <div className="card-footer flex justify-between items-center mt-5">

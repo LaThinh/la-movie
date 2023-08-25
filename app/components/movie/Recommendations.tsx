@@ -28,9 +28,7 @@ export default function Recommendations({ movieId }: { movieId: string }) {
     <div className="movie-recommend">
       {listMovie && listMovie.length > 0 && (
         <>
-          <h3 className="text-3xl my-10 text-gray-700 text-left">
-            Recommendations
-          </h3>
+          <h3 className="text-3xl my-10 text-left">Recommendations</h3>
 
           <Swiper
             className="mySwiper "

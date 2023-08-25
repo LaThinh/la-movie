@@ -87,7 +87,11 @@ export async function MovieDetailPage(props: any) {
         {movie && (
           <>
             <div className="flex flex-col lg:flex-row gap-5 rounded-2xl">
-              <div className="@container left-info lg:w-1/2 font-medium bg-slate-200/50 p-5 lg:p-8 rounded-xl">
+              <div
+                className="@container left-info lg:w-1/2 font-medium bg-slate-200/50 
+              dark:bg-transparent dark:border
+              p-5 lg:p-8 rounded-xl"
+              >
                 <MovieInfo movie={movie} />
               </div>
 

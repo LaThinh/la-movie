@@ -62,11 +62,11 @@ async function Comments({ id }: { id: string }) {
             className="comment-item flex flex-col border rounded-lg mb-2 text-left p-3"
           >
             <div className="comment-header flex justify-between">
-              <h5 className="-mt-5 bg-white px-3 capitalize">
+              <h5 className="-mt-5 bg-white dark:bg-background px-3 capitalize">
                 {post?.name ? post.name : "Guest"}
               </h5>
             </div>
-            <div className="comment-content text-sm px-3 text-gray-500">
+            <div className="comment-content text-sm px-3 text-gray-500 dark:text-stone-300">
               <p>{post.message}</p>
               <p className="text-sm right float-right">
                 {post?.createAt.toLocaleTimeString("en-US")}
@@ -75,7 +75,7 @@ async function Comments({ id }: { id: string }) {
           </div>
         ))}
       </div>
-      <div className="text-left bg-slate-200/50 p-5 rounded-xl">
+      <div className="text-left bg-slate-200/50  p-5 rounded-xl">
         <form action={postData}>
           <label htmlFor="name">Your Name</label>
           <input

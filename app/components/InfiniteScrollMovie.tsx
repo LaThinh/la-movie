@@ -6,6 +6,7 @@ import { useInView } from "react-intersection-observer";
 import { IMovieItem, ITrending } from "../interfaces";
 import { getTrending } from "../api/FetchMovieDB";
 import CardMovie from "./movie/CardMovie";
+import { Button } from "@nextui-org/react";
 
 export default function InfiniteScrollMovie({
   movieData,
@@ -76,14 +77,19 @@ export default function InfiniteScrollMovie({
       <h3 className="text-lg hidden text-gray-700 my-5">
         End Trending page {page}
       </h3>
-      <button
-        className="load-more mt-10 mb-5 border-2 border-c-blue text-c-blue hover:bg-c-blue hover:text-white rounded-lg px-5 py-2 text-lg"
+      <Button
+        className="load-more mt-10 mb-5 px-5 py-2"
         ref={ref}
+        size="lg"
+        color="primary"
+        radius="lg"
         onClick={handleLoadMore}
         disabled={loading}
+        isLoading={loading}
+        spinnerPlacement="end"
       >
         {loading ? `Loading page ${page}` : `Load more page ${page + 1}`}
-      </button>
+      </Button>
     </div>
   );
 }
