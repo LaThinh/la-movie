@@ -70,7 +70,9 @@ function MovieInfo({ movie }: { movie: IMovie }) {
           </li>
         )}
       </ul>
-      {/* <Trailer movieId={movie.id} /> */}
+      <div className="video-trailer block w-full">
+        <Trailer movieId={movie.id} />
+      </div>
     </div>
   );
 }

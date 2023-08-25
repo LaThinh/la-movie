@@ -6,6 +6,7 @@ import Comments from "@/app/components/Comments";
 import { Metadata } from "next";
 import Recommendations from "@/app/components/movie/Recommendations";
 import MovieInfo from "@/app/components/movie/MovieInfo";
+import Trailer from "@/app/components/movie/Trailer";
 
 export async function generateMetadata({
   params,
@@ -82,7 +83,13 @@ export async function MovieDetailPage(props: any) {
           </div>
         )}
 
-        <h1 className="text-5xl my-5 leading-normal ">{movie?.title}</h1>
+        <h1 className="text-3xl lg:text-5xl 2xl:text-6xl my-5 xl:my-10 leading-normal ">
+          {movie?.title}
+        </h1>
+
+        <div className="trailer-desktop hidden lg:block">
+          <Trailer movieId={movie.id} limitDefault={12} />
+        </div>
 
         {movie && (
           <>

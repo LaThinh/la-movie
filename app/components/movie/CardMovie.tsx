@@ -3,9 +3,10 @@ import { IMovieItem } from "../../interfaces";
 import Link from "next/link";
 import Image from "next/image";
 import Rating from "./Rating";
+import { CircularProgress } from "@nextui-org/react";
 
 const CardMovie = ({ movie }: { movie: IMovieItem }) => {
-  let vote = movie?.vote_average ? movie.vote_average / 2 : 0;
+  let vote = movie?.vote_average ? movie.vote_average : 0;
   //let rating:number = parseFloat((vote / 2).toString()).toFixed(0);
 
   return (
@@ -27,13 +28,38 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
         />
 
         <span
-          className="absolute z-10 top-2 right-2 border-2 p-4
+          className="absolute z-10 top-2 right-2 border-2 p-4 hidden
         w-14 h-14 flex justify-center items-center box-border rounded-full 
         border-c-green bg-white text-c-green font-extrabold text-xl
         group-hover:border-c-blue-light group-hover:text-c-blue-light"
         >
           {movie?.vote_average?.toFixed(1)}
         </span>
+
+        <CircularProgress
+          className="absolute z-10 top-2 right-2 bg-white/90 rounded-full box-border"
+          classNames={{
+            svg: "w-16 h-16 drop-shadow-md",
+            track: "stroke-white/10",
+            value: "text-[16px] font-bold text-primary-500",
+          }}
+          size="lg"
+          strokeWidth={4}
+          maxValue={10}
+          value={vote}
+          color={
+            vote > 7.5
+              ? "success"
+              : vote > 6
+              ? "warning"
+              : vote > 4
+              ? "primary"
+              : vote > 2
+              ? "danger"
+              : "default"
+          }
+          showValueLabel={true}
+        />
       </Link>
       <div className="flex flex-1 flex-col justify-between text-gray-700 dark:text-white text-left p-4 lg:p-5">
         <h3 className="mb-2 text-lg font-semibold ">
@@ -45,6 +71,7 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
             {movie.title}
           </Link>
         </h3>
+
         <p
           className="text-gray-500 dark:text-gray-200 line-clamp-4"
           title={movie.overview}
@@ -55,7 +82,7 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
           <div className="vote">Votes: {movie?.vote_count}</div>
           <div className="point"></div>
           {}
-          <Rating rating={Math.ceil(vote)} />
+          <Rating rating={Math.ceil(vote / 2)} />
         </div>
       </div>
     </div>
