@@ -38,8 +38,7 @@ export default function InfiniteScrollMovie({
       try {
         setLoading(true);
         const data: ITrending = await getTrending(page);
-        console.log(data.page);
-        //console.log(data?.results);
+        console.log(data?.results);
         if (movieList.length < 1) setMovieList(data?.results);
         else {
           setMovieList((prevList) => [...prevList, ...data?.results]);

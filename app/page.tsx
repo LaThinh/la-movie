@@ -10,7 +10,6 @@ import ScrollLoadMore from "./components/InfiniteScrollMovie";
 import InfiniteScrollMovie from "./components/InfiniteScrollMovie";
 import { getPopular, getTrending } from "./api/FetchMovieDB";
 import CarouselSliderMovie from "./components/movie/CarouselSliderMovie";
-import CarouselSlider2 from "./components/movie/CarouselSlider2";
 
 async function getData() {
   var language = "en-EN" || "vi-VN";
