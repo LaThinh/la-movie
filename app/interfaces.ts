@@ -7,10 +7,10 @@ export interface ITrending {
 
 export interface IMovieListPage {
   title?: string;
-  page?: number;
+  page: number;
   results: IMovieItem[];
-  total_results?: number;
-  total_pages?: number;
+  total_results: number;
+  total_pages: number;
 }
 
 export interface IMovieItem {
@@ -69,4 +69,9 @@ export interface IVideoItem {
   type: string;
   official: string;
   published_at: Date;
+}
+
+export interface IGenre {
+  id: string;
+  name: string;
 }

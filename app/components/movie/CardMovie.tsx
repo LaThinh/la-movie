@@ -1,9 +1,9 @@
 import React from "react";
 import { IMovieItem } from "../../interfaces";
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 import Rating from "./Rating";
-import { CircularProgress } from "@nextui-org/react";
+import { CircularProgress, Image } from "@nextui-org/react";
 
 const CardMovie = ({ movie }: { movie: IMovieItem }) => {
   let vote = movie?.vote_average ? movie.vote_average : 0;
@@ -15,15 +15,17 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
       key={movie.id}
     >
       <Link
-        className="group relative block min-h-[320px] overflow-hidden  bg-gray-100 md:h-[500px]"
+        className="group relative block min-h-[240px] overflow-hidden  md:h-[500]"
         href={`/movie/${movie?.id}`}
       >
         <Image
+          isZoomed
           src={`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`}
           alt={movie?.title || "Title"}
-          sizes="240"
-          fill
-          style={{ objectFit: "cover" }}
+          sizes="400"
+          width={400}
+          loading="eager"
+          // style={{ objectFit: "cover" }}
           className="!relative inset-0 h-full w-full object-cover object-center transition duration-300 group-hover:scale-110"
         />
 

@@ -18,7 +18,6 @@ export default function UserMenu() {
 
   const setLanguageStorage = (e: any) => {
     const value: string = e.target.value || "";
-
     if (value) {
       console.log(value);
       setLanguage(value);
@@ -90,7 +89,6 @@ export default function UserMenu() {
             isReadOnly
             key="theme"
             className="cursor-default"
-            onPressChange={() => setLanguageStorage("vi-VN")}
             endContent={
               <select
                 className="z-10 outline-none w-16 py-0.5 rounded-md text-tiny group-data-[hover=true]:border-default-500 border-small border-default-300 dark:border-default-200 bg-transparent text-default-500"

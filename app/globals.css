@@ -51,7 +51,7 @@ a {
 }
 
 .page-title {
-  @apply font-bold text-5xl my-4;
+  @apply font-bold my-2 text-3xl lg:text-5xl lg:my-4;
 }
 
 .movie-info-list {

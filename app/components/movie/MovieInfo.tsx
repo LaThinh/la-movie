@@ -50,12 +50,13 @@ function MovieInfo({ movie }: { movie: IMovie }) {
           <h4>Genres</h4>
           <div className="flex gap-3 flex-1 flex-wrap">
             {movie?.genres.map((item) => (
-              <span
+              <Link
                 key={item.id}
+                href={`/genre/${item.id}`}
                 className="genre bg-gray-300 dark:bg-transparent dark:border rounded-md py-2 px-3 cursor-pointer whitespace-nowrap hover:bg-blue-500 hover:text-white"
               >
                 {item?.name}
-              </span>
+              </Link>
             ))}
           </div>
         </li>

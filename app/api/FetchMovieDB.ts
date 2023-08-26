@@ -73,3 +73,35 @@ export async function getMovieDetails(movieId: string) {
 
   return res.json();
 }
+
+export async function getAllGenres() {
+  const url = `${baseUrl}/genre/movie/list?language=${language}`;
+  const res = await fetch(url, options);
+  if (!res.ok) {
+    throw new Error("Failed to fetch getGenreList. URL Link: " + url);
+  }
+
+  return res.json();
+}
+
+export async function getMovieListQuery({
+  genreId,
+  page,
+  sort_by,
+}: {
+  genreId: string;
+  page: string;
+  sort_by?: string;
+}) {
+  const url = `${baseUrl}/discover/movie?with_genres=${genreId}&page=${page}&language=${language}`;
+  const res = await fetch(url, options);
+  if (!res.ok) {
+    throw new Error("Failed to fetch getGenreList. URL Link: " + url);
+  }
+
+  // console.log("Fetch Genre. Url = " + url);
+  // const data = await res.json();
+  // console.log(data);
+
+  return await res.json();
+}

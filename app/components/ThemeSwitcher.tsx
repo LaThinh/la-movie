@@ -21,7 +21,11 @@ export function ThemeSwitcher() {
   if (!mounted) return null;
 
   return (
-    <div>
+    <div
+      title={`Click here  ${
+        theme == "light" ? "Change theme to Dark Mode" : "Back to Light Mode"
+      }`}
+    >
       <Switch
         isSelected={theme === "dark"}
         onValueChange={changeTheme}

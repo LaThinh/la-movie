@@ -73,7 +73,7 @@ export default function ModalVideos({
         backdrop="opaque"
         size="full"
         radius="lg"
-        className="w-[96%] max-h-[90%] !rounded-sm lg:max-w-7xl lg:w-[90%] lg:!rounded-xl overflow-hidden xl:max-w-screen-2xl h-auto"
+        className="w-[96%] max-h-[90%] !rounded-sm lg:max-w-7xl lg:w-[90%] lg:!rounded-xl overflow-hidden xl:max-w-[1800px] h-auto"
         isOpen={isOpen}
         placement="center"
         classNames={{

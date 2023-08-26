@@ -7,16 +7,9 @@ import {
   motion,
 } from "framer-motion";
 import { useEffect } from "react";
-import { Button } from "@nextui-org/react";
-
-interface ScrollToOptions {
-  left?: number;
-  top?: number;
-  behavior?: "auto" | "smooth";
-}
 
 const ScrollToTopContainerVariants: Variants = {
-  hide: { opacity: 0, y: 100 },
+  hide: { opacity: 0, y: -10 },
   show: { opacity: 1, y: -20 },
 };
 
