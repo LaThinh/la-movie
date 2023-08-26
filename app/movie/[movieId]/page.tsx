@@ -1,12 +1,16 @@
+import dynamic from "next/dynamic";
+
 import { IMovie } from "@/app/interfaces";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import Comments from "@/app/components/Comments";
 import { Metadata } from "next";
 import Recommendations from "@/app/components/movie/Recommendations";
 import MovieInfo from "@/app/components/movie/MovieInfo";
 import Trailer from "@/app/components/movie/Trailer";
+import useLocalStorage from "@/app/hooks/useLocalStorage ";
+import { getMovieDetails } from "@/app/api/FetchMovieDB";
 
 export async function generateMetadata({
   params,
@@ -14,7 +18,7 @@ export async function generateMetadata({
   params: { movieId: string };
 }): Promise<Metadata> {
   //console.log("generateMetadata meta data");
-  const data: IMovie = await getDataMovie(`${params?.movieId}`);
+  const data: IMovie = await getMovieDetails(`${params?.movieId}`);
 
   return {
     title: `${data?.title} | La Movie`,
@@ -30,30 +34,41 @@ export async function generateMetadata({
 //   }))
 // }
 
-async function getDataMovie(id: string) {
-  let language = "en-EN" || "vi-VN";
-  //language = "vi-VN";
-  const url = await fetch(
-    `https://api.themoviedb.org/3/movie/${id}?language=${language}`,
-    {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3YzQxODJmN2Y4M2U1MTMwZmE2ZjRiOTRlMGM2OGE3NyIsInN1YiI6IjY0YjYwN2VlMzc4MDYyMDBmZjNhMmNkYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nv6BfKpMo2TI6mBuoJaOcXGOdKmZEd2F7E7Q01RkaGY",
-      },
-      next: {
-        //revalidate: 60,
-        tags: ["comment"],
-        //revalidateTag: "Comment"
-      },
-    }
-  );
+// async function getDataMovie(id: string) {
+//   // let language = "en-EN" || "vi-VN";
+//   // //language = "vi-VN";
+//   // console.log("33333333333333333333333333333333333333333333333333333333");
+//   // console.log("Get data tyle = " + typeof window);
+//   // language = localStorage.getItem("language") || "en-US" || "vi-VN";
 
-  console.log("Fetch Data Movie from server. Function getDataMovie");
+//   // if (typeof window !== "undefined") {
+//   //   // Perform localStorage action
+//   //   console.log("lang before fetch" + language);
+//   //   language = localStorage.getItem("language") || "en-US" || "vi-VN";
+//   //   console.log("lang after fetch" + language);
+//   // }
 
-  return url.json();
-}
+//   const url = await fetch(
+//     `https://api.themoviedb.org/3/movie/${id}?language=${language}`,
+//     {
+//       method: "GET",
+//       headers: {
+//         accept: "application/json",
+//         Authorization:
+//           "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3YzQxODJmN2Y4M2U1MTMwZmE2ZjRiOTRlMGM2OGE3NyIsInN1YiI6IjY0YjYwN2VlMzc4MDYyMDBmZjNhMmNkYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nv6BfKpMo2TI6mBuoJaOcXGOdKmZEd2F7E7Q01RkaGY",
+//       },
+//       next: {
+//         //revalidate: 60,
+//         tags: ["comment"],
+//         //revalidateTag: "Comment"
+//       },
+//     }
+//   );
+
+//   console.log("Fetch Data Movie from server. Function getDataMovie");
+
+//   return url.json();
+// }
 
 export async function MovieDetailPage(props: any) {
   const { params, searchParams, data } = props;
@@ -65,8 +80,20 @@ export async function MovieDetailPage(props: any) {
   // const movieId = router.query.movieId || "976573";
   // console.log(movieId);
 
-  const movie: IMovie = await getDataMovie(params?.movieId);
-  console.log(movie);
+  // const [lang, setLang] = useLocalStorage("language", "en-EN");
+  // //const [movie, setMovie] = useState<IMovie>();
+
+  // useEffect(() => {
+  //   async function getDataDetail() {
+  //     const data: IMovie = await getDataMovie(params?.movieId);
+  //     console.log(movie);
+  //     setMovie(data);
+  //   }
+
+  //   getDataDetail();
+  // }, [lang]);
+
+  const movie: IMovie = await getMovieDetails(params?.movieId);
 
   return (
     <div className="min-h-screen p-3 md:p-4 lg:p-6 xl:p-8">

@@ -34,7 +34,6 @@ export default function InfiniteScrollMovie({
   useEffect(() => {
     async function getMovie(page: number) {
       console.log("Fetch Data Movie Page " + page);
-
       try {
         setLoading(true);
         const data: ITrending = await getTrending(page);

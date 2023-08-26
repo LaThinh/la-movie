@@ -14,6 +14,7 @@ export default async function Movie() {
 
   console.log("Get Movie Popular");
   const dataPopular: IMovieListPage = await getPopular();
+  console.log("Pololarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
   console.log(dataPopular.results[0]);
 
   return (

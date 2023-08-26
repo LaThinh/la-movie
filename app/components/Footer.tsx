@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ScrollToTopButton from "./ScrollToTop";
 
 export default function Footer() {
   return (
@@ -15,6 +16,7 @@ export default function Footer() {
           </Link>
         </div>
       </div>
+      <ScrollToTopButton />
     </footer>
   );
 }

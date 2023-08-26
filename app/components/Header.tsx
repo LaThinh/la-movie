@@ -1,7 +1,6 @@
-"use client";
-import { useState } from "react";
 import Link from "next/link";
 import { ThemeSwitcher } from "./ThemeSwitcher";
+import UserMenu from "@/app/components/UserMenu";
 
 export default function Header() {
   //const router = useRouter();
@@ -25,11 +24,9 @@ export default function Header() {
           <Link href="/dashboard">Dashboard</Link>
         </nav>
 
-        <div className="settings flex gap-3 justify-center items-center w-16">
+        <div className="settings flex gap-3 justify-center items-center w-28">
           <ThemeSwitcher />
-          <Link className="login text-white w-[140px] text-right" href="login">
-            Login
-          </Link>
+          {/* <UserMenu /> */}
         </div>
       </div>
     </header>

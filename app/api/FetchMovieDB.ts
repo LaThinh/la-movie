@@ -1,5 +1,3 @@
-import getConfig from "next/config";
-
 const baseUrl = "https://api.themoviedb.org/3";
 const options: RequestInit = {
   method: "GET",
@@ -14,8 +12,12 @@ const options: RequestInit = {
   },
 };
 
-let language = "en-EN" || "vi-VN";
+let language = "en-EN";
 //language = "vi-VN";
+
+if (typeof window !== "undefined") {
+  language = localStorage.getItem("language") || "en-US" || "vi-VN";
+}
 
 export async function getTrending(page?: number) {
   const pageCurrent: number = page || 1;
@@ -52,12 +54,21 @@ export async function getRecommendations(movieId: string) {
   return res.json();
 }
 
-//const url = 'https://api.themoviedb.org/3/movie/976573/videos?language=en-US';
 export async function getVideosTrailer(movieId: string) {
   const url = `${baseUrl}/movie/${movieId}/videos?language=${language}`;
   const res = await fetch(url, options);
   if (!res.ok) {
     throw new Error("Failed to fetch data trailer. URL Link: " + url);
+  }
+
+  return res.json();
+}
+
+export async function getMovieDetails(movieId: string) {
+  const url = `${baseUrl}/movie/${movieId}?language=${language}`;
+  const res = await fetch(url, options);
+  if (!res.ok) {
+    throw new Error("Failed to fetch data Movie Detail. URL Link: " + url);
   }
 
   return res.json();
