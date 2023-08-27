@@ -3,10 +3,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { IMovieItem, IMovieListPage, IGenre } from "@/app/interfaces";
 import { getAllGenres, getMovieListQuery } from "@/app/api/FetchMovieDB";
-import MovieGrid from "@/app/components/movie/MovieGrid";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { Pagination } from "@nextui-org/react";
 import GenreList from "@/app/components/movie/GenreList";
+import MovieGrid from "@/app/components/movie/MovieGrid";
 
 export function GenreIdPage({ params }: { params: { genreId: string } }) {
   //const genreId = params?.genreId || "1";
@@ -17,8 +17,6 @@ export function GenreIdPage({ params }: { params: { genreId: string } }) {
   const [totalPage, setTotalPage] = useState<number>(0);
   const [genreList, setGenresList] = useState([]);
   const [genreName, setGenreName] = useState("");
-  //console.log("Render GenreID Page");
-  //console.log(params);
 
   const router = useRouter();
   const pathname = usePathname();
@@ -34,11 +32,6 @@ export function GenreIdPage({ params }: { params: { genreId: string } }) {
     [searchParams]
   );
 
-  const paramPage = searchParams.get("page");
-  if (page == 1 && paramPage && parseInt(paramPage) > 1) {
-    setPage(parseInt(paramPage));
-  }
-
   useEffect(() => {
     const fetchList = async () => {
       const data = await getAllGenres();
@@ -52,7 +45,12 @@ export function GenreIdPage({ params }: { params: { genreId: string } }) {
     if (genreList.length < 1) {
       fetchList();
     }
-  }, [genreList]);
+
+    const paramPage = searchParams.get("page");
+    if (paramPage && parseInt(paramPage) > 1) {
+      setPage(parseInt(paramPage));
+    }
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,43 +59,42 @@ export function GenreIdPage({ params }: { params: { genreId: string } }) {
         page: page.toString(),
       });
       if (genreMovies && genreMovies?.results.length > 0) {
-        console.log(genreMovies);
+        //console.log(genreMovies);
         setMovieList(genreMovies.results);
         setTotalPage(Math.min(90, genreMovies.total_pages));
+
+        setLoading(false);
       }
     };
 
     fetchData();
-    setTimeout(function () {
-      setLoading(false);
-    }, 200);
-  }, [loading]);
+  }, [page]);
 
   function handlePaginationChange(page: number) {
-    setLoading(true);
     setPage(page);
+    setMovieList([]);
     router.replace(
-      pathname + "?" + createQueryString("page", page.toString())
-      // ,{ shallow: true }
+      pathname + "?" + createQueryString("page", page.toString()),
+      undefined
+      // { shallow: true }
     );
+
+    setLoading(true);
   }
 
   return (
     <div className="layout-movie flex gap-2 xl:gap-10 w-full flex-col xl:items-end m-auto max-w-[1920px] p-5 relative ">
       <h1 className="page-title flex w-full xl:w-4/5 text-center justify-center items-center xl:items-end">
-        The Movie Genre {genreName}
+        The Movie Genre {genreName} {totalPage}
       </h1>
       <div className="main-container flex flex-col xl:flex-row gap-5 xl:gap-10 max-w-screen-2xl m-auto">
         <div className="sidebar movie-sidebar rounded-lg w-full block xl:w-1/5">
           <GenreList genres={genreList} currentId={params.genreId} />
         </div>
         <div className="main-content flex flex-col w-full xl:w-4/5 min-h-screen align-top">
-          {movieList && movieList.length > 0 && (
-            <>
-              <div
-                className="toolbar toolbar-top py-10 flex gap-4 
-                flex-wrap justify-center md:justify-between items-center"
-              >
+          <>
+            {totalPage > 0 && (
+              <div className="toolbar toolbar-top py-10 flex gap-4 flex-wrap justify-center md:justify-between items-center">
                 <div className="page-info">
                   Page {page} / {totalPage}
                 </div>
@@ -106,13 +103,17 @@ export function GenreIdPage({ params }: { params: { genreId: string } }) {
                   initialPage={page}
                   boundaries={1}
                   showControls
+                  // disableAnimation
                   onChange={(page: number) => handlePaginationChange(page)}
                 />
                 <div className="sort-by"></div>
               </div>
-              {loading ? (
-                <div>Loading ...</div>
-              ) : (
+            )}
+            {loading ? (
+              <div>Loading ...</div>
+            ) : (
+              movieList &&
+              movieList.length > 0 && (
                 <>
                   <MovieGrid movieList={movieList} />
 
@@ -125,9 +126,9 @@ export function GenreIdPage({ params }: { params: { genreId: string } }) {
                     />
                   </div>
                 </>
-              )}
-            </>
-          )}
+              )
+            )}
+          </>
         </div>
       </div>
     </div>

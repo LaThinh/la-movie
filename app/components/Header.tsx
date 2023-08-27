@@ -9,7 +9,8 @@ export default function Header() {
   return (
     <header
       className="flex sticky top-0 z-30 justify-between items-center px-3
-    lg:px-10 py-1 bg-primary-400 dark:bg-black"
+    lg:px-10 py-1 bg-primary-400 dark:bg-black    
+    "
     >
       <div className="header-container max-w-screen-2xl flex justify-between items-center w-full m-auto">
         <Link
@@ -25,6 +26,7 @@ export default function Header() {
           <Link href="/about">About</Link>
           <Link href="/movie">Movie</Link>
           <Link href="/genre/12">Genre</Link>
+          <Link href="/search">Search</Link>
           {/* <Link href="/dashboard">Dashboard</Link> */}
         </nav>
 

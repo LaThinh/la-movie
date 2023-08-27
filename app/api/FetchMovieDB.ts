@@ -1,3 +1,5 @@
+import { ISearchParams } from "@/app/interfaces";
+
 const baseUrl = "https://api.themoviedb.org/3";
 const options: RequestInit = {
   method: "GET",
@@ -107,5 +109,21 @@ export async function getMovieListQuery({
   // const data = await res.json();
   // console.log(data);
 
-  return await res.json();
+  return res.json();
+}
+
+export async function searchMovies({
+  query,
+  page,
+}: {
+  query: string;
+  page: string;
+}) {
+  const url = `${baseUrl}/search/movie?query=${query}&page=${page}&language=${language}`;
+  const res = await fetch(url, options);
+  if (!res.ok) {
+    throw new Error("Failed to fetch getGenreList. URL Link: " + url);
+  }
+
+  return res.json();
 }

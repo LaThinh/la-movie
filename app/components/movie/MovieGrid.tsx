@@ -22,7 +22,7 @@ function MovieGrid({ movieList }: { movieList: IMovieItem[] }) {
             <CardMovie movie={movieItem} key={movieItem.id} />
           ))}
       </div>
-      <h3 className="text-lg text-gray-700 my-5">End Trending page</h3>
+      <h3 className="text-lg text-gray-700 my-5">End Movie Grid Page</h3>
     </div>
   );
 }

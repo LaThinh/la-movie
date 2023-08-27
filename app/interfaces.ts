@@ -75,3 +75,8 @@ export interface IGenre {
   id: string;
   name: string;
 }
+
+export interface ISearchParams {
+  query: string;
+  page: number;
+}

@@ -15,7 +15,7 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
       key={movie.id}
     >
       <Link
-        className="group relative block min-h-[240px] overflow-hidden  md:h-[500]"
+        className="group relative block min-h-[240px] overflow-hidden bg-gray-300 md:h-[400px]"
         href={`/movie/${movie?.id}`}
       >
         <Image
@@ -23,11 +23,12 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
           alt={movie?.title || "Title"}
           sizes="400"
           width={400}
+          height={400}
           loading="eager"
           radius="none"
           isZoomed
           // style={{ objectFit: "cover" }}
-          className="!relative inset-0 h-full w-full object-cover object-center transition duration-300 group-hover:scale-110"
+          //className="!relative inset-0 h-full w-full object-cover object-center transition duration-300 group-hover:scale-110"
         />
 
         <span
