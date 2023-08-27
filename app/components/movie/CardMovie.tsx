@@ -19,12 +19,13 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
         href={`/movie/${movie?.id}`}
       >
         <Image
-          isZoomed
           src={`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`}
           alt={movie?.title || "Title"}
           sizes="400"
           width={400}
           loading="eager"
+          radius="none"
+          isZoomed
           // style={{ objectFit: "cover" }}
           className="!relative inset-0 h-full w-full object-cover object-center transition duration-300 group-hover:scale-110"
         />

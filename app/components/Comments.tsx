@@ -48,13 +48,9 @@ async function Comments({ id }: { id: string }) {
 
   return (
     <div className="rounded-lg">
-      <h4 className="text-xl font-semibold mb-5">
-        Comments Components{" "}
-        <span className="text-sm text-gray-200 font-normal ">
-          Movie Id= {id}
-        </span>
+      <h4 className="text-xl font-semibold mb-5 text-left">
+        Comments This Movie
       </h4>
-
       <div className="mb-5 flex flex-col gap-y-3">
         {data.map((post) => (
           <div
@@ -62,7 +58,7 @@ async function Comments({ id }: { id: string }) {
             className="comment-item flex flex-col border rounded-lg mb-2 text-left p-3"
           >
             <div className="comment-header flex justify-between">
-              <h5 className="-mt-5 bg-white dark:bg-background px-3 capitalize">
+              <h5 className="-mt-[22px] bg-white dark:bg-background px-3 capitalize">
                 {post?.name ? post.name : "Guest"}
               </h5>
             </div>
@@ -75,7 +71,7 @@ async function Comments({ id }: { id: string }) {
           </div>
         ))}
       </div>
-      <div className="text-left bg-slate-200/50  p-5 rounded-xl">
+      <div className="text-left bg-slate-200/50 dark:bg-transparent p-5 rounded-xl">
         <form action={postData}>
           <label htmlFor="name">Your Name</label>
           <input

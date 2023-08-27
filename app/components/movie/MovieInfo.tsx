@@ -53,7 +53,8 @@ function MovieInfo({ movie }: { movie: IMovie }) {
               <Link
                 key={item.id}
                 href={`/genre/${item.id}`}
-                className="genre bg-gray-300 dark:bg-transparent dark:border rounded-md py-2 px-3 cursor-pointer whitespace-nowrap hover:bg-blue-500 hover:text-white"
+                className="genre bg-primary-500 text-white dark:bg-primary-700 dark:border dark:hover:bg-primary-500
+                rounded-md py-2 px-3 cursor-pointer whitespace-nowrap hover:bg-blue-500 hover:text-white"
               >
                 {item?.name}
               </Link>

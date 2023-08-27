@@ -8,7 +8,7 @@ import GenreList from "@/app/components/movie/GenreList";
 import CarouselSlider2 from "@/app/components/movie/CarouselSlider2";
 import { IMovieListPage } from "../interfaces";
 
-export interface IMovieProps {}
+export interface IMoviePageProps {}
 
 export default function Movie() {
   //const searchParams = useSearchParams();

@@ -62,20 +62,24 @@ export function GenreIdPage({ params }: { params: { genreId: string } }) {
       });
       if (genreMovies && genreMovies?.results.length > 0) {
         console.log(genreMovies);
-        console.log(genreMovies.results[0]);
         setMovieList(genreMovies.results);
         setTotalPage(Math.min(90, genreMovies.total_pages));
       }
     };
 
     fetchData();
-    setLoading(false);
+    setTimeout(function () {
+      setLoading(false);
+    }, 200);
   }, [loading]);
 
   function handlePaginationChange(page: number) {
     setLoading(true);
     setPage(page);
-    router.replace(pathname + "?" + createQueryString("page", page.toString()));
+    router.replace(
+      pathname + "?" + createQueryString("page", page.toString())
+      // ,{ shallow: true }
+    );
   }
 
   return (
@@ -104,23 +108,24 @@ export function GenreIdPage({ params }: { params: { genreId: string } }) {
                   showControls
                   onChange={(page: number) => handlePaginationChange(page)}
                 />
-                <div className="sort-by">Sort:</div>
+                <div className="sort-by"></div>
               </div>
-              {loading && <div>Loading ...</div>}
+              {loading ? (
+                <div>Loading ...</div>
+              ) : (
+                <>
+                  <MovieGrid movieList={movieList} />
 
-              {!loading && <MovieGrid movieList={movieList} />}
-
-              <div
-                className="toolbar toolbar-top py-10 flex gap-4 
-                flex-wrap justify-center items-center"
-              >
-                <Pagination
-                  total={totalPage}
-                  initialPage={page}
-                  showControls
-                  onChange={(page: number) => handlePaginationChange(page)}
-                />
-              </div>
+                  <div className="toolbar toolbar-top py-10 flex gap-4 flex-wrap justify-center items-center">
+                    <Pagination
+                      total={totalPage}
+                      initialPage={page}
+                      showControls
+                      onChange={(page: number) => handlePaginationChange(page)}
+                    />
+                  </div>
+                </>
+              )}
             </>
           )}
         </div>

@@ -19,6 +19,10 @@ if (typeof window !== "undefined") {
   language = localStorage.getItem("language") || "en-US" || "vi-VN";
 }
 
+export const fetchBaseUrl = baseUrl;
+export const fetchOptions = options;
+export const fetchLanguage = language;
+
 export async function getTrending(page?: number) {
   const pageCurrent: number = page || 1;
   const url = `${baseUrl}/trending/movie/day?page=${pageCurrent}&language=${language}`;
