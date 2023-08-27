@@ -38,8 +38,6 @@ const SearchPage = (props: any) => {
   };
 
   const handleKeyUp = async (e: any) => {
-    console.log(e.key);
-
     if (e.key === "Enter" || e.key === " " || e.key === "Backspace") {
       const newQuery = query || search || "";
 
@@ -50,7 +48,7 @@ const SearchPage = (props: any) => {
       setSearch(newQuery);
       setDataSearch(searchData);
       setResults(searchData.results);
-      console.log(searchData);
+      //console.log(searchData);
       createQueryString("search", query);
     }
     if (e.key === "Enter") {
@@ -85,12 +83,12 @@ const SearchPage = (props: any) => {
 
   return (
     <div
+      id="search-page"
       className="search-page min-h-[90vh] flex flex-col justify-center 
       bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100      
       dark:bg-gradient-to-t dark:from-gray-900 dark:to-gray-600 dark:bg-gradient-to-r"
-      
     >
-      <div className="m-auto  w-full  max-w-screen-2xl p-2 xl:p-10 text-center">
+      <div className="m-auto w-full  max-w-screen-2xl p-2 xl:p-10 text-center">
         <h1 className="page-title">
           Search Page. Keyword:
           <span className="text-primary-500 dark:text-blue-400">{` ${
