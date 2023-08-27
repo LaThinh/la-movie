@@ -89,13 +89,15 @@ const SearchPage = (props: any) => {
       dark:bg-gradient-to-t dark:from-gray-900 dark:to-gray-600 dark:bg-gradient-to-r"
     >
       <div className="m-auto w-full  max-w-screen-2xl p-2 xl:p-10 text-center">
-        <h1 className="page-title">
+        <h1 className="page-title text:xl md:text-2xl lg:text-4xl xl:text-5xl">
           Search Page. Keyword:
           <span className="text-primary-500 dark:text-blue-400">{` ${
             search || ""
           } `}</span>
         </h1>
-        {query && query.length > 1 && <p>Query: {query}</p>}
+        {query && query.length > 1 && (
+          <p className="hidden md:block">Query: {query}</p>
+        )}
 
         <div className="search-form max-w-5xl m-auto">
           <div className="search-box my-8 flex justify-between align-middle">
@@ -121,10 +123,11 @@ const SearchPage = (props: any) => {
               classNames={{
                 base: "border-color-yellow",
                 label: "",
-                input: "flex flex-1 text-[24px] font-bold px-3 py-3 ",
-                description: "text-xl text-center block w-full text-gray-500",
+                input: "flex flex-1 lg:text-[24px] font-bold px-3 py-3 ",
+                description:
+                  "lg:text-xl lg:text-center block w-full text-gray-500",
                 inputWrapper:
-                  "h-16 flex rounded-r-none bg-white dark:bg-primary-900 dark:border-white",
+                  "lg:h-16 flex rounded-r-none bg-white dark:bg-primary-900 dark:border-white",
               }}
               onKeyUp={handleKeyUp}
             />
@@ -136,7 +139,7 @@ const SearchPage = (props: any) => {
               type="submit"
               aria-describedby="search-submit"
               onClick={handleSearch}
-              className="flex px-5 w-24 h-16 rounded-r-xl text-xl"
+              className="flex px-5 w-24 lg:h-16 rounded-r-xl text-xl"
             >
               Search
             </Button>

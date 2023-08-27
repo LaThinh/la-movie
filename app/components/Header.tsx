@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ThemeSwitcher } from "./ThemeSwitcher";
-import UserMenu from "@/app/components/UserMenu";
 
 export default function Header() {
   //const router = useRouter();
@@ -19,6 +18,7 @@ export default function Header() {
         >
           La <span className=" ">Movie</span>
         </Link>
+
         <nav className="gap-5 lg:gap-8 xl:gap-10  text-white font-bold text-xl hidden md:flex">
           <Link href="/" prefetch>
             Home
@@ -32,7 +32,6 @@ export default function Header() {
 
         <div className="settings flex gap-3 justify-end items-center w-28">
           <ThemeSwitcher />
-          {/* <UserMenu /> */}
         </div>
       </div>
     </header>
