@@ -86,7 +86,11 @@ const Trailer = ({
                 (index < limit || showAll) && (
                   <div className="movie-trailer-item flex gap-2" key={video.id}>
                     {/* <ModalVideo video={video} videos={videos} /> */}
-                    <ModalVideos video={video} videos={videos} />
+                    <ModalVideos
+                      type={"button"}
+                      video={video}
+                      videos={videos}
+                    />
                   </div>
                 )
             )}

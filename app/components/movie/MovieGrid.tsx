@@ -18,8 +18,8 @@ function MovieGrid({ movieList }: { movieList: IMovieItem[] }) {
         @7xl:grid-cols-5 #7xl:gap-8"
       >
         {data?.length > 0 &&
-          data.map((movieItem) => (
-            <CardMovie movie={movieItem} key={movieItem.id} />
+          data.map((movieItem, index) => (
+            <CardMovie movie={movieItem} key={index} />
           ))}
       </div>
       <h3 className="text-lg text-gray-700 my-5">End Movie Grid Page</h3>

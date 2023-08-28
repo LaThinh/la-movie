@@ -8,6 +8,7 @@ import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { searchMovies } from "../api/FetchMovieDB";
 import { IMovieItem } from "@/app/interfaces";
 import MovieGrid from "@/app/components/movie/MovieGrid";
+import { useInView } from "react-intersection-observer";
 
 const SearchPage = (props: any) => {
   //const { params } = props;
@@ -15,6 +16,9 @@ const SearchPage = (props: any) => {
   const [search, setSearch] = useState(searchParams.get("search") || "");
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<IMovieItem[]>([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+
   const [dataSearch, setDataSearch] = useState();
   const router = useRouter();
 
@@ -40,15 +44,16 @@ const SearchPage = (props: any) => {
   const handleKeyUp = async (e: any) => {
     if (e.key === "Enter" || e.key === " " || e.key === "Backspace") {
       const newQuery = query || search || "";
-
+      setPage(1);
       const searchData = await searchMovies({
-        query: newQuery,
+        query: newQuery.trim(),
         page: "1",
       });
       setSearch(newQuery);
       setDataSearch(searchData);
       setResults(searchData.results);
       //console.log(searchData);
+
       createQueryString("search", query);
     }
     if (e.key === "Enter") {
@@ -67,7 +72,7 @@ const SearchPage = (props: any) => {
   const handleSearch = async () => {
     console.log("handle Search " + search);
     const searchData = await searchMovies({
-      query: query || "",
+      query: query || search || "",
       page: "1",
     });
 
@@ -81,25 +86,68 @@ const SearchPage = (props: any) => {
     handleSearch;
   }, [query]);
 
+  const { ref } = useInView({
+    onChange(inView, entry) {
+      if (inView && !loading) {
+        setPage(page + 1);
+      }
+    },
+  });
+
+  const handleLoadMore = () => {
+    setPage(page + 1);
+  };
+
+  useEffect(() => {
+    async function getSearchMore(page: number) {
+      console.log("Fetch Data Movie Page " + page);
+      try {
+        setLoading(true);
+
+        const searchData = await searchMovies({
+          query: query.trim(),
+          page: page.toString(),
+        });
+        setSearch(query);
+        setDataSearch(searchData);
+        console.log(searchData);
+        if (page == 1) setResults(searchData.results);
+        else {
+          setResults((prevList) => [...prevList, ...searchData?.results]);
+        }
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+      }
+    }
+
+    getSearchMore(page);
+
+    //console.log(movieList);
+  }, [page]);
+
   return (
     <div
       id="search-page"
-      className="search-page min-h-[90vh] flex flex-col justify-center 
+      className="search-page min-h-[90vh] pt-10
       bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100      
       dark:bg-gradient-to-t dark:from-gray-900 dark:to-gray-600 dark:bg-gradient-to-r"
     >
       <div className="m-auto w-full  max-w-screen-2xl p-2 xl:p-10 text-center">
-        <h1 className="page-title text:xl md:text-2xl lg:text-4xl xl:text-5xl">
-          Search Page. Keyword:
+        <h1 className="page-title text-xl md:text-2xl lg:text-3xl xl:text-4xl">
+          Search Page
+        </h1>
+        <div className="whitespace-nowrap w-full text-xl lg:text-2xl">
+          Keyword:
           <span className="text-primary-500 dark:text-blue-400">{` ${
             search || ""
           } `}</span>
-        </h1>
+        </div>
         {query && query.length > 1 && (
-          <p className="hidden md:block">Query: {query}</p>
+          <p className="hidden lg:block">Query: {query}</p>
         )}
 
-        <div className="search-form max-w-5xl m-auto">
+        <div className="search-form max-w-xl lg:max-w-5xl m-auto">
           <div className="search-box my-8 flex justify-between align-middle">
             <Input
               isClearable
@@ -125,7 +173,7 @@ const SearchPage = (props: any) => {
                 label: "",
                 input: "flex flex-1 lg:text-[24px] font-bold px-3 py-3 ",
                 description:
-                  "lg:text-xl lg:text-center block w-full text-gray-500",
+                  "text-sm lg:text-xl lg:text-center block w-full text-gray-500",
                 inputWrapper:
                   "lg:h-16 flex rounded-r-none bg-white dark:bg-primary-900 dark:border-white",
               }}
@@ -158,6 +206,23 @@ const SearchPage = (props: any) => {
               Total {dataSearch?.total_results ?? 0} results
             </h3>
             <MovieGrid movieList={results} />
+            {dataSearch?.total_pages && dataSearch?.total_pages > page && (
+              <Button
+                className="load-more mt-10 mb-5 px-5 py-2"
+                ref={ref}
+                size="lg"
+                color="primary"
+                radius="lg"
+                onClick={handleLoadMore}
+                disabled={loading}
+                isLoading={loading}
+                spinnerPlacement="end"
+              >
+                {loading
+                  ? `Loading page ${page}`
+                  : `Load more page ${page + 1}`}
+              </Button>
+            )}
           </div>
         )}
       </div>

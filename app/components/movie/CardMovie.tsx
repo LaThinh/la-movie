@@ -15,7 +15,7 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
       key={movie.id}
     >
       <Link
-        className="group relative block min-h-[240px] overflow-hidden bg-gray-300 md:h-[400px]"
+        className="group relative block min-h-[240px] overflow-hidden bg-gray-300 lg:min-h-[350px]"
         href={`/movie/${movie?.id}`}
       >
         <Image
@@ -66,7 +66,7 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
         />
       </Link>
       <div className="flex flex-1 flex-col justify-between text-gray-700 dark:text-white text-left p-4 lg:p-5">
-        <h3 className="mb-2 text-lg font-semibold ">
+        <h3 className="mb-2 text-lg font-semibold line-clamp-2">
           <Link
             className="text-gray-700 dark:text-gray-200"
             href={`/movie/${movie.id}`}

@@ -20,7 +20,7 @@ export default function GenreList({
                 href={`/genre/${genre.id}`}
                 className={`rounded-md px-3 py-1 text-md text-left
                 text-primary-500 bg-transparent border border-primary-500
-                md:text-2xl md:border-2 md:gap-3 xl:w-full xl:py-2
+                lg:text-xl md:border-2 md:gap-3 xl:w-full xl:py-2
                 hover:bg-primary-500 hover:text-white
                 ${genre.id == currentId ? classNameActive : "normal"}
                 `}

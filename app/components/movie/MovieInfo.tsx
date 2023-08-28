@@ -14,13 +14,17 @@ function MovieInfo({ movie }: { movie: IMovie }) {
           <h4>HomePage</h4>
           {movie?.homepage && (
             <p>
-              <Link href={movie?.homepage || "/"} target="_blank">
+              <Link
+                href={movie?.homepage || "/"}
+                target="_blank"
+                className="text-xl"
+              >
                 {movie?.original_title}
               </Link>
             </p>
           )}
         </li>
-        <li className="flex gap-3">
+        <li className="flex gap-3 flex-col @2xl:flex-row">
           <h4>Overview</h4>
           <p>{movie?.overview}</p>
         </li>

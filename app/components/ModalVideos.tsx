@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { IVideoItem } from "../interfaces";
 import {
   Button,
+  Image,
   Link,
   Modal,
   ModalBody,
@@ -13,9 +14,11 @@ import {
 import { VideoIcon } from "@radix-ui/react-icons";
 
 export default function ModalVideos({
+  type,
   video,
   videos,
 }: {
+  type: "button" | "slider";
   video: IVideoItem;
   videos?: IVideoItem[];
 }) {
@@ -56,19 +59,54 @@ export default function ModalVideos({
 
   return (
     <>
-      <Button
-        className="w-full flex flex-1 "
-        onPress={onOpen}
-        radius="none"
-        title={currentVideo?.name}
-        onClick={handleSetCurrent}
-        startContent={<VideoIcon width={32} height={32} />}
-        color={currentVideo?.site === "YouTube" ? "danger" : "primary"}
-      >
-        <span className="text-ellipsis overflow-hidden truncate text-left w-full">
-          {currentVideo?.name}
-        </span>
-      </Button>
+      {type === "button" && (
+        <Button
+          className="w-full flex flex-1 "
+          onPress={onOpen}
+          radius="none"
+          title={currentVideo?.name}
+          onClick={handleSetCurrent}
+          startContent={<VideoIcon width={32} height={32} />}
+          color={currentVideo?.site === "YouTube" ? "danger" : "primary"}
+        >
+          <span className="text-ellipsis overflow-hidden truncate text-left w-full">
+            {currentVideo?.name}
+          </span>
+        </Button>
+      )}
+
+      {type === "slider" && (
+        <div
+          className="video-slider w-80 flex flex-col gap-2 border 
+        bg-white dark:bg-primary-700 rounded-lg overflow-hidden border-gray-300 shadow-lg"
+        >
+          <Link
+            className="video-link-image relative"
+            onClick={onOpen}
+            onPress={handleSetCurrent}
+          >
+            <Image
+              width={320}
+              height={220}
+              alt={video.name}
+              radius="none"
+              loading="eager"
+              isZoomed
+              className="w-full aspect-video cursor-pointer"
+              src={`https://img.youtube.com/vi/${video.key}/hqdefault.jpg`}
+            />
+            <div className="absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center items-center">
+              <VideoIcon width={48} height={48} className="text-white" />
+            </div>
+          </Link>
+          <div className="video-info py-2 px-3">
+            <h3 className="video-title line-clamp-1 text-gray-700 dark:text-white">
+              {video.name}
+            </h3>
+          </div>
+        </div>
+      )}
+
       <Modal
         backdrop="opaque"
         size="full"
@@ -78,7 +116,7 @@ export default function ModalVideos({
         placement="center"
         classNames={{
           backdrop:
-            "bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20",
+            "bg-gradient-to-t from-zinc-700 to-zinc-900/50 backdrop-opacity-30",
           closeButton: "top-3 right-3",
         }}
         onOpenChange={onOpenChange}
@@ -107,7 +145,7 @@ export default function ModalVideos({
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-row flex-wrap gap-1 justify-center lg:justify-between items-center lg:pr-12">
-                <div className="video-title line-clamp-2 lg:whitespace-nowrap lg:truncate pr-8 lg:flex-1">
+                <div className="video-title line-clamp-1 lg:whitespace-nowrap truncate pr-8 lg:flex-1">
                   {currentVideo.site} | {currentVideo.name} |{" "}
                   {currentVideo?.type}
                 </div>

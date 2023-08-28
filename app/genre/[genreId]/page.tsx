@@ -85,7 +85,7 @@ export function GenreIdPage({ params }: { params: { genreId: string } }) {
   return (
     <div className="layout-movie flex gap-2 xl:gap-10 w-full flex-col xl:items-end m-auto max-w-[1920px] p-5 relative ">
       <h1 className="page-title flex w-full xl:w-4/5 text-center justify-center items-center xl:items-end">
-        The Movie Genre {genreName} {totalPage}
+        Movie Genre {genreName}
       </h1>
       <div className="main-container flex flex-col xl:flex-row gap-5 xl:gap-10 max-w-screen-2xl m-auto">
         <div className="sidebar movie-sidebar rounded-lg w-full block xl:w-1/5">
@@ -95,7 +95,7 @@ export function GenreIdPage({ params }: { params: { genreId: string } }) {
           <>
             {totalPage > 0 && (
               <div className="toolbar toolbar-top py-10 flex gap-4 flex-wrap justify-center md:justify-between items-center">
-                <div className="page-info">
+                <div className="page-info text-lg">
                   Page {page} / {totalPage}
                 </div>
                 <Pagination

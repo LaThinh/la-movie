@@ -10,6 +10,7 @@ import Recommendations from "@/app/components/movie/Recommendations";
 import MovieInfo from "@/app/components/movie/MovieInfo";
 import Trailer from "@/app/components/movie/Trailer";
 import { getMovieDetails } from "@/app/api/FetchMovieDB";
+import SliderVideos from "@/app/components/SliderVideos";
 
 export async function generateMetadata({
   params,
@@ -34,11 +35,11 @@ export async function MovieDetailPage({
   const movie: IMovie = await getMovieDetails(params.movieId);
 
   return (
-    <div className="min-h-screen p-3 md:p-4 lg:p-6 xl:p-8">
+    <div className="movie-detail min-h-screen p-3 md:p-4 lg:p-6 xl:p-8">
       {!movie ? (
         <div className="loading">Loading ... </div>
       ) : (
-        <div className="movie-detail-view max-w-screen-2xl  m-auto ">
+        <div className="movie-detail-view   m-auto ">
           {movie?.backdrop_path && (
             <div className="banner h-[50vh] max-h-[540px] relative overflow-hidden">
               <Image
@@ -55,25 +56,28 @@ export async function MovieDetailPage({
             {movie?.title}
           </h1>
 
-          <div className="trailer-desktop hidden lg:block">
-            <Trailer movieId={movie.id} limitDefault={12} />
+          <div className="trailer-desktop m-auto max-w-screen-2xl">
+            <SliderVideos movieId={movie.id} limitDefault={18} />
+            {/* <Trailer movieId={movie.id} limitDefault={12} /> */}
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-5 rounded-2xl">
-            <div
-              className="@container left-info p-5 font-medium rounded-xl
+          <div className="movie-detail-container mt-10 m-auto max-w-screen-2xl">
+            <div className="flex flex-col lg:flex-row gap-5 rounded-2xl">
+              <div
+                className="@container left-info p-5 font-medium rounded-xl
               bg-slate-200/50 dark:bg-transparent dark:border
               lg:w-1/2 lg:p-8 "
-            >
-              <MovieInfo movie={movie} />
+              >
+                <MovieInfo movie={movie} />
+              </div>
+
+              <div className="right-content lg:w-1/2 font-medium flex-1 ">
+                <Comments id={movie?.id} />
+              </div>
             </div>
 
-            <div className="right-content lg:w-1/2 font-medium flex-1 ">
-              <Comments id={movie?.id} />
-            </div>
+            <Recommendations movieId={movie.id} />
           </div>
-
-          <Recommendations movieId={movie.id} />
         </div>
       )}
     </div>

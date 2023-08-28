@@ -58,10 +58,10 @@ a {
   @apply flex flex-col gap-5;
 }
 .movie-info-list li {
-  @apply flex flex-col gap-3 @md:flex-row;
+  @apply flex flex-wrap gap-3;
 }
 .movie-info-list h4 {
-  @apply w-full @md:w-1/5;
+  @apply w-1/5 min-w-[90px];
 }
 
 .movie-info-list p {
