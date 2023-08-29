@@ -23,7 +23,7 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
           alt={movie?.title || "Title"}
           sizes="400"
           width={400}
-          height={400}
+          height={350}
           loading="eager"
           radius="none"
           isZoomed

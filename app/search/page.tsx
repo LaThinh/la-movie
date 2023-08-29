@@ -10,6 +10,13 @@ import { IMovieItem } from "@/app/interfaces";
 import MovieGrid from "@/app/components/movie/MovieGrid";
 import { useInView } from "react-intersection-observer";
 
+type SearchResult = {
+  page: number;
+  results: IMovieItem[];
+  total_pages: number;
+  total_results: number;
+};
+
 const SearchPage = (props: any) => {
   //const { params } = props;
   const searchParams = useSearchParams();
@@ -19,7 +26,7 @@ const SearchPage = (props: any) => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  const [dataSearch, setDataSearch] = useState();
+  const [dataSearch, setDataSearch] = useState<SearchResult>();
   const router = useRouter();
 
   const createQueryString = useCallback(
@@ -37,10 +44,6 @@ const SearchPage = (props: any) => {
     handleSearch();
   };
 
-  const handleOnChange = (e: any) => {
-    setQuery(e.target.value);
-  };
-
   const handleKeyUp = async (e: any) => {
     if (e.key === "Enter" || e.key === " " || e.key === "Backspace") {
       const newQuery = query || search || "";
@@ -53,10 +56,9 @@ const SearchPage = (props: any) => {
       setDataSearch(searchData);
       setResults(searchData.results);
       //console.log(searchData);
-
-      createQueryString("search", query);
     }
     if (e.key === "Enter") {
+      createQueryString("search", query);
       router.push(`./search?search=${query}`);
     }
   };
@@ -76,8 +78,18 @@ const SearchPage = (props: any) => {
       page: "1",
     });
 
+    setDataSearch(searchData);
     setResults(searchData.results);
+    router.push(`./search?search=${query}`);
   };
+
+  useEffect(() => {
+    const searchParam = searchParams.get("search");
+    if (searchParam) {
+      console.log("Search default param " + searchParam);
+      handleSearch();
+    }
+  }, [search]);
 
   useEffect(() => {
     const newQuery = query || search || "";
@@ -94,9 +106,9 @@ const SearchPage = (props: any) => {
     },
   });
 
-  const handleLoadMore = () => {
-    setPage(page + 1);
-  };
+  // const handleLoadMore = () => {
+  //   setPage(page + 1);
+  // };
 
   useEffect(() => {
     async function getSearchMore(page: number) {
@@ -129,7 +141,7 @@ const SearchPage = (props: any) => {
   return (
     <div
       id="search-page"
-      className="search-page min-h-[90vh] pt-10
+      className="search-page min-h-[calc(100vh-132px)] pt-10
       bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100      
       dark:bg-gradient-to-t dark:from-gray-900 dark:to-gray-600 dark:bg-gradient-to-r"
     >
@@ -137,14 +149,17 @@ const SearchPage = (props: any) => {
         <h1 className="page-title text-xl md:text-2xl lg:text-3xl xl:text-4xl">
           Search Page
         </h1>
-        <div className="whitespace-nowrap w-full text-xl lg:text-2xl">
-          Keyword:
-          <span className="text-primary-500 dark:text-blue-400">{` ${
-            search || ""
-          } `}</span>
-        </div>
+
         {query && query.length > 1 && (
-          <p className="hidden lg:block">Query: {query}</p>
+          <>
+            <div className="whitespace-nowrap w-full text-xl lg:text-2xl">
+              Keyword:
+              <span className="text-primary-500 dark:text-blue-400">
+                {` ${search || ""} `}
+              </span>
+            </div>
+            <p className="hidden">Query: {query}</p>
+          </>
         )}
 
         <div className="search-form max-w-xl lg:max-w-5xl m-auto">
@@ -163,17 +178,16 @@ const SearchPage = (props: any) => {
               labelPlacement="outside"
               defaultValue={search ? search : ""}
               onClear={handleSearchClear}
-              onChange={handleOnChange}
+              onChange={(e) => {
+                setQuery(e.target.value);
+              }}
               onValueChange={(value: string) => handleSearchChange}
-              //   endContent={
-              //     <MagnifyingGlassIcon className="text-black/50 w-8 h-8 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
-              //   }
               classNames={{
                 base: "border-color-yellow",
                 label: "",
                 input: "flex flex-1 lg:text-[24px] font-bold px-3 py-3 ",
                 description:
-                  "text-sm lg:text-xl lg:text-center block w-full text-gray-500",
+                  "text-sm lg:text-xl lg:text-center block w-full text-gray-500 dark:text-gray-200",
                 inputWrapper:
                   "lg:h-16 flex rounded-r-none bg-white dark:bg-primary-900 dark:border-white",
               }}
@@ -196,7 +210,10 @@ const SearchPage = (props: any) => {
 
         {results.length == 0 ? (
           search.length > 2 && (
-            <div className="max-w-5xl m-auto min-h-[360px] rounded-2xl shadow-xl text-2xl lg:text-4xl text-white flex justify-center items-center">
+            <div
+              className="max-w-5xl m-auto min-h-[360px] rounded-2xl 
+            text-2xl lg:text-4xl text-red bg-white/50 flex justify-center items-center"
+            >
               {`No Result for keyword "${query}" `}
             </div>
           )
@@ -205,7 +222,9 @@ const SearchPage = (props: any) => {
             <h3 className="search-info text-xl text-center mb-5 text-primary-500 dark:text-blue-400">
               Total {dataSearch?.total_results ?? 0} results
             </h3>
+
             <MovieGrid movieList={results} />
+
             {dataSearch?.total_pages && dataSearch?.total_pages > page && (
               <Button
                 className="load-more mt-10 mb-5 px-5 py-2"
@@ -213,7 +232,9 @@ const SearchPage = (props: any) => {
                 size="lg"
                 color="primary"
                 radius="lg"
-                onClick={handleLoadMore}
+                onClick={() => {
+                  setPage(page + 1);
+                }}
                 disabled={loading}
                 isLoading={loading}
                 spinnerPlacement="end"
