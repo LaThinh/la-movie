@@ -88,8 +88,9 @@ const SearchPage = (props: any) => {
     if (searchParam) {
       console.log("Search default param " + searchParam);
       handleSearch();
+      setSearch(searchParam);
     }
-  }, [search]);
+  }, []);
 
   useEffect(() => {
     const newQuery = query || search || "";

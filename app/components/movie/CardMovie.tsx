@@ -15,7 +15,7 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
       key={movie.id}
     >
       <Link
-        className="group relative block min-h-[240px] overflow-hidden bg-gray-300 lg:min-h-[350px]"
+        className="group relative block min-h-[240px] overflow-hidden bg-gray-300 lg:min-h-[320px]"
         href={`/movie/${movie?.id}`}
       >
         <Image
@@ -27,6 +27,7 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
           loading="eager"
           radius="none"
           isZoomed
+
           // style={{ objectFit: "cover" }}
           //className="!relative inset-0 h-full w-full object-cover object-center transition duration-300 group-hover:scale-110"
         />
@@ -85,7 +86,7 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
         <div className="card-footer flex justify-between items-center mt-5">
           <div className="vote">Votes: {movie?.vote_count}</div>
           <div className="point"></div>
-          {}
+
           <Rating rating={Math.ceil(vote / 2)} />
         </div>
       </div>
