@@ -32,7 +32,7 @@ const SearchPage = (props: SearchPage) => {
 
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [searchResult, setSearchResult] = useState<ISearchResult>();
   const router = useRouter();
 
@@ -250,7 +250,8 @@ const SearchPage = (props: SearchPage) => {
           </div>
         )}
 
-        {searchResult?.results && searchResult?.results.length == 0 ? (
+        {searchResult?.results &&
+          searchResult?.results.length == 0 &&
           query.length > 2 && (
             <div
               className="max-w-5xl m-auto min-h-[360px] rounded-2xl 
@@ -258,8 +259,9 @@ const SearchPage = (props: SearchPage) => {
             >
               {`No Result for keyword "${query}" `}
             </div>
-          )
-        ) : (
+          )}
+
+        {searchResult?.results && searchResult?.results.length > 0 && (
           <div className="search-results">
             <h3 className="search-info text-xl text-center mb-5 text-primary-500 dark:text-blue-400">
               Total {searchResult?.total_results ?? 0} results
