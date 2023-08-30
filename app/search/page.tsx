@@ -3,25 +3,25 @@ import dynamic from "next/dynamic";
 import React, { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Button, Input } from "@nextui-org/react";
+import { Button, CircularProgress, Input } from "@nextui-org/react";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { searchMovies } from "../api/FetchMovieDB";
 import { IMovieItem } from "@/app/interfaces";
 import MovieGrid from "@/app/components/movie/MovieGrid";
 import { useInView } from "react-intersection-observer";
 
-type SearchResult = {
+export interface ISearchResult {
   page: number;
   results: IMovieItem[];
   total_pages: number;
   total_results: number;
-};
+}
 
-type SearchPage = {
+export interface SearchPage {
   query?: string;
   view?: string;
-  result: SearchResult;
-};
+  result: ISearchResult;
+}
 
 const SearchPage = (props: SearchPage) => {
   //const { params } = props;
@@ -33,18 +33,26 @@ const SearchPage = (props: SearchPage) => {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [searchResult, setSearchResult] = useState<SearchResult>();
+  const [searchResult, setSearchResult] = useState<ISearchResult>();
   const router = useRouter();
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(Array.from(searchParams.entries()));
       params.set(name, value);
-
       return params.toString();
     },
     [searchParams]
   );
+
+  //Run first
+  useEffect(() => {
+    const searchQuery = searchParams.get("q");
+    if (searchQuery) {
+      console.log("Search default query param " + searchQuery);
+      setQuery(searchQuery);
+    }
+  }, []);
 
   const handleSearchChange = (query: string) => {
     //createQueryString("q", query);
@@ -83,10 +91,10 @@ const SearchPage = (props: SearchPage) => {
     router.push(`./search?q=${query}`);
   };
 
+  //Function Search Main
   const handleSearch = () => {
-    console.log("Run function HandleSearch query = " + query);
-
     const searchFunction = async () => {
+      setLoading(true);
       const querySearch = query;
       //setPage(1);
       console.log("Run function async HandleSearch query = " + query);
@@ -94,48 +102,21 @@ const SearchPage = (props: SearchPage) => {
         query: query,
         page: page.toString(),
       });
-      //setQuery(search);
       setSearchResult(searchData);
-      //setResults(searchData.results);
-      console.log("Push query param");
+      setLoading(false);
+      //console.log("Push query param");
       createQueryString("q", querySearch);
       router.replace(`./search?q=${querySearch}`);
     };
 
-    //searchFunction();
-
-    console.log("This here");
     if (query && query.length > 0) {
-      console.log("This here 22222");
       setPage(1);
       searchFunction();
-    } else {
-      console.log("This here 333333");
-      console.log("Query current: " + query);
     }
   };
 
-  //Run first
   useEffect(() => {
-    const searchQuery = searchParams.get("q");
-    console.log(searchQuery);
-
-    if (searchQuery) {
-      console.log("Search default query param " + searchQuery);
-      setQuery(searchQuery);
-      //setPage(1);
-      //handleSearch();
-    }
-  }, []);
-
-  useEffect(() => {
-    // const newQuery = query || search || "";
-    // setQuery(newQuery);
-    // createQueryString("search", newQuery);
-    //console.log("Use Effect Query = " + query);
     if (page == 0) {
-      console.log("Change page = 0sne search in useeffect change page");
-      console.log("Use Effect Query = " + query);
       setPage(1);
       handleSearch();
     }
@@ -154,8 +135,6 @@ const SearchPage = (props: SearchPage) => {
   // };
 
   useEffect(() => {
-    console.log("use Effect page changed");
-
     async function getSearchMore(page: number) {
       console.log("Fetch Data Movie Page " + page);
       try {
@@ -172,11 +151,7 @@ const SearchPage = (props: SearchPage) => {
           //setResults(searchData.results);
           setSearchResult(searchData);
         } else {
-          const newResult: IMovieItem[] = [
-            searchResult?.results,
-            searchData?.results,
-          ];
-
+          const newResult = [...searchResult?.results, ...searchData?.results];
           //setResults((prevList) => [...prevList, ...searchData?.results]);
           setSearchResult((prevState: any) => {
             return {
@@ -207,13 +182,13 @@ const SearchPage = (props: SearchPage) => {
     >
       <div className="m-auto w-full  max-w-screen-2xl p-2 xl:p-10 text-center">
         <h1 className="page-title text-xl md:text-2xl lg:text-3xl xl:text-4xl">
-          Search Page {query}
+          Search Page
         </h1>
 
         {query && query.length > 1 && (
           <>
             <div className="whitespace-nowrap w-full text-xl lg:text-2xl">
-              Keyword:
+              {`Keyword: `}
               <span className="text-primary-500 dark:text-blue-400">
                 {query}
               </span>
@@ -239,7 +214,6 @@ const SearchPage = (props: SearchPage) => {
               defaultValue={query ? query : ""}
               onClear={handleSearchClear}
               onChange={(e) => {
-                console.log("Set Query On Change");
                 setQuery(e.target.value);
               }}
               onValueChange={(value: string) => handleSearchChange}
@@ -269,6 +243,13 @@ const SearchPage = (props: SearchPage) => {
           </div>
         </div>
 
+        {loading && (
+          <div className="flex justify-center items-center text-primary-500 text-2xl p-10 m-5">
+            {`Searching ${query} ...`}
+            <CircularProgress aria-label="Loading..." />
+          </div>
+        )}
+
         {searchResult?.results && searchResult?.results.length == 0 ? (
           query.length > 2 && (
             <div
@@ -285,6 +266,8 @@ const SearchPage = (props: SearchPage) => {
             </h3>
 
             <MovieGrid movieList={searchResult?.results} />
+
+            <h4 className="search-load text-2xl">{`Loaded ${searchResult?.results.length} / ${searchResult?.total_results}`}</h4>
 
             {searchResult?.total_pages && searchResult?.total_pages > page && (
               <Button
