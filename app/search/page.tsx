@@ -17,16 +17,23 @@ type SearchResult = {
   total_results: number;
 };
 
-const SearchPage = (props: any) => {
+type SearchPage = {
+  query?: string;
+  view?: string;
+  result: SearchResult;
+};
+
+const SearchPage = (props: SearchPage) => {
   //const { params } = props;
   const searchParams = useSearchParams();
-  const [search, setSearch] = useState(searchParams.get("search") || "");
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState<IMovieItem[]>([]);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
 
-  const [dataSearch, setDataSearch] = useState<SearchResult>();
+  //const [search, setSearch] = useState(searchParams.get("search") || "");
+  // const [results, setResults] = useState<IMovieItem[]>([]);
+
+  const [query, setQuery] = useState("");
+  const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [searchResult, setSearchResult] = useState<SearchResult>();
   const router = useRouter();
 
   const createQueryString = useCallback(
@@ -39,64 +46,99 @@ const SearchPage = (props: any) => {
     [searchParams]
   );
 
-  const handleSearchChange = (search: string) => {
-    createQueryString("search", search);
-    handleSearch();
+  const handleSearchChange = (query: string) => {
+    //createQueryString("q", query);
+    //handleSearch();
   };
 
   const handleKeyUp = async (e: any) => {
-    if (e.key === "Enter" || e.key === " " || e.key === "Backspace") {
-      const newQuery = query || search || "";
-      setPage(1);
-      const searchData = await searchMovies({
-        query: newQuery.trim(),
-        page: "1",
-      });
-      setSearch(newQuery);
-      setDataSearch(searchData);
-      setResults(searchData.results);
-      //console.log(searchData);
+    if (e.key === "Enter" || e.key === " ") {
+      //const newQuery = query;
+      //setPage(1);
+      handleSearch();
+      // const searchData = await searchMovies({
+      //   query: newQuery.trim(),
+      //   page: "1",
+      // });
+      // //setSearch(newQuery);
+      // setSearchResult(searchData);
+      // //setResults(searchData.results);
+      // //console.log(searchData);
+      // createQueryString("q", query);
+      // router.push(`./search?q=${query}`);
     }
     if (e.key === "Enter") {
-      createQueryString("search", query);
-      router.push(`./search?search=${query}`);
+      createQueryString("q", query);
+      router.push(`./search?q=${query}`);
     }
   };
 
   const handleSearchClear = () => {
     console.log("Handle Search Clear");
-    setResults([]);
-    setQuery(" ");
-    setSearch(" ");
-    createQueryString("search", " ");
+    //setSearchResult(null);
+    setQuery(query);
+    //setSearch(" ");
+    //createQueryString("search", " ");
+    createQueryString("q", query);
+    router.push(`./search?q=${query}`);
   };
 
-  const handleSearch = async () => {
-    console.log("handle Search " + search);
-    const searchData = await searchMovies({
-      query: query || search || "",
-      page: "1",
-    });
+  const handleSearch = () => {
+    console.log("Run function HandleSearch query = " + query);
 
-    setDataSearch(searchData);
-    setResults(searchData.results);
-    router.push(`./search?search=${query}`);
+    const searchFunction = async () => {
+      const querySearch = query;
+      //setPage(1);
+      console.log("Run function async HandleSearch query = " + query);
+      const searchData = await searchMovies({
+        query: query,
+        page: page.toString(),
+      });
+      //setQuery(search);
+      setSearchResult(searchData);
+      //setResults(searchData.results);
+      console.log("Push query param");
+      createQueryString("q", querySearch);
+      router.replace(`./search?q=${querySearch}`);
+    };
+
+    //searchFunction();
+
+    console.log("This here");
+    if (query && query.length > 0) {
+      console.log("This here 22222");
+      setPage(1);
+      searchFunction();
+    } else {
+      console.log("This here 333333");
+      console.log("Query current: " + query);
+    }
   };
 
+  //Run first
   useEffect(() => {
-    const searchParam = searchParams.get("search");
-    if (searchParam) {
-      console.log("Search default param " + searchParam);
-      handleSearch();
-      setSearch(searchParam);
+    const searchQuery = searchParams.get("q");
+    console.log(searchQuery);
+
+    if (searchQuery) {
+      console.log("Search default query param " + searchQuery);
+      setQuery(searchQuery);
+      //setPage(1);
+      //handleSearch();
     }
   }, []);
 
   useEffect(() => {
-    const newQuery = query || search || "";
-    setQuery(newQuery);
-    createQueryString("search", newQuery);
-    handleSearch;
+    // const newQuery = query || search || "";
+    // setQuery(newQuery);
+    // createQueryString("search", newQuery);
+    //console.log("Use Effect Query = " + query);
+    if (page == 0) {
+      console.log("Change page = 0sne search in useeffect change page");
+      console.log("Use Effect Query = " + query);
+      setPage(1);
+      handleSearch();
+    }
   }, [query]);
 
   const { ref } = useInView({
@@ -112,6 +154,8 @@ const SearchPage = (props: any) => {
   // };
 
   useEffect(() => {
+    console.log("use Effect page changed");
+
     async function getSearchMore(page: number) {
       console.log("Fetch Data Movie Page " + page);
       try {
@@ -121,12 +165,25 @@ const SearchPage = (props: any) => {
           query: query.trim(),
           page: page.toString(),
         });
-        setSearch(query);
-        setDataSearch(searchData);
+        //setSearch(query);
+        //setDataSearch(searchData);
         console.log(searchData);
-        if (page == 1) setResults(searchData.results);
-        else {
-          setResults((prevList) => [...prevList, ...searchData?.results]);
+        if (page == 1) {
+          //setResults(searchData.results);
+          setSearchResult(searchData);
+        } else {
+          const newResult: IMovieItem[] = [
+            searchResult?.results,
+            searchData?.results,
+          ];
+
+          //setResults((prevList) => [...prevList, ...searchData?.results]);
+          setSearchResult((prevState: any) => {
+            return {
+              ...prevState,
+              results: newResult,
+            };
+          });
         }
         setLoading(false);
       } catch (err) {
@@ -134,7 +191,9 @@ const SearchPage = (props: any) => {
       }
     }
 
-    getSearchMore(page);
+    if (page == 1) {
+      handleSearch();
+    } else if (page > 1) getSearchMore(page);
 
     //console.log(movieList);
   }, [page]);
@@ -143,12 +202,12 @@ const SearchPage = (props: any) => {
     <div
       id="search-page"
       className="search-page min-h-[calc(100vh-132px)] pt-10
-      bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100      
+      bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100
       dark:bg-gradient-to-t dark:from-gray-900 dark:to-gray-600 dark:bg-gradient-to-r"
     >
       <div className="m-auto w-full  max-w-screen-2xl p-2 xl:p-10 text-center">
         <h1 className="page-title text-xl md:text-2xl lg:text-3xl xl:text-4xl">
-          Search Page
+          Search Page {query}
         </h1>
 
         {query && query.length > 1 && (
@@ -156,7 +215,7 @@ const SearchPage = (props: any) => {
             <div className="whitespace-nowrap w-full text-xl lg:text-2xl">
               Keyword:
               <span className="text-primary-500 dark:text-blue-400">
-                {` ${search || ""} `}
+                {query}
               </span>
             </div>
             <p className="hidden">Query: {query}</p>
@@ -177,9 +236,10 @@ const SearchPage = (props: any) => {
               description="Search all movies, persions or keyword ..."
               placeholder="The movie, person or keyword ..."
               labelPlacement="outside"
-              defaultValue={search ? search : ""}
+              defaultValue={query ? query : ""}
               onClear={handleSearchClear}
               onChange={(e) => {
+                console.log("Set Query On Change");
                 setQuery(e.target.value);
               }}
               onValueChange={(value: string) => handleSearchChange}
@@ -209,8 +269,8 @@ const SearchPage = (props: any) => {
           </div>
         </div>
 
-        {results.length == 0 ? (
-          search.length > 2 && (
+        {searchResult?.results && searchResult?.results.length == 0 ? (
+          query.length > 2 && (
             <div
               className="max-w-5xl m-auto min-h-[360px] rounded-2xl 
             text-2xl lg:text-4xl text-red bg-white/50 flex justify-center items-center"
@@ -221,12 +281,12 @@ const SearchPage = (props: any) => {
         ) : (
           <div className="search-results">
             <h3 className="search-info text-xl text-center mb-5 text-primary-500 dark:text-blue-400">
-              Total {dataSearch?.total_results ?? 0} results
+              Total {searchResult?.total_results ?? 0} results
             </h3>
 
-            <MovieGrid movieList={results} />
+            <MovieGrid movieList={searchResult?.results} />
 
-            {dataSearch?.total_pages && dataSearch?.total_pages > page && (
+            {searchResult?.total_pages && searchResult?.total_pages > page && (
               <Button
                 className="load-more mt-10 mb-5 px-5 py-2"
                 ref={ref}
@@ -251,7 +311,5 @@ const SearchPage = (props: any) => {
     </div>
   );
 };
-
-SearchPage.propTypes = {};
 
 export default SearchPage;
