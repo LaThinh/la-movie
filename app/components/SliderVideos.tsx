@@ -14,28 +14,45 @@ import "swiper/css/pagination";
 
 const SliderVideos = ({
   movieId,
+  language,
   limitDefault,
 }: {
   movieId: string;
+  language?: string;
   limitDefault?: number;
 }) => {
   const [videos, setVideos] = useState<IVideoItem[]>([]);
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState(-1);
   const [showAll, setShowAll] = useState(false);
   const [loading, setLoading] = useState(true);
   const limit = limitDefault || 6;
 
   useEffect(() => {
     async function getData() {
-      const data = await getVideosTrailer(movieId);
-      // console.log("Fetch Data Trailer");
-      // console.log(data);
+      const data = await getVideosTrailer({
+        movieId: movieId,
+        language: language,
+      });
       setVideos(data?.results);
       setTotal(data?.results.length);
       setLoading(false);
     }
     getData();
   }, [limit]);
+
+  useEffect(() => {
+    async function getVideoDefaultEN() {
+      const data = await getVideosTrailer({
+        movieId: movieId,
+      });
+      setVideos(data?.results);
+      setTotal(data?.results.length);
+      setLoading(false);
+    }
+    if (total == 0) {
+      getVideoDefaultEN();
+    }
+  }, [total]);
 
   //const dataVideo: IVideos = await getVideosTrailer(movieId);
   //const videos = dataVideo.results;

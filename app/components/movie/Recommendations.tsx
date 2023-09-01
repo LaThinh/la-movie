@@ -32,8 +32,8 @@ export default function Recommendations({ movieId }: { movieId: string }) {
 
           <Swiper
             className="mySwiper "
-            spaceBetween={20}
-            slidesPerView={2}
+            spaceBetween={10}
+            slidesPerView={1}
             // autoplay={{
             //   delay: 5000,
             //   disableOnInteraction: false,
@@ -41,24 +41,27 @@ export default function Recommendations({ movieId }: { movieId: string }) {
             navigation={true}
             modules={[Autoplay, Pagination, Navigation]}
             breakpoints={{
-              // when window width is >= 640px
-              320: {
-                slidesPerView: 1,
-                spaceBetween: 0,
-              },
               // when window width is >= 480px
-              640: {
+              360: {
+                slidesPerView: 1.5,
+                spaceBetween: 12,
+              },
+              480: {
                 slidesPerView: 2,
-                spaceBetween: 20,
+                spaceBetween: 14,
               },
               // when window width is >= 768px
-              768: {
+              640: {
                 slidesPerView: 3,
-                spaceBetween: 24,
+                spaceBetween: 16,
+              },
+              1024: {
+                slidesPerView: 4,
+                spaceBetween: 18,
               },
               1200: {
-                slidesPerView: 4,
-                spaceBetween: 30,
+                slidesPerView: 5,
+                spaceBetween: 18,
               },
             }}
           >

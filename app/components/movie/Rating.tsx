@@ -27,7 +27,7 @@ export default function Rating({
     ratingElm.push(
       <svg
         key={i}
-        className={`${sizeClass} ${classStart} `}
+        className={`${sizeClass} ${classStart} max-w-10 max-h-10 `}
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         fill="currentColor"

@@ -12,27 +12,39 @@ import Trailer from "@/app/components/movie/Trailer";
 import { getMovieDetails } from "@/app/api/FetchMovieDB";
 import SliderVideos from "@/app/components/SliderVideos";
 
-export async function generateMetadata({
-  params,
-}: {
+type MovieDetailProps = {
   params: { movieId: string };
-}): Promise<Metadata> {
+  searchParams: { [key: string]: string | undefined };
+};
+
+export async function generateMetadata(
+  props: MovieDetailProps
+): Promise<Metadata> {
   //console.log("generateMetadata meta data");
-  const data: IMovie = await getMovieDetails(`${params?.movieId}`);
+  const movieId = props.params.movieId[0].split("-")[0];
+  const lang = props.searchParams?.lang || "en";
+  const movie: IMovie = await getMovieDetails({
+    movieId: movieId,
+    language: lang,
+  });
 
   return {
-    title: `${data?.title} | La Movie`,
-    description: data?.overview,
+    title: `${movie?.title} | La Movie`,
+    description: movie?.overview,
   };
 }
 
-export async function MovieDetailPage({
-  params,
-}: {
-  params: { movieId: string };
-}) {
-  console.log("Render function MovieDetailPage" + params.movieId);
-  const movie: IMovie = await getMovieDetails(params.movieId);
+export async function MovieDetailPage(props: MovieDetailProps) {
+  console.log("Render function MovieDetailPage " + props.params.movieId);
+
+  console.log(props.params);
+  const movieId = props.params.movieId[0].split("-")[0];
+  const lang = props.searchParams?.lang || "en";
+  const movie: IMovie = await getMovieDetails({
+    movieId: movieId,
+    language: lang,
+    append_to_response: "keywords",
+  });
 
   return (
     <div className="movie-detail min-h-screen p-3 md:p-4 lg:p-6 xl:p-8">
@@ -57,7 +69,11 @@ export async function MovieDetailPage({
           </h1>
 
           <div className="trailer-desktop m-auto max-w-screen-2xl">
-            <SliderVideos movieId={movie.id} limitDefault={18} />
+            <SliderVideos
+              movieId={movie.id}
+              limitDefault={18}
+              language={lang}
+            />
             {/* <Trailer movieId={movie.id} limitDefault={12} /> */}
           </div>
 

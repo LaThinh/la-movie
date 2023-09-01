@@ -53,6 +53,14 @@ export interface IMovie {
   production_countries: {
     name: string;
   }[];
+  keywords?: {
+    keywords: IKeyword[];
+  };
+}
+
+export interface IKeyword {
+  id: number;
+  name: string;
 }
 
 export interface IVideos {

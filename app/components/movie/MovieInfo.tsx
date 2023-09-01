@@ -58,7 +58,7 @@ function MovieInfo({ movie }: { movie: IMovie }) {
                 key={item.id}
                 href={`/genre/${item.id}`}
                 className="genre bg-primary-500 text-white dark:bg-primary-700 dark:border dark:hover:bg-primary-500
-                rounded-md py-2 px-3 cursor-pointer whitespace-nowrap hover:bg-blue-500 hover:text-white"
+                rounded-md py-1 px-3 cursor-pointer whitespace-nowrap hover:bg-blue-500 hover:text-white"
               >
                 {item?.name}
               </Link>
@@ -72,6 +72,27 @@ function MovieInfo({ movie }: { movie: IMovie }) {
               {movie?.spoken_languages.map((item) => (
                 <span key={item.iso_639_1}>{item.name}</span>
               ))}
+            </div>
+          </li>
+        )}
+        {movie?.keywords && movie.keywords?.keywords.length > 0 && (
+          <li>
+            <h4>Keywords</h4>
+            <div className="flex gap-3 flex-1 flex-wrap">
+              {movie?.keywords &&
+                movie.keywords?.keywords.map((item) => (
+                  <Link
+                    key={item.id}
+                    id={`keyword-${item.id}`}
+                    href={`/search/?q=${item.name}`}
+                    className="keyword text-white rounded-md border   whitespace-nowrap py-1 px-3
+                    bg-green-600  hover:bg-green-500 hover:text-white
+                    dark:bg-primary-700 dark:hover:bg-green-600
+                    "
+                  >
+                    {item?.name}
+                  </Link>
+                ))}
             </div>
           </li>
         )}

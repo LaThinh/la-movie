@@ -5,6 +5,13 @@ import Link from "next/link";
 import Rating from "./Rating";
 import { CircularProgress, Image } from "@nextui-org/react";
 
+export function convertToSlug(text: string) {
+  return text
+    .toLowerCase()
+    .replace(/ /g, "-")
+    .replace(/[^\w-]+/g, "");
+}
+
 const CardMovie = ({ movie }: { movie: IMovieItem }) => {
   let vote = movie?.vote_average ? movie.vote_average : 0;
   //let rating:number = parseFloat((vote / 2).toString()).toFixed(0);
@@ -15,15 +22,15 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
       key={movie.id}
     >
       <Link
-        className="group relative block min-h-[240px] overflow-hidden bg-gray-300 lg:min-h-[320px]"
-        href={`/movie/${movie?.id}`}
+        className="group relative block min-h-[240px] overflow-hidden bg-gray-300 xl:min-h-[320px]"
+        href={`/movie/${movie?.id}-${convertToSlug(movie.title)}`}
       >
         <Image
           src={`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`}
           alt={movie?.title || "Title"}
           sizes="400"
-          width={400}
-          height={350}
+          width={300}
+          height={450}
           loading="eager"
           radius="none"
           isZoomed

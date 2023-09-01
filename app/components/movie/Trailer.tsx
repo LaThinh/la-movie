@@ -21,7 +21,7 @@ const Trailer = ({
 
   useEffect(() => {
     async function getData() {
-      const data = await getVideosTrailer(movieId);
+      const data = await getVideosTrailer({ movieId: movieId });
       // console.log("Fetch Data Trailer");
       // console.log(data);
       setVideos(data?.results);
@@ -53,8 +53,10 @@ const Trailer = ({
   return (
     <div className="movie-trailer @container my-10">
       {total > limit && (
-        <div className="flex justify-between item-center">
-          <h4 className="text-xl my-5">Video Trailer: Total: {total} videos</h4>
+        <div className="flex justify-between items-center">
+          <h4 className="text-md xl:text-2xl my-5">
+            Video Trailer: Total: {total} videos
+          </h4>
 
           <Button
             className="my-5 w-32 hover:bg-blue-500 hover:text-white"

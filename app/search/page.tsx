@@ -33,7 +33,9 @@ const SearchPage = (props: SearchPage) => {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [searchResult, setSearchResult] = useState<ISearchResult>();
+  const [searchResult, setSearchResult] = useState<ISearchResult | undefined>(
+    undefined
+  );
   const router = useRouter();
 
   const createQueryString = useCallback(
@@ -60,7 +62,7 @@ const SearchPage = (props: SearchPage) => {
   };
 
   const handleKeyUp = async (e: any) => {
-    if (e.key === "Enter" || e.key === " ") {
+    if (e.key === "Enter" || e.key === " " || e.key === "Backspace") {
       //const newQuery = query;
       //setPage(1);
       handleSearch();
@@ -140,7 +142,7 @@ const SearchPage = (props: SearchPage) => {
       try {
         setLoading(true);
 
-        const searchData = await searchMovies({
+        const searchData: ISearchResult = await searchMovies({
           query: query.trim(),
           page: page.toString(),
         });
@@ -149,14 +151,20 @@ const SearchPage = (props: SearchPage) => {
         console.log(searchData);
         if (page == 1) {
           //setResults(searchData.results);
+          //Set New Array Search
           setSearchResult(searchData);
         } else {
-          const newResult = [...searchResult?.results, ...searchData?.results];
+          // const newResult: IMovieItem[] = [
+          //   ...searchResult?.results,
+          //   ...searchData?.results,
+          // ];
           //setResults((prevList) => [...prevList, ...searchData?.results]);
+          //Push more results to Prev Array
           setSearchResult((prevState: any) => {
             return {
               ...prevState,
-              results: newResult,
+              //results: newResult,
+              results: [...prevState.results, ...searchData?.results],
             };
           });
         }

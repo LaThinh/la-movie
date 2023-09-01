@@ -1,4 +1,5 @@
 import { ISearchParams } from "@/app/interfaces";
+import next from "next/types";
 
 const baseUrl = "https://api.themoviedb.org/3";
 const options: RequestInit = {
@@ -10,7 +11,7 @@ const options: RequestInit = {
       "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3YzQxODJmN2Y4M2U1MTMwZmE2ZjRiOTRlMGM2OGE3NyIsInN1YiI6IjY0YjYwN2VlMzc4MDYyMDBmZjNhMmNkYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nv6BfKpMo2TI6mBuoJaOcXGOdKmZEd2F7E7Q01RkaGY",
   },
   next: {
-    revalidate: 10,
+    revalidate: 100,
   },
 };
 
@@ -60,7 +61,14 @@ export async function getRecommendations(movieId: string) {
   return res.json();
 }
 
-export async function getVideosTrailer(movieId: string) {
+export async function getVideosTrailer({
+  movieId,
+  language,
+}: {
+  movieId: string;
+  language?: string;
+}) {
+  language = language || "en";
   const url = `${baseUrl}/movie/${movieId}/videos?language=${language}`;
   const res = await fetch(url, options);
   if (!res.ok) {
@@ -70,8 +78,20 @@ export async function getVideosTrailer(movieId: string) {
   return res.json();
 }
 
-export async function getMovieDetails(movieId: string) {
-  const url = `${baseUrl}/movie/${movieId}?language=${language}`;
+export async function getMovieDetails({
+  movieId,
+  language,
+  append_to_response,
+}: {
+  movieId: string;
+  language?: string;
+  append_to_response?: string | undefined;
+}) {
+  language = language || "en";
+  const appendResponse = append_to_response
+    ? `append_to_response=${append_to_response}&`
+    : "";
+  const url = `${baseUrl}/movie/${movieId}?${appendResponse}language=${language}`;
   const res = await fetch(url, options);
   if (!res.ok) {
     throw new Error("Failed to fetch data Movie Detail. URL Link: " + url);
@@ -85,6 +105,17 @@ export async function getAllGenres() {
   const res = await fetch(url, options);
   if (!res.ok) {
     throw new Error("Failed to fetch getGenreList. URL Link: " + url);
+  }
+
+  return res.json();
+}
+
+export async function getKeywords(movieId: string) {
+  language = language || "en";
+  const url = `${baseUrl}/movie/${movieId}/keywords`;
+  const res = await fetch(url, options);
+  if (!res.ok) {
+    throw new Error("Failed to fetch data trailer. URL Link: " + url);
   }
 
   return res.json();

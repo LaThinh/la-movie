@@ -111,7 +111,7 @@ export default function ModalVideos({
         backdrop="opaque"
         size="full"
         radius="lg"
-        className="w-[96%] !rounded-sm lg:max-w-7xl lg:w-[80%] lg:!rounded-xl overflow-hidden xl:max-w-[1800px] h-auto"
+        className="w-[96%] !my-10 !rounded-sm lg:max-w-7xl lg:w-[80%] lg:!rounded-xl overflow-hidden xl:max-w-[1800px] h-auto"
         isOpen={isOpen}
         placement="center"
         classNames={{
@@ -119,6 +119,7 @@ export default function ModalVideos({
             "bg-gradient-to-t from-zinc-700 to-zinc-900/50 backdrop-opacity-30",
           closeButton: "top-3 right-3",
         }}
+        scrollBehavior={"outside"}
         onOpenChange={onOpenChange}
         motionProps={{
           variants: {
