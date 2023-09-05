@@ -26,11 +26,6 @@ export interface SearchPage {
   result: ISearchResult;
 }
 
-export const metadata: Metadata = {
-  title: "Search Page",
-  description: "Search all movies, persions or keyword ...",
-};
-
 const SearchPage = (props: SearchPage) => {
   //const { params } = props;
   const searchParams = useSearchParams();

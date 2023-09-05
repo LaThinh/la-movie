@@ -86,7 +86,7 @@ function MovieInfo({ movie }: { movie: IMovie }) {
                     id={`keyword-${item.id}`}
                     href={`/search/?q=${item.name}`}
                     className="keyword text-white rounded-md border   whitespace-nowrap py-1 px-3
-                    bg-green-600  hover:bg-green-500 hover:text-white
+                    bg-green-700  hover:bg-green-500 hover:text-white
                     dark:bg-primary-700 dark:hover:bg-green-600
                     "
                   >
