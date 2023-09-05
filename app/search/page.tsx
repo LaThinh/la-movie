@@ -4,7 +4,11 @@ import React, { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button, CircularProgress, Input } from "@nextui-org/react";
-import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
+import {
+  GridIcon,
+  ListBulletIcon,
+  MagnifyingGlassIcon,
+} from "@radix-ui/react-icons";
 import { getAllGenres, searchMovies } from "../api/FetchMovieDB";
 import { IGenre, IMovieItem } from "@/app/interfaces";
 import MovieGrid from "@/app/components/movie/MovieGrid";
@@ -26,6 +30,11 @@ export interface SearchPage {
   result: ISearchResult;
 }
 
+export enum SearchView {
+  GRID = "grid",
+  LIST = "list",
+}
+
 const SearchPage = (props: SearchPage) => {
   //const { params } = props;
   const searchParams = useSearchParams();
@@ -40,6 +49,7 @@ const SearchPage = (props: SearchPage) => {
     undefined
   );
   const [genreList, setGenreList] = useState<IGenre[]>([]);
+  const [searchView, setSearchView] = useState<SearchView>(SearchView.GRID);
   const router = useRouter();
 
   const createQueryString = useCallback(
@@ -214,12 +224,12 @@ const SearchPage = (props: SearchPage) => {
 
           {query && query.length > 1 && (
             <>
-              <div className="whitespace-nowrap w-full text-xl lg:text-2xl">
+              <h2 className="whitespace-nowrap w-full text-xl lg:text-2xl">
                 {`Keyword: `}
                 <span className="text-primary-500 dark:text-blue-400">
                   {query}
                 </span>
-              </div>
+              </h2>
               <p className="hidden">Query: {query}</p>
             </>
           )}
@@ -291,16 +301,51 @@ const SearchPage = (props: SearchPage) => {
 
           {searchResult?.results && searchResult?.results.length > 0 && (
             <div className="search-results">
-              <h3 className="search-info text-xl text-center mb-5 text-primary-500 dark:text-blue-400">
-                Total {searchResult?.total_results ?? 0} results
-              </h3>
+              <div className="search-toolbar max-w-5xl mx-auto mb-5 bg-slate-200 py-2 px-3 rounded-lg flex justify-between align-middle items-center">
+                <div className="search-view flex gap-2 items-center">
+                  View:
+                  <Button
+                    isIconOnly
+                    aria-label="Search View Grid"
+                    variant="ghost"
+                    color="primary"
+                    size="sm"
+                    onClick={() => {
+                      setSearchView(SearchView.GRID);
+                    }}
+                    isDisabled={searchView === SearchView.GRID}
+                  >
+                    <GridIcon fontSize={24} />
+                  </Button>
+                  <Button
+                    isIconOnly
+                    aria-label="Search View List"
+                    variant="ghost"
+                    color="primary"
+                    size="sm"
+                    onClick={() => {
+                      setSearchView(SearchView.LIST);
+                    }}
+                    isDisabled={searchView === SearchView.LIST}
+                  >
+                    <ListBulletIcon fontSize={24} />
+                  </Button>
+                </div>
+                <h3 className="search-info text-xl text-center text-primary-500 dark:text-blue-400">
+                  Total {searchResult?.total_results ?? 0} results
+                </h3>
+                <div className="search-language">Language</div>
+              </div>
+              {searchView === SearchView.GRID && (
+                <MovieGrid movieList={searchResult?.results} />
+              )}
 
-              {/* <MovieGrid movieList={searchResult?.results} /> */}
-
-              <MovieList
-                movieList={searchResult?.results}
-                genreList={genreList}
-              />
+              {searchView === SearchView.LIST && (
+                <MovieList
+                  movieList={searchResult?.results}
+                  genreList={genreList}
+                />
+              )}
 
               <h4 className="search-load text-2xl">{`Loaded ${searchResult?.results.length} / ${searchResult?.total_results}`}</h4>
 

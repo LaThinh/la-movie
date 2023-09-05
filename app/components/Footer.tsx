@@ -11,7 +11,7 @@ export default function Footer() {
             href="https://www.facebook.com/lathinh"
             title="View Facebook"
             target="_blank"
-            className="text-primary-500"
+            className="text-gray-700"
           >
             Thịnh La
           </Link>

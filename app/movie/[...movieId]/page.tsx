@@ -81,7 +81,7 @@ export async function MovieDetailPage(props: MovieDetailProps) {
             <div className="flex flex-col lg:flex-row gap-5 rounded-2xl">
               <div
                 className="@container left-info p-5 font-medium rounded-xl
-              bg-slate-200/50 dark:bg-transparent dark:border
+              bg-slate-300/50 dark:bg-transparent dark:border
               lg:w-1/2 lg:p-8 "
               >
                 <MovieInfo movie={movie} />

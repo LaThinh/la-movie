@@ -61,7 +61,7 @@ export default function ModalVideos({
     <>
       {type === "button" && (
         <Button
-          className="w-full flex flex-1 font-semibold text-lg rounded-md"
+          className="w-full flex flex-1 font-semibold rounded-md bg-[#B4361B]"
           onPress={onOpen}
           radius="none"
           title={currentVideo?.name}
