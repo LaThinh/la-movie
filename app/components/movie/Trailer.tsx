@@ -59,7 +59,7 @@ const Trailer = ({
           </h4>
 
           <Button
-            className="my-5 w-32 hover:bg-blue-500 hover:text-white"
+            className="my-5 w-32 font-semibold hover:bg-blue-500 hover:text-white"
             spinner
             color="primary"
             variant="bordered"

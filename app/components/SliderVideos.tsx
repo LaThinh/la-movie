@@ -74,9 +74,9 @@ const SliderVideos = ({
       ) : (
         videos.length > 0 && (
           <div className="movie-trailer @container bg-gray-700 p-5 rounded-xl">
-            <h4 className="text-xl lg:text-2xl my-2 lg:my-5 text-white text-left">
-              Video Trailer: Total: {total} videos
-            </h4>
+            <h2 className="text-xl lg:text-2xl my-2 lg:my-5 text-white text-left">
+              Video Trailer: Total: {Math.min(total, limit)} videos
+            </h2>
             <Swiper
               slidesPerView={"auto"}
               spaceBetween={30}

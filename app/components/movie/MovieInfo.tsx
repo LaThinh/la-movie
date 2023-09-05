@@ -17,7 +17,7 @@ function MovieInfo({ movie }: { movie: IMovie }) {
               <Link
                 href={movie?.homepage || "/"}
                 target="_blank"
-                className="text-xl"
+                className="text-xl text-primary-500"
               >
                 {movie?.original_title}
               </Link>
