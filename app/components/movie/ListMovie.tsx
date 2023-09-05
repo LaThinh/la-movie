@@ -37,15 +37,15 @@ export default function ListMovie({
       id={movie.id.toString()}
     >
       <Link
-        className="group relative block min-h-[120px] overflow-hidden bg-gray-300 xl:min-h-[180px]"
+        className="group relative block min-h-[120px] w-40 lg:w-44 overflow-hidden bg-gray-300 xl:min-h-[240px]"
         href={`/movie/${movie?.id}-${convertToSlug(movie.title)}`}
       >
         <Image
           src={`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`}
           alt={movie?.title || "Title"}
-          sizes="200"
-          width={180}
-          height={240}
+          sizes="220"
+          width={220}
+          height={320}
           loading="eager"
           radius="none"
           isZoomed
@@ -75,7 +75,7 @@ export default function ListMovie({
             </Link>
           </h3>
           <CircularProgress
-            className="absolute z-10 -top-1 right-0 bg-white/90 rounded-full box-border"
+            className="absolute z-10 -top-1 right-[100%] mr-5 md:right-0 md:mr-0  bg-white/90 rounded-full box-border"
             classNames={{
               svg: "w-16 h-16 drop-shadow-md",
               track: "stroke-white/10",
@@ -99,10 +99,9 @@ export default function ListMovie({
             showValueLabel={true}
           />
           <p>
-            <strong className="release-date font-semibold text-gray-500 dark:text-gray-300">
-              Release Date:{" "}
+            <strong className="release-date flex gap-1 font-semibold text-gray-500 dark:text-gray-300">
+              <span className="hidden md:block">Release Date:</span>
               <span className="italic">
-                {" "}
                 {movie?.release_date.toLocaleString()}
               </span>
             </strong>
@@ -110,14 +109,15 @@ export default function ListMovie({
         </div>
 
         <p
-          className="text-gray-500 dark:text-gray-200 line-clamp-4"
+          className="text-gray-500 dark:text-gray-200 line-clamp-3 text-sm
+          md:line-clamp-4 md:text-base "
           title={movie.overview}
         >
           {movie.overview}
         </p>
 
-        <div className="movie-footer flex justify-between align-middle items-center mt-5">
-          <div className="genre-list flex gap-2">
+        <div className="movie-footer flex-wrap flex justify-between align-middle items-center mt-2">
+          <div className="genre-list hidden md:flex gap-2 flex-wrap">
             {genreList &&
               movie?.genre_ids.length > 0 &&
               movie?.genre_ids.map((item, index) => (
