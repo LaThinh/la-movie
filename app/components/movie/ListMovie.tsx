@@ -75,14 +75,14 @@ export default function ListMovie({
             </Link>
           </h3>
           <CircularProgress
-            className="absolute z-10 -top-1 right-[100%] mr-5 md:right-0 md:mr-0  bg-white/90 rounded-full box-border"
+            className="absolute z-10 -top-1 right-[100%] mr-5 md:right-0 md:mr-0  bg-yellow rounded-full box-border"
             classNames={{
               svg: "w-16 h-16 drop-shadow-md",
-              track: "stroke-white/10",
-              value: "text-[16px] font-bold text-primary-500",
+              track: "stroke-white",
+              value: "text-[18px] font-bold text-primary-600",
             }}
             size="lg"
-            strokeWidth={4}
+            strokeWidth={5}
             maxValue={10}
             value={vote}
             color={

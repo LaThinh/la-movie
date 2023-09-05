@@ -3,7 +3,7 @@ import ScrollToTopButton from "./ScrollToTop";
 
 export default function Footer() {
   return (
-    <footer className="flex w-full p-5 bg-gray-500/5">
+    <footer className="flex w-full p-5 bg-gray-200/50">
       <div className="container m-auto">
         <div className="copyright m-auto text-center">
           Copyright (c) 2024 by{" "}

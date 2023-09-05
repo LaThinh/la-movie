@@ -49,14 +49,14 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
         </span>
 
         <CircularProgress
-          className="absolute z-10 top-2 right-2 bg-white/90 rounded-full box-border"
+          className="absolute z-10 top-2 right-2 bg-white rounded-full box-border"
           classNames={{
             svg: "w-16 h-16 drop-shadow-md",
             track: "stroke-white/10",
-            value: "text-[16px] font-bold text-primary-500",
+            value: "text-[18px] font-bold text-primary-500",
           }}
           size="lg"
-          strokeWidth={4}
+          strokeWidth={5}
           maxValue={10}
           value={vote}
           color={
@@ -71,6 +71,7 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
               : "default"
           }
           showValueLabel={true}
+          aria-label="Point"
         />
       </Link>
       <div className="flex flex-1 flex-col justify-between text-gray-700 dark:text-white text-left p-4 lg:p-5">

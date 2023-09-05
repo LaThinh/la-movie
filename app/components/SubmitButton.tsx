@@ -7,7 +7,7 @@ export default function SubmitButton() {
   return (
     <button
       type="submit"
-      className="bg-blue-500 hover:bg-c-blue-light text-white px-5 py-2 rounded-lg min-w-[180px]"
+      className="bg-primary-500 hover:bg-c-blue-light text-white px-5 py-2 rounded-lg min-w-[180px]"
     >
       {pending ? "Adding..." : "Add comment"}
     </button>
