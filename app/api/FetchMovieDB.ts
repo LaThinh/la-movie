@@ -146,10 +146,13 @@ export async function getMovieListQuery({
 export async function searchMovies({
   query,
   page,
+  language,
 }: {
   query: string;
   page: string;
+  language?: string;
 }) {
+  language = language || "en";
   const url = `${baseUrl}/search/movie?query=${query}&page=${page}&language=${language}`;
   const res = await fetch(url, options);
   if (!res.ok) {

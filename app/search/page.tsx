@@ -1,9 +1,14 @@
 "use client";
 import dynamic from "next/dynamic";
 import React, { useCallback, useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Button, CircularProgress, Input } from "@nextui-org/react";
+import {
+  Button,
+  CircularProgress,
+  Input,
+  Select,
+  SelectItem,
+} from "@nextui-org/react";
 import {
   GridIcon,
   ListBulletIcon,
@@ -13,7 +18,6 @@ import { getAllGenres, searchMovies } from "../api/FetchMovieDB";
 import { IGenre, IMovieItem } from "@/app/interfaces";
 import MovieGrid from "@/app/components/movie/MovieGrid";
 import { useInView } from "react-intersection-observer";
-import { Metadata } from "next";
 import Head from "next/head";
 import MovieList from "../components/movie/MovieList";
 
@@ -37,10 +41,8 @@ export enum SearchView {
 
 const SearchPage = (props: SearchPage) => {
   //const { params } = props;
+  const router = useRouter();
   const searchParams = useSearchParams();
-
-  //const [search, setSearch] = useState(searchParams.get("search") || "");
-  // const [results, setResults] = useState<IMovieItem[]>([]);
 
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(0);
@@ -50,7 +52,19 @@ const SearchPage = (props: SearchPage) => {
   );
   const [genreList, setGenreList] = useState<IGenre[]>([]);
   const [searchView, setSearchView] = useState<SearchView>(SearchView.GRID);
-  const router = useRouter();
+
+  // const [selectedKeys, setSelectedKeys] = useState("en");
+
+  // const selectedValue = React.useMemo(
+  //   () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
+  //   [selectedKeys]
+  // );
+
+  const [lang, setLang] = useState<string>("en");
+
+  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setLang(e.target.value);
+  };
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -89,19 +103,7 @@ const SearchPage = (props: SearchPage) => {
 
   const handleKeyUp = async (e: any) => {
     if (e.key === "Enter" || e.key === " " || e.key === "Backspace") {
-      //const newQuery = query;
-      //setPage(1);
       handleSearch();
-      // const searchData = await searchMovies({
-      //   query: newQuery.trim(),
-      //   page: "1",
-      // });
-      // //setSearch(newQuery);
-      // setSearchResult(searchData);
-      // //setResults(searchData.results);
-      // //console.log(searchData);
-      // createQueryString("q", query);
-      // router.push(`./search?q=${query}`);
     }
     if (e.key === "Enter") {
       createQueryString("q", query);
@@ -129,6 +131,7 @@ const SearchPage = (props: SearchPage) => {
       const searchData = await searchMovies({
         query: query,
         page: page.toString(),
+        language: lang,
       });
       setSearchResult(searchData);
       setLoading(false);
@@ -149,6 +152,10 @@ const SearchPage = (props: SearchPage) => {
       handleSearch();
     }
   }, [query]);
+
+  useEffect(() => {
+    handleSearch();
+  }, [lang]);
 
   const { ref } = useInView({
     onChange(inView, entry) {
@@ -171,6 +178,7 @@ const SearchPage = (props: SearchPage) => {
         const searchData: ISearchResult = await searchMovies({
           query: query.trim(),
           page: page.toString(),
+          language: lang,
         });
         //setSearch(query);
         //setDataSearch(searchData);
@@ -265,6 +273,7 @@ const SearchPage = (props: SearchPage) => {
                 }}
                 onKeyUp={handleKeyUp}
               />
+
               <Button
                 color="primary"
                 size="lg"
@@ -274,7 +283,14 @@ const SearchPage = (props: SearchPage) => {
                 aria-describedby="search-submit"
                 aria-label="Search"
                 onClick={handleSearch}
-                className="flex px-5 w-24 lg:h-16 rounded-r-xl text-xl"
+                className="flex px-3 min-w-[132px] lg:h-16 rounded-r-xl text-xl"
+                startContent={
+                  <MagnifyingGlassIcon
+                    width="32"
+                    height="32"
+                    className="text-white text-xl font-semibold"
+                  />
+                }
               >
                 Search
               </Button>
@@ -301,13 +317,16 @@ const SearchPage = (props: SearchPage) => {
 
           {searchResult?.results && searchResult?.results.length > 0 && (
             <div className="search-results">
-              <div className="search-toolbar max-w-5xl mx-auto mb-5 bg-slate-200 py-2 px-3 rounded-lg flex justify-between align-middle items-center">
+              <div
+                className="search-toolbar max-w-screen-2xl mx-auto mb-5 bg-white/90 py-2 px-3 rounded-lg 
+              flex flex-wrap justify-between align-middle items-center sticky top-20 z-30"
+              >
                 <div className="search-view flex gap-2 items-center">
-                  View:
+                  <span className="hidden md:block">View: </span>
                   <Button
                     isIconOnly
                     aria-label="Search View Grid"
-                    variant="ghost"
+                    variant="solid"
                     color="primary"
                     size="sm"
                     onClick={() => {
@@ -315,12 +334,12 @@ const SearchPage = (props: SearchPage) => {
                     }}
                     isDisabled={searchView === SearchView.GRID}
                   >
-                    <GridIcon fontSize={24} />
+                    <GridIcon width="24" height="24" />
                   </Button>
                   <Button
                     isIconOnly
                     aria-label="Search View List"
-                    variant="ghost"
+                    variant="solid"
                     color="primary"
                     size="sm"
                     onClick={() => {
@@ -328,13 +347,36 @@ const SearchPage = (props: SearchPage) => {
                     }}
                     isDisabled={searchView === SearchView.LIST}
                   >
-                    <ListBulletIcon fontSize={24} />
+                    <ListBulletIcon width="24" height="24" />
                   </Button>
                 </div>
-                <h3 className="search-info text-xl text-center text-primary-500 dark:text-blue-400">
-                  Total {searchResult?.total_results ?? 0} results
+                <h3 className="search-info text-sm lg:text-xl text-center text-primary-500 dark:text-blue-400">
+                  {searchResult?.total_results ?? 0} results
                 </h3>
-                <div className="search-language">Language</div>
+                <div className="search-language">
+                  <Select
+                    label="Language"
+                    className="w-48"
+                    color="primary"
+                    selectionMode="single"
+                    defaultSelectedKeys={["en"]}
+                    labelPlacement="outside-left"
+                    onChange={handleLanguageChange}
+                  >
+                    <SelectItem key="en" value="en">
+                      English
+                    </SelectItem>
+                    <SelectItem key="vi" value="vi">
+                      Vietnam
+                    </SelectItem>
+                    <SelectItem key="fr" value="fr">
+                      France
+                    </SelectItem>
+                    <SelectItem key="zh" value="zh">
+                      China
+                    </SelectItem>
+                  </Select>
+                </div>
               </div>
               {searchView === SearchView.GRID && (
                 <MovieGrid movieList={searchResult?.results} />

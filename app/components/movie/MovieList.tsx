@@ -15,7 +15,7 @@ export default function MovieList({
 
   return (
     <div className="movie-container @container">
-      <div className="movie-list flex flex-col gap-6 rounded-lg">
+      <div className="movie-list grid gap-6 grid-cols-1 xl:grid-cols-2 rounded-lg">
         {data?.length > 0 &&
           data.map((movieItem, index) => (
             <ListMovie movie={movieItem} key={index} genreList={genreList} />

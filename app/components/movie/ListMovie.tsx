@@ -32,7 +32,7 @@ export default function ListMovie({
 
   return (
     <div
-      className="card-movie flex flex-row w-full max-w-5xl m-auto rounded-lg overflow-hidden border 
+      className="card-movie flex flex-row w-full rounded-lg overflow-hidden border 
       dark:border-c-dark  bg-white dark:bg-gray-800 hover:shadow-lg"
       id={movie.id.toString()}
     >
@@ -75,7 +75,7 @@ export default function ListMovie({
             </Link>
           </h3>
           <CircularProgress
-            className="absolute z-10 -top-1 right-[100%] mr-5 md:right-0 md:mr-0  bg-yellow rounded-full box-border"
+            className="absolute z-10 -top-1 right-[100%] mr-5 md:right-0 md:mr-0  bg-white rounded-full box-border"
             classNames={{
               svg: "w-16 h-16 drop-shadow-md",
               track: "stroke-white",
