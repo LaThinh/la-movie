@@ -109,9 +109,9 @@ export default function ModalVideos({
 
       <Modal
         backdrop="opaque"
-        size="full"
+        size="5xl"
         radius="lg"
-        className="w-[96%] !my-10 !rounded-sm lg:max-w-7xl lg:w-[80%] lg:!rounded-xl overflow-hidden xl:max-w-[1800px] h-auto"
+        className="w-[96%] !rounded-sm lg:max-w-7xl lg:w-[80%] lg:!rounded-xl overflow-hidden xl:max-w-[1800px] h-auto"
         isOpen={isOpen}
         placement="center"
         classNames={{

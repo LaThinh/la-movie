@@ -5,10 +5,13 @@ import PropTypes from "prop-types";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button, CircularProgress, Input } from "@nextui-org/react";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import { searchMovies } from "../api/FetchMovieDB";
-import { IMovieItem } from "@/app/interfaces";
+import { getAllGenres, searchMovies } from "../api/FetchMovieDB";
+import { IGenre, IMovieItem } from "@/app/interfaces";
 import MovieGrid from "@/app/components/movie/MovieGrid";
 import { useInView } from "react-intersection-observer";
+import { Metadata } from "next";
+import Head from "next/head";
+import MovieList from "../components/movie/MovieList";
 
 export interface ISearchResult {
   page: number;
@@ -23,6 +26,11 @@ export interface SearchPage {
   result: ISearchResult;
 }
 
+export const metadata: Metadata = {
+  title: "Search Page",
+  description: "Search all movies, persions or keyword ...",
+};
+
 const SearchPage = (props: SearchPage) => {
   //const { params } = props;
   const searchParams = useSearchParams();
@@ -36,6 +44,7 @@ const SearchPage = (props: SearchPage) => {
   const [searchResult, setSearchResult] = useState<ISearchResult | undefined>(
     undefined
   );
+  const [genreList, setGenreList] = useState<IGenre[]>([]);
   const router = useRouter();
 
   const createQueryString = useCallback(
@@ -54,6 +63,18 @@ const SearchPage = (props: SearchPage) => {
       console.log("Search default query param " + searchQuery);
       setQuery(searchQuery);
     }
+
+    const fetchGenreList = async () => {
+      const data = await getAllGenres();
+      console.log("Fetch Data Genres List");
+      setGenreList(data?.genres);
+      // const genreCurrent: IGenre[] = data?.genres.filter((g: IGenre) => {
+      //   return g.id == params.genreId;
+      // });
+      // setGenreName(genreCurrent[0].name);
+    };
+
+    fetchGenreList();
   }, []);
 
   const handleSearchChange = (query: string) => {
@@ -182,126 +203,137 @@ const SearchPage = (props: SearchPage) => {
   }, [page]);
 
   return (
-    <div
-      id="search-page"
-      className="search-page min-h-[calc(100vh-132px)] pt-10
+    <>
+      <Head>
+        <title>Search Page</title>
+      </Head>
+      <div
+        className="search-page min-h-[calc(100vh-132px)] pt-10
       bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100
       dark:bg-gradient-to-t dark:from-gray-900 dark:to-gray-600 dark:bg-gradient-to-r"
-    >
-      <div className="m-auto w-full  max-w-screen-2xl p-2 xl:p-10 text-center">
-        <h1 className="page-title text-xl md:text-2xl lg:text-3xl xl:text-4xl">
-          Search Page
-        </h1>
+      >
+        <div className="m-auto w-full  max-w-screen-2xl p-2 xl:p-10 text-center">
+          <h1 className="page-title text-xl md:text-2xl lg:text-3xl xl:text-4xl">
+            Search Page
+          </h1>
 
-        {query && query.length > 1 && (
-          <>
-            <div className="whitespace-nowrap w-full text-xl lg:text-2xl">
-              {`Keyword: `}
-              <span className="text-primary-500 dark:text-blue-400">
-                {query}
-              </span>
+          {query && query.length > 1 && (
+            <>
+              <div className="whitespace-nowrap w-full text-xl lg:text-2xl">
+                {`Keyword: `}
+                <span className="text-primary-500 dark:text-blue-400">
+                  {query}
+                </span>
+              </div>
+              <p className="hidden">Query: {query}</p>
+            </>
+          )}
+
+          <div className="search-form max-w-xl lg:max-w-5xl m-auto">
+            <div className="search-box my-8 flex justify-between align-middle">
+              <Input
+                isClearable
+                type="input"
+                color="primary"
+                name="search"
+                size="lg"
+                id="search-query"
+                variant="bordered"
+                aria-describedby="search-query"
+                description="Search all movies, persions or keyword ..."
+                placeholder="The movie, person or keyword ..."
+                labelPlacement="outside"
+                defaultValue={query ? query : ""}
+                onClear={handleSearchClear}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                }}
+                onValueChange={(value: string) => handleSearchChange}
+                classNames={{
+                  base: "border-color-yellow",
+                  label: "",
+                  input: "flex flex-1 lg:text-[24px] font-bold px-3 py-3 ",
+                  description:
+                    "text-sm lg:text-xl lg:text-center block w-full text-gray-500 dark:text-gray-200",
+                  inputWrapper:
+                    "lg:h-16 flex rounded-r-none bg-white dark:bg-primary-900 dark:border-white",
+                }}
+                onKeyUp={handleKeyUp}
+              />
+              <Button
+                color="primary"
+                size="lg"
+                id="search-submit"
+                radius="none"
+                type="submit"
+                aria-describedby="search-submit"
+                aria-label="Search"
+                onClick={handleSearch}
+                className="flex px-5 w-24 lg:h-16 rounded-r-xl text-xl"
+              >
+                Search
+              </Button>
             </div>
-            <p className="hidden">Query: {query}</p>
-          </>
-        )}
-
-        <div className="search-form max-w-xl lg:max-w-5xl m-auto">
-          <div className="search-box my-8 flex justify-between align-middle">
-            <Input
-              isClearable
-              type="input"
-              color="primary"
-              name="search"
-              size="lg"
-              id="search-query"
-              variant="bordered"
-              aria-describedby="search-query"
-              description="Search all movies, persions or keyword ..."
-              placeholder="The movie, person or keyword ..."
-              labelPlacement="outside"
-              defaultValue={query ? query : ""}
-              onClear={handleSearchClear}
-              onChange={(e) => {
-                setQuery(e.target.value);
-              }}
-              onValueChange={(value: string) => handleSearchChange}
-              classNames={{
-                base: "border-color-yellow",
-                label: "",
-                input: "flex flex-1 lg:text-[24px] font-bold px-3 py-3 ",
-                description:
-                  "text-sm lg:text-xl lg:text-center block w-full text-gray-500 dark:text-gray-200",
-                inputWrapper:
-                  "lg:h-16 flex rounded-r-none bg-white dark:bg-primary-900 dark:border-white",
-              }}
-              onKeyUp={handleKeyUp}
-            />
-            <Button
-              color="primary"
-              size="lg"
-              id="search-submit"
-              radius="none"
-              type="submit"
-              aria-describedby="search-submit"
-              onClick={handleSearch}
-              className="flex px-5 w-24 lg:h-16 rounded-r-xl text-xl"
-            >
-              Search
-            </Button>
           </div>
-        </div>
 
-        {loading && (
-          <div className="flex justify-center items-center text-primary-500 text-2xl p-10 m-5">
-            {`Searching ${query} ...`}
-            <CircularProgress aria-label="Loading..." />
-          </div>
-        )}
-
-        {searchResult?.results &&
-          searchResult?.results.length == 0 &&
-          query.length > 2 && (
-            <div
-              className="max-w-5xl m-auto min-h-[360px] rounded-2xl 
-            text-2xl lg:text-4xl text-red bg-white/50 flex justify-center items-center"
-            >
-              {`No Result for keyword "${query}" `}
+          {loading && (
+            <div className="flex justify-center items-center text-primary-500 text-2xl p-10 m-5">
+              {`Searching ${query} ...`}
+              <CircularProgress aria-label="Loading..." />
             </div>
           )}
 
-        {searchResult?.results && searchResult?.results.length > 0 && (
-          <div className="search-results">
-            <h3 className="search-info text-xl text-center mb-5 text-primary-500 dark:text-blue-400">
-              Total {searchResult?.total_results ?? 0} results
-            </h3>
-
-            <MovieGrid movieList={searchResult?.results} />
-
-            <h4 className="search-load text-2xl">{`Loaded ${searchResult?.results.length} / ${searchResult?.total_results}`}</h4>
-
-            {searchResult?.total_pages && searchResult?.total_pages > page && (
-              <Button
-                className="load-more mt-10 mb-5 px-5 py-2"
-                ref={ref}
-                size="lg"
-                color="primary"
-                radius="lg"
-                onClick={() => {
-                  setPage(page + 1);
-                }}
-                disabled={loading}
-                isLoading={loading}
-                spinnerPlacement="end"
+          {searchResult?.results &&
+            searchResult?.results.length == 0 &&
+            query.length > 2 && (
+              <div
+                className="max-w-5xl m-auto min-h-[360px] rounded-2xl 
+            text-2xl lg:text-4xl text-red bg-white/50 flex justify-center items-center"
               >
-                {loading
-                  ? `Loading page ${page}`
-                  : `Load more page ${page + 1}`}
-              </Button>
+                {`No Result for keyword "${query}" `}
+              </div>
             )}
-          </div>
-        )}
+
+          {searchResult?.results && searchResult?.results.length > 0 && (
+            <div className="search-results">
+              <h3 className="search-info text-xl text-center mb-5 text-primary-500 dark:text-blue-400">
+                Total {searchResult?.total_results ?? 0} results
+              </h3>
+
+              {/* <MovieGrid movieList={searchResult?.results} /> */}
+
+              <MovieList
+                movieList={searchResult?.results}
+                genreList={genreList}
+              />
+
+              <h4 className="search-load text-2xl">{`Loaded ${searchResult?.results.length} / ${searchResult?.total_results}`}</h4>
+
+              {searchResult?.total_pages &&
+                searchResult?.total_pages > page && (
+                  <Button
+                    className="load-more mt-10 mb-5 px-5 py-2"
+                    ref={ref}
+                    size="lg"
+                    color="primary"
+                    radius="lg"
+                    onClick={() => {
+                      setPage(page + 1);
+                    }}
+                    disabled={loading}
+                    isLoading={loading}
+                    spinnerPlacement="end"
+                  >
+                    {loading
+                      ? `Loading page ${page}`
+                      : `Load more page ${page + 1}`}
+                  </Button>
+                )}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

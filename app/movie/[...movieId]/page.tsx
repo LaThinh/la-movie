@@ -36,8 +36,8 @@ export async function generateMetadata(
 
 export async function MovieDetailPage(props: MovieDetailProps) {
   console.log("Render function MovieDetailPage " + props.params.movieId);
-
   console.log(props.params);
+
   const movieId = props.params.movieId[0].split("-")[0];
   const lang = props.searchParams?.lang || "en";
   const movie: IMovie = await getMovieDetails({
@@ -47,24 +47,24 @@ export async function MovieDetailPage(props: MovieDetailProps) {
   });
 
   return (
-    <div className="movie-detail min-h-screen p-3 md:p-4 lg:p-6 xl:p-8">
+    <div className="movie-detail min-h-screen">
       {!movie ? (
         <div className="loading">Loading ... </div>
       ) : (
         <div className="movie-detail-view   m-auto ">
           {movie?.backdrop_path && (
-            <div className="banner h-[50vh] max-h-[540px] relative overflow-hidden">
+            <div className="banner h-[54vh] max-h-[720px] max-w-[2800px] m-auto relative overflow-hidden">
               <Image
                 alt={movie?.title}
                 src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
-                className="object-cover w-full rounded-lg"
+                className="object-cover w-full"
                 priority={true}
                 fill
               />
             </div>
           )}
 
-          <h1 className="text-3xl lg:text-5xl 2xl:text-6xl my-5 xl:my-10 leading-normal ">
+          <h1 className="text-2xl lg:text-4xl 2xl:text-6xl my-3 xl:my-6 leading-normal ">
             {movie?.title}
           </h1>
 
@@ -77,7 +77,7 @@ export async function MovieDetailPage(props: MovieDetailProps) {
             {/* <Trailer movieId={movie.id} limitDefault={12} /> */}
           </div>
 
-          <div className="movie-detail-container mt-10 m-auto max-w-screen-2xl">
+          <div className="movie-detail-container mt-10 m-auto p-3 md:p-4 lg:p-6 xl:p-8 max-w-screen-2xl">
             <div className="flex flex-col lg:flex-row gap-5 rounded-2xl">
               <div
                 className="@container left-info p-5 font-medium rounded-xl
