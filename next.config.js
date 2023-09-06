@@ -4,6 +4,7 @@ const nextConfig = {
         domains: [
             "image.tmdb.org"
         ],
+        unoptimized: true,
     },
 
     experimental: {

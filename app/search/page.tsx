@@ -225,7 +225,7 @@ const SearchPage = (props: SearchPage) => {
       bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100
       dark:bg-gradient-to-t dark:from-gray-900 dark:to-gray-600 dark:bg-gradient-to-r"
       >
-        <div className="m-auto w-full  max-w-screen-2xl p-2 xl:p-10 text-center">
+        <div className="m-auto w-full text-center">
           <h1 className="page-title text-xl md:text-2xl lg:text-3xl xl:text-4xl">
             Search Page
           </h1>
@@ -242,7 +242,7 @@ const SearchPage = (props: SearchPage) => {
             </>
           )}
 
-          <div className="search-form max-w-xl lg:max-w-5xl m-auto">
+          <div className="search-form max-w-xl lg:max-w-5xl m-auto px-2 lg:px-10">
             <div className="search-box my-8 flex justify-between align-middle">
               <Input
                 isClearable
@@ -269,7 +269,7 @@ const SearchPage = (props: SearchPage) => {
                   description:
                     "text-sm lg:text-xl lg:text-center block w-full text-gray-500 dark:text-gray-200",
                   inputWrapper:
-                    "lg:h-16 flex rounded-r-none bg-white dark:bg-primary-900 dark:border-white",
+                    "lg:h-16 flex rounded-r-none rounded-l-full bg-white dark:bg-primary-900 dark:border-white",
                 }}
                 onKeyUp={handleKeyUp}
               />
@@ -283,8 +283,8 @@ const SearchPage = (props: SearchPage) => {
                 aria-describedby="search-submit"
                 aria-label="Search"
                 onClick={handleSearch}
-                className="flex px-3 min-w-[132px] lg:h-16 rounded-r-xl text-xl"
-                startContent={
+                className="flex px-5 min-w-[136px] lg:h-16 rounded-r-full text-xl"
+                endContent={
                   <MagnifyingGlassIcon
                     width="32"
                     height="32"
@@ -316,102 +316,113 @@ const SearchPage = (props: SearchPage) => {
             )}
 
           {searchResult?.results && searchResult?.results.length > 0 && (
-            <div className="search-results">
+            <>
               <div
-                className="search-toolbar max-w-screen-2xl mx-auto mb-5 bg-white/90 py-2 px-3 rounded-lg 
-              flex flex-wrap justify-between align-middle items-center sticky top-20 z-30"
+                className="search-toolbar mb-5 w-full bg-white dark:bg-gray-700 py-2 px-3 lg:py-3 lg:px-5
+              sticky top-[68px] z-30"
               >
-                <div className="search-view flex gap-2 items-center">
-                  <span className="hidden md:block">View: </span>
-                  <Button
-                    isIconOnly
-                    aria-label="Search View Grid"
-                    variant="solid"
-                    color="primary"
-                    size="sm"
-                    onClick={() => {
-                      setSearchView(SearchView.GRID);
-                    }}
-                    isDisabled={searchView === SearchView.GRID}
-                  >
-                    <GridIcon width="24" height="24" />
-                  </Button>
-                  <Button
-                    isIconOnly
-                    aria-label="Search View List"
-                    variant="solid"
-                    color="primary"
-                    size="sm"
-                    onClick={() => {
-                      setSearchView(SearchView.LIST);
-                    }}
-                    isDisabled={searchView === SearchView.LIST}
-                  >
-                    <ListBulletIcon width="24" height="24" />
-                  </Button>
-                </div>
-                <h3 className="search-info text-sm lg:text-xl text-center text-primary-500 dark:text-blue-400">
-                  {searchResult?.total_results ?? 0} results
-                </h3>
-                <div className="search-language">
-                  <Select
-                    label="Language"
-                    className="w-48"
-                    color="primary"
-                    selectionMode="single"
-                    defaultSelectedKeys={["en"]}
-                    labelPlacement="outside-left"
-                    onChange={handleLanguageChange}
-                  >
-                    <SelectItem key="en" value="en">
-                      English
-                    </SelectItem>
-                    <SelectItem key="vi" value="vi">
-                      Vietnam
-                    </SelectItem>
-                    <SelectItem key="fr" value="fr">
-                      France
-                    </SelectItem>
-                    <SelectItem key="zh" value="zh">
-                      China
-                    </SelectItem>
-                  </Select>
+                <div className="toolbar-container max-w-screen-2xl mx-auto flex flex-wrap justify-between align-middle items-center ">
+                  <div className="search-view flex gap-2 items-center">
+                    <span className="hidden md:block">View: </span>
+                    <Button
+                      isIconOnly
+                      aria-label="Search View Grid"
+                      variant="solid"
+                      color="primary"
+                      size="sm"
+                      onClick={() => {
+                        setSearchView(SearchView.GRID);
+                      }}
+                      isDisabled={searchView === SearchView.GRID}
+                    >
+                      <GridIcon width="24" height="24" />
+                    </Button>
+                    <Button
+                      isIconOnly
+                      aria-label="Search View List"
+                      variant="solid"
+                      color="primary"
+                      size="sm"
+                      onClick={() => {
+                        setSearchView(SearchView.LIST);
+                      }}
+                      isDisabled={searchView === SearchView.LIST}
+                    >
+                      <ListBulletIcon width="24" height="24" />
+                    </Button>
+                  </div>
+                  <h3 className="search-info text-sm lg:text-xl text-center text-primary-500 dark:text-blue-400">
+                    {searchResult?.total_results ?? 0} results
+                  </h3>
+                  <div className="search-language">
+                    <Select
+                      label="Language"
+                      className="w-28 lg:w-36"
+                      //color="primary"
+                      size="sm"
+                      radius="lg"
+                      selectionMode="single"
+                      defaultSelectedKeys={["en"]}
+                      onChange={handleLanguageChange}
+                    >
+                      <SelectItem key="en" value="en">
+                        English
+                      </SelectItem>
+                      <SelectItem key="vi" value="vi">
+                        Vietnam
+                      </SelectItem>
+                      <SelectItem key="fr" value="fr">
+                        France
+                      </SelectItem>
+                      <SelectItem key="zh" value="zh">
+                        China
+                      </SelectItem>
+                      <SelectItem key="th" value="th">
+                        Thailand
+                      </SelectItem>
+                      <SelectItem key="ja" value="ja">
+                        Japan
+                      </SelectItem>
+                    </Select>
+                  </div>
                 </div>
               </div>
-              {searchView === SearchView.GRID && (
-                <MovieGrid movieList={searchResult?.results} />
-              )}
-
-              {searchView === SearchView.LIST && (
-                <MovieList
-                  movieList={searchResult?.results}
-                  genreList={genreList}
-                />
-              )}
-
-              <h4 className="search-load text-2xl">{`Loaded ${searchResult?.results.length} / ${searchResult?.total_results}`}</h4>
-
-              {searchResult?.total_pages &&
-                searchResult?.total_pages > page && (
-                  <Button
-                    className="load-more mt-10 mb-5 px-5 py-2"
-                    ref={ref}
-                    size="lg"
-                    color="primary"
-                    radius="lg"
-                    onClick={() => {
-                      setPage(page + 1);
-                    }}
-                    disabled={loading}
-                    isLoading={loading}
-                    spinnerPlacement="end"
-                  >
-                    {loading
-                      ? `Loading page ${page}`
-                      : `Load more page ${page + 1}`}
-                  </Button>
+              <div className="search-results  max-w-screen-2xl m-auto px-5 py-2 xl:py-5">
+                {searchView === SearchView.GRID && (
+                  <MovieGrid movieList={searchResult?.results} />
                 )}
-            </div>
+
+                {searchView === SearchView.LIST && (
+                  <MovieList
+                    movieList={searchResult?.results}
+                    genreList={genreList}
+                  />
+                )}
+
+                <h4 className="search-load text-2xl">{`Loaded ${searchResult?.results.length} / ${searchResult?.total_results}`}</h4>
+
+                {searchResult?.total_pages &&
+                  searchResult?.total_pages > page && (
+                    <Button
+                      className="load-more mt-10 mb-5 px-5 py-2"
+                      ref={ref}
+                      size="lg"
+                      color="primary"
+                      radius="lg"
+                      onClick={() => {
+                        setPage(page + 1);
+                      }}
+                      disabled={loading}
+                      isLoading={loading}
+                      spinnerPlacement="end"
+                    >
+                      {loading
+                        ? `Loading page ${page}`
+                        : `Load more page ${page + 1}`}
+                    </Button>
+                  )}
+              </div>
+            </>
           )}
         </div>
       </div>
