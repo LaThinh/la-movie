@@ -3,7 +3,7 @@ import { IMovieItem } from "../../interfaces";
 import Link from "next/link";
 // import Image from "next/image";
 import Rating from "./Rating";
-import { CircularProgress, Image } from "@nextui-org/react";
+import { CircularProgress, Image, Tooltip } from "@nextui-org/react";
 
 export function convertToSlug(text: string) {
   return text
@@ -22,20 +22,21 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
       key={movie.id}
     >
       <Link
-        className="group relative block min-h-[240px] overflow-hidden bg-gray-300 xl:min-h-[320px]"
+        className="group relative block min-h-[240px] overflow-hidden bg-gray-300 xl:min-h-[360px]"
         href={`/movie/${movie?.id}-${convertToSlug(movie.title)}`}
       >
         <Image
-          src={`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`}
+          src={`https://image.tmdb.org/t/p/w400/${movie?.poster_path}`}
           alt={movie?.title || "Title"}
           sizes="400"
-          width={300}
-          height={450}
+          width={360}
+          height={500}
           loading="eager"
           radius="none"
           isZoomed
-
+          removeWrapper
           // style={{ objectFit: "cover" }}
+          className="w-full object-cover m-auto"
           //className="!relative inset-0 h-full w-full object-cover object-center transition duration-300 group-hover:scale-110"
         />
 
@@ -74,16 +75,22 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
           aria-label="Point"
         />
       </Link>
-      <div className="flex flex-1 flex-col justify-between text-gray-700 dark:text-white text-left p-4 lg:p-5">
+      <div
+        className="flex flex-1 flex-col justify-between text-gray-700 dark:text-white 
+      text-left p-2 sm:p-3 md:p-4 "
+      >
         <h3 className="mb-2 text-lg font-semibold line-clamp-2">
           <Link
             className="text-gray-700 dark:text-gray-200"
-            href={`/movie/${movie.id}`}
+            href={`/movie/${movie.id}-${convertToSlug(movie.title)}`}
             title={movie?.original_title}
           >
             {movie.title}
           </Link>
         </h3>
+        <div className="release-date sm:hidden font-semibold italic mb-2">
+          {movie?.release_date.toLocaleString()}
+        </div>
 
         <p
           className="text-gray-500 dark:text-gray-200 line-clamp-4"
@@ -91,11 +98,27 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
         >
           {movie.overview}
         </p>
-        <div className="card-footer flex justify-between items-center mt-5">
-          <div className="vote">Votes: {movie?.vote_count}</div>
-          <div className="point"></div>
+        <div className="card-footer flex flex-wrap gap-2 justify-center sm:justify-between align-middle items-center mt-4 w-full">
+          <div className="popularity hidden w-full">{movie?.popularity}</div>
 
-          <Rating rating={Math.ceil(vote / 2)} />
+          <Tooltip
+            content={
+              <div className="tooltip-content flex flex-col justify-center items-center">
+                <div className="text-semibold">{`Vote Count: ${movie?.vote_count}`}</div>
+                <div className="text-gray-500">
+                  Point: {vote.toFixed(2)} / 10
+                </div>
+              </div>
+            }
+          >
+            <div className="rating ">
+              <Rating rating={Math.ceil(vote / 2)} />
+            </div>
+          </Tooltip>
+
+          <div className="release-date hidden sm:block font-semibold italic">
+            {movie?.release_date.toLocaleString()}
+          </div>
         </div>
       </div>
     </div>

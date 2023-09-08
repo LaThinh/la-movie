@@ -253,7 +253,7 @@ const SearchPage = (props: SearchPage) => {
                 id="search-query"
                 variant="bordered"
                 aria-describedby="search-query"
-                description="Search all movies, persions or keyword ..."
+                description="Search all movies, keyword ..."
                 placeholder="The movie, person or keyword ..."
                 labelPlacement="outside"
                 defaultValue={query ? query : ""}
@@ -283,11 +283,11 @@ const SearchPage = (props: SearchPage) => {
                 aria-describedby="search-submit"
                 aria-label="Search"
                 onClick={handleSearch}
-                className="flex px-5 min-w-[136px] lg:h-16 rounded-r-full text-xl"
+                className="flex px-5 min-w-[100px] lg:min-w-[140px] lg:h-16 rounded-r-full text-xl"
                 endContent={
                   <MagnifyingGlassIcon
-                    width="32"
-                    height="32"
+                    width="36"
+                    height="36"
                     className="text-white text-xl font-semibold"
                   />
                 }
@@ -335,7 +335,7 @@ const SearchPage = (props: SearchPage) => {
                       }}
                       isDisabled={searchView === SearchView.GRID}
                     >
-                      <GridIcon width="24" height="24" />
+                      <GridIcon width="20" height="20" />
                     </Button>
                     <Button
                       isIconOnly
@@ -387,7 +387,7 @@ const SearchPage = (props: SearchPage) => {
                   </div>
                 </div>
               </div>
-              <div className="search-results  max-w-screen-2xl m-auto px-5 py-2 xl:py-5">
+              <div className="search-results  max-w-screen-2xl m-auto px-2 py-2 lg:px-5 xl:py-5">
                 {searchView === SearchView.GRID && (
                   <MovieGrid movieList={searchResult?.results} />
                 )}

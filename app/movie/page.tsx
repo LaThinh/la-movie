@@ -39,7 +39,7 @@ export default function Movie() {
   }, [genreList]);
 
   return (
-    <div className="layout-movie flex gap-2 xl:gap-10 w-full flex-col xl:items-end m-auto xl:max-w-[1920px] p-5 relative ">
+    <div className="layout-movie flex gap-2 xl:gap-10 w-full flex-col xl:items-end m-auto xl:max-w-[1920px] p-2 lg:p-5 relative ">
       <div className="main-container flex flex-col xl:flex-row w-full gap-5 xl:gap-10 max-w-screen-2xl m-auto">
         <div className="sidebar movie-sidebar rounded-lg w-full block xl:w-1/5">
           <GenreList genres={genreList} />
