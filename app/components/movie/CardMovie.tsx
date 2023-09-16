@@ -77,7 +77,7 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
       </Link>
       <div
         className="flex flex-1 flex-col justify-between text-gray-700 dark:text-white 
-      text-left p-2 sm:p-3 md:p-4 "
+      text-left p-3 lg:p-4 "
       >
         <h3 className="mb-2 text-lg font-semibold line-clamp-2">
           <Link

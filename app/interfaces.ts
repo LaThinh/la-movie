@@ -88,3 +88,41 @@ export interface ISearchParams {
   query: string;
   page: number;
 }
+
+export interface IMovieImages {
+  backdrops: IPhoto[];
+  logos: IPhoto[];
+  posters: IPhoto[];
+}
+export interface IPhoto {
+  aspect_ratio: number;
+  file_path: string;
+  width: number;
+  height: number;
+  vote_average: number;
+  vote_count: number;
+  iso_639_1?: string;
+}
+
+export interface IAuthorDetail {
+  name: string;
+  username: string;
+  avatar_path: string;
+  rating: number;
+}
+
+export interface IReview {
+  author: string;
+  author_details: IAuthorDetail;
+  content: string;
+  id: string;
+  url: string;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface IMovieReviews {
+  id: number;
+  page: number;
+  results: IReview[];
+}

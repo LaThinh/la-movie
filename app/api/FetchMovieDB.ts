@@ -15,6 +15,13 @@ const options: RequestInit = {
   },
 };
 
+const fetchHeader = {
+  accept: "application/json",
+  Authorization:
+    process.env.THE_MOVIE_DATABASE_API?.toString() ||
+    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3YzQxODJmN2Y4M2U1MTMwZmE2ZjRiOTRlMGM2OGE3NyIsInN1YiI6IjY0YjYwN2VlMzc4MDYyMDBmZjNhMmNkYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nv6BfKpMo2TI6mBuoJaOcXGOdKmZEd2F7E7Q01RkaGY",
+};
+
 let language = "en-EN";
 //language = "vi-VN";
 
@@ -157,6 +164,54 @@ export async function searchMovies({
   const res = await fetch(url, options);
   if (!res.ok) {
     throw new Error("Failed to fetch getGenreList. URL Link: " + url);
+  }
+
+  return res.json();
+}
+
+export async function getMovieImages({
+  movieId,
+  language,
+}: {
+  movieId: string;
+  language?: string;
+}) {
+  language = language || "en";
+  const url = `${baseUrl}/movie/${movieId}/images`;
+  const res = await fetch(url, {
+    method: "GET",
+    headers: fetchHeader,
+    //cache: "force-cache",
+    next: {
+      revalidate: 100,
+    },
+  });
+  if (!res.ok) {
+    throw new Error("Failed to fetch data trailer. URL Link: " + url);
+  }
+
+  return res.json();
+}
+
+export async function getMovieReviews({
+  movieId,
+  language,
+}: {
+  movieId: string;
+  language?: string;
+}) {
+  language = language || "en";
+  const url = `${baseUrl}/movie/${movieId}/reviews`;
+  const res = await fetch(url, {
+    method: "GET",
+    headers: fetchHeader,
+    //cache: "force-cache",
+    next: {
+      revalidate: 300,
+    },
+  });
+  if (!res.ok) {
+    throw new Error("Failed to fetch data review. URL Link: " + url);
   }
 
   return res.json();

@@ -11,6 +11,7 @@ import MovieInfo from "@/app/components/movie/MovieInfo";
 import Trailer from "@/app/components/movie/Trailer";
 import { getMovieDetails } from "@/app/api/FetchMovieDB";
 import SliderVideos from "@/app/components/SliderVideos";
+import MovieTabs from "@/app/components/movie/MovieTabs";
 
 type MovieDetailProps = {
   params: { movieId: string };
@@ -51,7 +52,7 @@ export async function MovieDetailPage(props: MovieDetailProps) {
       {!movie ? (
         <div className="loading">Loading ... </div>
       ) : (
-        <div className="movie-detail-view   m-auto ">
+        <div className="movie-detail-view m-auto">
           {movie?.backdrop_path && (
             <div className="banner h-[54vh] max-h-[720px] max-w-[2800px] m-auto relative overflow-hidden">
               <Image
@@ -76,6 +77,8 @@ export async function MovieDetailPage(props: MovieDetailProps) {
             />
             {/* <Trailer movieId={movie.id} limitDefault={12} /> */}
           </div>
+
+          <MovieTabs movieId={movie.id} movie={movie} />
 
           <div className="movie-detail-container mt-10 m-auto p-3 md:p-4 lg:p-6 xl:p-8 max-w-screen-2xl">
             <div className="flex flex-col lg:flex-row gap-5 rounded-2xl">

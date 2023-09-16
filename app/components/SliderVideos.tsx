@@ -73,7 +73,7 @@ const SliderVideos = ({
         </div>
       ) : (
         videos.length > 0 && (
-          <div className="movie-trailer @container bg-gray-700 p-5 rounded-xl">
+          <div className="movie-trailer @container bg-gray-700 p-5">
             <h2 className="text-xl lg:text-2xl my-2 lg:my-5 text-white text-left">
               Video Trailer: Total: {Math.min(total, limit)} videos
             </h2>
