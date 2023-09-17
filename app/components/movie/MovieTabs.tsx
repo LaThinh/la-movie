@@ -47,7 +47,7 @@ export function MovieTabs({
             </div>
           }
           id="tab-photo"
-          aria-controls="tab-photos"
+          aria-controls="tab-photo"
         >
           <Card>
             <CardBody>

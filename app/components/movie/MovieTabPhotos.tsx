@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo } from "react";
+import React, { useEffect, useState, memo, useRef } from "react";
 import { getMovieImages } from "@/app/api/FetchMovieDB";
 import { IMovieImages, IPhoto } from "@/app/interfaces";
 import {
@@ -23,12 +23,42 @@ export enum PhotoType {
   BackDrops = "backdrops",
 }
 
+export function filterPhotoLanguage({
+  movieImages,
+  language,
+}: {
+  movieImages: IMovieImages;
+  language: string;
+}) {
+  const photoBackDrop: IPhoto[] = movieImages?.backdrops.filter((photo) => {
+    return photo.iso_639_1 == null || photo.iso_639_1 == language;
+  });
+  const photoLogo: IPhoto[] = movieImages?.logos.filter((photo) => {
+    return photo.iso_639_1 == language || photo.iso_639_1 == null;
+  });
+  const photoPoster: IPhoto[] = movieImages?.posters.filter((photo) => {
+    return photo.iso_639_1 == null || photo.iso_639_1 == language;
+  });
+
+  const resultPhotos: IMovieImages = {
+    backdrops: photoBackDrop,
+    logos: photoLogo,
+    posters: photoPoster,
+  };
+
+  return resultPhotos;
+}
+
 export function MovieTabPhotos({ movieId }: { movieId: string }) {
   const [movieImages, setMovieImages] = useState<IMovieImages>();
+  const [moviePhotoLanguage, setMoviePhotoLanguage] = useState<IMovieImages>();
   const [photoList, setPhotoList] = useState<IPhoto[]>();
   const [loading, setLoading] = useState(true);
   const [photoType, setPhotoType] = useState<PhotoType>();
   const [indexShow, setIndexShow] = useState(0);
+
+  const btnPrev = useRef<HTMLButtonElement>(null);
+  const btnNext = useRef<HTMLButtonElement>(null);
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -40,37 +70,39 @@ export function MovieTabPhotos({ movieId }: { movieId: string }) {
       }
       console.log(data);
       setLoading(false);
+
+      const photoLanguage = filterPhotoLanguage({
+        movieImages: data,
+        language: "en",
+      });
+
+      setMoviePhotoLanguage(photoLanguage);
+      console.log(photoLanguage);
     };
 
     getPhotos();
+
+    document.addEventListener("keydown", keyDownHandler, false);
+
+    return () => {
+      document.removeEventListener("keydown", keyDownHandler, false);
+    };
   }, []);
 
   const handleChangeImageType = (key: React.Key) => {
     if (key == "backdrops") {
       setPhotoType(PhotoType.BackDrops);
-      //setPhotoList(movieImages?.backdrops);
-      const photoLanguage = movieImages?.backdrops.filter((photo) => {
-        return photo.iso_639_1 == "en";
-      });
-      setPhotoList(photoLanguage);
+      setPhotoList(moviePhotoLanguage?.backdrops);
     }
 
     if (key == "logos") {
       setPhotoType(PhotoType.Logos);
-      //setPhotoList(movieImages?.logos);
-      const photoLanguage = movieImages?.logos.filter((photo) => {
-        return photo.iso_639_1 == "en";
-      });
-      setPhotoList(photoLanguage);
+      setPhotoList(moviePhotoLanguage?.logos);
     }
 
     if (key == "posters") {
       setPhotoType(PhotoType.Posters);
-      //setPhotoList(movieImages?.posters);
-      const photoLanguage = movieImages?.posters.filter((photo) => {
-        return photo.iso_639_1 == "en";
-      });
-      setPhotoList(photoLanguage);
+      setPhotoList(moviePhotoLanguage?.posters);
     }
   };
 
@@ -89,6 +121,33 @@ export function MovieTabPhotos({ movieId }: { movieId: string }) {
     setIndexShow(Math.max(indexShow - 1, 0));
   };
 
+  const keyDownHandler = (e: KeyboardEvent) => {
+    if (e.key === "ArrowLeft") {
+      btnPrev.current && btnPrev.current.click();
+    } else if (e.key === "ArrowRight") {
+      btnNext.current && btnNext.current.click();
+    }
+  };
+
+  const tabColor =
+    photoType == PhotoType.BackDrops
+      ? "secondary"
+      : photoType === PhotoType.Logos
+      ? "primary"
+      : "danger";
+
+  const classPhotoGrid = `grid grid-col justify-center
+  ${photoType === PhotoType.BackDrops && "gap-6 lg:grid-cols-2"}
+  ${
+    photoType === PhotoType.Logos &&
+    "grid-cols-2 gap-2 lg:grid-cols-3 lg:gap-4 xl:grid-cols-4 xl:gap-6"
+  }
+  ${
+    photoType === PhotoType.Posters &&
+    "gap-2 sm:grid-cols-2 md:gap-4 lg:grid-cols-3 lg:gap-6 xl:grid-cols-4 2xl:grid-cols-5"
+  }
+  `;
+
   return (
     <div className="movie-photos">
       {loading && (
@@ -101,13 +160,7 @@ export function MovieTabPhotos({ movieId }: { movieId: string }) {
         <div className="movie-tab-photo m-auto text-center">
           <Tabs
             key="tabs-photo"
-            color={
-              photoType == PhotoType.BackDrops
-                ? "secondary"
-                : photoType === PhotoType.Logos
-                ? "primary"
-                : "danger"
-            }
+            color={tabColor}
             aria-label="Tabs colors"
             radius="full"
             size="lg"
@@ -116,13 +169,36 @@ export function MovieTabPhotos({ movieId }: { movieId: string }) {
             classNames={{
               tabList: "m-auto my-3",
               cursor: "",
-              tab: "max-w-fit py-2 px-4 text-lg lg:py-4 lg:px-8 lg:text-xl lg:font-semibold",
+              tab: "max-w-fit py-2 px-2 text-sm lg:py-4 lg:px-8 lg:text-xl lg:font-semibold",
               tabContent: "",
             }}
           >
-            <Tab key="backdrops" title="Backdrops" />
-            <Tab key="logos" title="Logos" />
-            <Tab key="posters" title="Posters" />
+            {moviePhotoLanguage?.backdrops &&
+              moviePhotoLanguage.backdrops.length > 0 && (
+                <Tab
+                  key="backdrops"
+                  aria-controls="tab-photo-backdrops"
+                  title={`Backdrops (${moviePhotoLanguage?.backdrops.length})`}
+                />
+              )}
+
+            {moviePhotoLanguage?.logos &&
+              moviePhotoLanguage.logos.length > 0 && (
+                <Tab
+                  key="logos"
+                  aria-controls="tab-photo-logos"
+                  title={`Logos (${moviePhotoLanguage?.logos.length})`}
+                />
+              )}
+
+            {moviePhotoLanguage?.posters &&
+              moviePhotoLanguage.posters.length > 0 && (
+                <Tab
+                  key="posters"
+                  aria-controls="tab-photo-posters"
+                  title={`Posters (${moviePhotoLanguage?.posters.length})`}
+                />
+              )}
           </Tabs>
 
           {photoList?.length == 0 ? (
@@ -144,27 +220,12 @@ export function MovieTabPhotos({ movieId }: { movieId: string }) {
 
           {photoList?.length && photoList.length > 0 && (
             <>
-              <div
-                className={`grid grid-col
-                          ${
-                            photoType === PhotoType.BackDrops &&
-                            "gap-6 lg:grid-cols-2"
-                          }
-                          ${
-                            photoType === PhotoType.Posters &&
-                            "gap-2 sm:grid-cols-2 md:gap-4 lg:grid-cols-3 lg:gap-6 xl:grid-cols-4"
-                          }
-                          ${
-                            photoType === PhotoType.Logos &&
-                            "grid-cols-2 gap-2 lg:grid-cols-3 lg:gap-4 xl:grid-cols-4 xl:gap-6"
-                          }
-                          `}
-              >
+              <div className={classPhotoGrid}>
                 {photoList.map((image, index) => (
                   <div
                     key={index}
-                    className={`relative flex flex-col overflow-hidden items-center justify-center 
-                    rounded  bg-gray-200
+                    className={`relative overflow-hidden rounded
+                    flex flex-col  items-center justify-center bg-gray-200
                     ${
                       photoType === PhotoType.Logos &&
                       "aspect-square rounded-full bg-gray-400 p-5 md:p-10 lg:p-12"
@@ -172,10 +233,6 @@ export function MovieTabPhotos({ movieId }: { movieId: string }) {
                   dark:bg-slate-800 cursor-pointer`}
                     onClick={() => handleShowPhoto(index)}
                   >
-                    {/* <Link
-                      href={`https://image.tmdb.org/t/p/original/${image.file_path}`}
-                      target="_blank"
-                    > */}
                     <Image
                       src={`https://image.tmdb.org/t/p/${
                         (photoType === PhotoType.BackDrops && "w780") ||
@@ -197,7 +254,6 @@ export function MovieTabPhotos({ movieId }: { movieId: string }) {
                       isZoomed
                       removeWrapper
                     />
-                    {/* </Link> */}
                   </div>
                 ))}
               </div>
@@ -207,7 +263,7 @@ export function MovieTabPhotos({ movieId }: { movieId: string }) {
                 isOpen={isOpen}
                 onOpenChange={onOpenChange}
                 size="5xl"
-                className="max-w-screen-xl my-10"
+                className="max-w-screen-2xl my-10"
                 placement={"center"}
                 scrollBehavior={
                   photoType === PhotoType.Posters ? "outside" : "normal"
@@ -220,43 +276,32 @@ export function MovieTabPhotos({ movieId }: { movieId: string }) {
                 <ModalContent>
                   {(onClose) => (
                     <>
-                      <ModalHeader className="flex gap-1">
-                        <Button
-                          color="primary"
-                          onClick={handlePrevPhoto}
-                          isDisabled={indexShow <= 0}
-                        >
-                          Prev
-                        </Button>
-                        <Button
-                          color="primary"
-                          onClick={handleNextPhoto}
-                          isDisabled={indexShow >= photoList.length - 1}
-                        >
-                          Next
-                        </Button>
-                      </ModalHeader>
-                      <ModalBody className="p-0">
-                        <Image
-                          src={`https://image.tmdb.org/t/p/original/${photoList[indexShow].file_path}`}
-                          alt={"Title"}
-                          radius="none"
-                        />
-                      </ModalBody>
-                      <ModalFooter className="flex items-center">
-                        <Button
-                          color="danger"
-                          variant="light"
-                          onPress={onClose}
-                          size="lg"
-                        >
-                          Close
-                        </Button>
+                      <ModalHeader className="flex gap-1 items-center justify-between pr-14">
+                        <div className="header-arrow flex gap-2 items-center align-center">
+                          <Button
+                            color="primary"
+                            onClick={handlePrevPhoto}
+                            isDisabled={indexShow <= 0}
+                            ref={btnPrev}
+                          >
+                            Prev
+                          </Button>
+                          {indexShow + 1}/{photoList?.length}
+                          <Button
+                            color="primary"
+                            onClick={handleNextPhoto}
+                            isDisabled={
+                              indexShow >= (photoList?.length || 1) - 1
+                            }
+                            ref={btnNext}
+                          >
+                            Next
+                          </Button>
+                        </div>
                         <Button
                           color="success"
-                          className="text-white hover:text-white font-semibold"
+                          className="text-white hover:text-white font-semibold hidden lg:flex"
                           as={Link}
-                          size="lg"
                           target="_blank"
                           href={`https://image.tmdb.org/t/p/original/${photoList[indexShow].file_path}`}
                         >
@@ -267,13 +312,45 @@ export function MovieTabPhotos({ movieId }: { movieId: string }) {
                             className="text-white text-lg font-semibold"
                           />
                         </Button>
+                      </ModalHeader>
+                      <ModalBody className="p-0 text-center items-center">
+                        <Image
+                          src={`https://image.tmdb.org/t/p/original/${photoList[indexShow].file_path}`}
+                          alt={"Title"}
+                          radius="none"
+                          className="w-full m-auto block"
+                        />
+                      </ModalBody>
+                      <ModalFooter className="flex items-center justify-between lg:hidden">
                         <Button
+                          color="success"
+                          className="text-white w-full max-w-[320px] m-auto hover:text-white font-semibold"
+                          as={Link}
+                          target="_blank"
+                          href={`https://image.tmdb.org/t/p/original/${photoList[indexShow].file_path}`}
+                        >
+                          Download
+                          <DownloadIcon
+                            width="24"
+                            height="24"
+                            className="text-white text-lg font-semibold"
+                          />
+                        </Button>
+                        {/* <Button
                           color="primary"
                           className="hidden"
                           onPress={onClose}
                         >
                           Action
                         </Button>
+                        <Button
+                          color="danger"
+                          variant="light"
+                          onPress={onClose}
+                          size="lg"
+                        >
+                          Close
+                        </Button> */}
                       </ModalFooter>
                     </>
                   )}
@@ -286,98 +363,5 @@ export function MovieTabPhotos({ movieId }: { movieId: string }) {
     </div>
   );
 }
-
-const PhotoBackdrops = ({ photoList }: { photoList: IPhoto[] | undefined }) => {
-  return (
-    <>
-      {photoList?.length && photoList.length > 0 && (
-        <div className="grid grid-col gap-6 lg:grid-cols-2">
-          {photoList.map((image, index) => (
-            <div
-              key={index}
-              className="relative flex flex-col overflow-hidden items-center justify-center 
-              max-w-[780px] m-auto rounded-lg
-            bg-gray-200 dark:bg-slate-800 "
-            >
-              <Link
-                href={`https://image.tmdb.org/t/p/original/${image.file_path}`}
-                target="_blank"
-              >
-                <Image
-                  src={`https://image.tmdb.org/t/p/w780/${image.file_path}`}
-                  alt={`Image BackDrops ${index} ${image?.file_path}`}
-                  sizes="780"
-                  width={780}
-                  loading="eager"
-                  radius="none"
-                  isZoomed
-                  removeWrapper
-                />
-              </Link>
-            </div>
-          ))}
-        </div>
-      )}
-    </>
-  );
-};
-
-const PhotoLogos = (photoList: IPhoto[]) => {
-  return (
-    <>
-      {photoList?.length && photoList.length > 0 && (
-        <div className="grid grid-col gap-4 sm:grid-cols-2 md:gap-8 lg:grid-cols-3 xl:grid-cols-4">
-          {photoList.map((image, index) => (
-            <div
-              key={index}
-              className="relative flex flex-col overflow-hidden items-center justify-center rounded
-            bg-gray-500 dark:bg-slate-800 p-4"
-            >
-              <Image
-                src={`https://image.tmdb.org/t/p/w400/${image.file_path}`}
-                alt={`Image BackDrops ${index} ${image?.file_path}`}
-                sizes="400"
-                width={400}
-                height={240}
-                loading="eager"
-                radius="none"
-                isZoomed
-              />
-            </div>
-          ))}
-        </div>
-      )}
-    </>
-  );
-};
-
-const PhotoPosters = (photoList: IPhoto[]) => {
-  return (
-    <>
-      {photoList?.length && photoList.length > 0 && (
-        <div className="grid grid-col gap-2 sm:grid-cols-2 md:gap-4 lg:grid-cols-3 xl:grid-cols-4">
-          {photoList.map((image, index) => (
-            <div
-              key={index}
-              className="relative flex flex-col overflow-hidden items-center justify-center rounded
-            bg-gray-300 dark:bg-slate-800 "
-            >
-              <Image
-                src={`https://image.tmdb.org/t/p/w400/${image.file_path}`}
-                alt={`Image BackDrops ${index} ${image?.file_path}`}
-                sizes="400"
-                width={400}
-                height={240}
-                loading="eager"
-                radius="none"
-                isZoomed
-              />
-            </div>
-          ))}
-        </div>
-      )}
-    </>
-  );
-};
 
 export default memo(MovieTabPhotos);
