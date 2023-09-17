@@ -126,3 +126,23 @@ export interface IMovieReviews {
   page: number;
   results: IReview[];
 }
+
+export interface IPeople {
+  id: number;
+  credit_id: string;
+  name: string;
+  original_name: string;
+  profile_path: string;
+  adult: boolean;
+  gender: number;
+  popularity: number;
+  known_for_department: string;
+  character?: string;
+  job?: string;
+}
+
+export interface ICredits {
+  id: number;
+  cast: IPeople[];
+  crew: IPeople[];
+}

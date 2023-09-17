@@ -11,6 +11,7 @@ import { GalleryIcon } from "@/app/icons/GalleryIcon";
 import { VideoIcon } from "@/app/icons/VideoIcon";
 import { Server, TagUser } from "@/app/icons/Icons";
 import MovieTabReview from "@/app/components/movie/MovieTabReview";
+import MovieTabCredits from "./MovieTabCredits";
 
 export function MovieTabs({
   movieId,
@@ -32,11 +33,11 @@ export function MovieTabs({
           tabList:
             "gap-2 lg:gap-6 w-full relative rounded-none p-0 border-b border-divider",
           cursor: "w-full bg-primary",
-          tab: "max-w-fit px-2 py-2 h-12 text-sm font-semibold md:text-lg lg:text-2xl lg:px-6",
+          tab: "max-w-fit px-2 py-2 h-12 text-sm font-semibold md:text-lg lg:text-2xl lg:px-4",
           tabContent:
             "group-data-[selected=true]:text-primary p-2 md:p-3 lg:p-5",
         }}
-        defaultSelectedKey="photo"
+        defaultSelectedKey="credit"
       >
         <Tab
           key="photo"
@@ -70,6 +71,25 @@ export function MovieTabs({
           <Card>
             <CardBody>
               <MovieTabInfo movie={movie} />
+            </CardBody>
+          </Card>
+        </Tab>
+
+        <Tab
+          key="credits"
+          title={
+            <div className="flex items-center space-x-2">
+              <TagUser />
+              <span>Credits</span>
+            </div>
+          }
+          id="tab-credits"
+          aria-controls="tab-credits"
+        >
+          <Card>
+            <CardBody>
+              {/* <MovieTabVideo movieId={movieId} /> */}
+              <MovieTabCredits movieId={movieId} />
             </CardBody>
           </Card>
         </Tab>

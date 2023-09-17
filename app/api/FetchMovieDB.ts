@@ -216,3 +216,27 @@ export async function getMovieReviews({
 
   return res.json();
 }
+
+export async function getMovieCredits({
+  movieId,
+  language,
+}: {
+  movieId: string;
+  language?: string;
+}) {
+  language = language || "en";
+  const url = `${baseUrl}/movie/${movieId}/credits?language=${language}`;
+  const res = await fetch(url, {
+    method: "GET",
+    headers: fetchHeader,
+    //cache: "force-cache",
+    next: {
+      revalidate: 300,
+    },
+  });
+  if (!res.ok) {
+    throw new Error("Failed to fetch data review. URL Link: " + url);
+  }
+
+  return res.json();
+}

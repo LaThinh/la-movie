@@ -208,12 +208,12 @@ export function MovieTabPhotos({ movieId }: { movieId: string }) {
               </h3>
             </>
           ) : (
-            <h3 className="text-sm text-center my-5 mx-auto capitalize lg:text-xl">
+            <h5 className="text-sm text-center my-5 mx-auto capitalize lg:text-xl">
               Photo Type {photoType} :
               <span className="ml-3 text-lg">
                 Total {photoList?.length} items
               </span>
-            </h3>
+            </h5>
           )}
 
           {/* {photoType == "backdrops" && <PhotoBackdrops photoList={photoList} />} */}
