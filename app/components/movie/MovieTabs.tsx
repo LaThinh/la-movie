@@ -21,115 +21,118 @@ export function MovieTabs({
   movie: IMovie;
 }) {
   return (
-    <div className="flex w-full flex-col max-w-screen-2xl mx-auto my-10">
-      <Tabs
-        aria-label="Options"
-        id="movie-tab"
-        size="lg"
-        color="primary"
-        radius="full"
-        variant="underlined"
-        classNames={{
-          tabList:
-            "gap-2 lg:gap-6 w-full relative rounded-none p-0 border-b border-divider",
-          cursor: "w-full bg-primary",
-          tab: "max-w-fit px-2 py-2 h-12 text-sm font-semibold md:text-lg lg:text-2xl lg:px-4",
-          tabContent:
-            "group-data-[selected=true]:text-primary p-2 md:p-3 lg:p-5",
-        }}
-        defaultSelectedKey="credit"
-      >
-        <Tab
-          key="photo"
-          title={
-            <div className="flex items-center space-x-2">
-              <GalleryIcon />
-              <span>Photos</span>
-            </div>
-          }
-          id="tab-photo"
-          aria-controls="tab-photo"
+    <div>
+      <div className="flex w-full flex-col max-w-screen-2xl mx-auto my-10 ">
+        <Tabs
+          aria-label="Options"
+          id="movie-tab"
+          size="lg"
+          color="primary"
+          radius="full"
+          variant="underlined"
+          classNames={{
+            tabList:
+              "gap-2 lg:gap-6 w-full h-16 relative rounded-none p-0 border-b border-divider",
+            cursor: "w-full bg-primary",
+            tab: "max-w-fit px-2 py-2 h-10 text-sm font-semibold md:text-lg lg:text-2xl lg:px-4",
+            tabContent:
+              "group-data-[selected=true]:text-primary p-2 md:p-3 lg:p-5",
+          }}
+          defaultSelectedKey="credit"
+          className="sticky top-[68px] z-30 pt-2 bg-white dark:bg-background"
         >
-          <Card>
-            <CardBody>
-              <MovieTabPhotos movieId={movieId} />
-            </CardBody>
-          </Card>
-        </Tab>
+          <Tab
+            key="photo"
+            title={
+              <div className="flex items-center space-x-2">
+                <GalleryIcon />
+                <span>Photos</span>
+              </div>
+            }
+            id="tab-photo"
+            aria-controls="tab-photo"
+          >
+            <Card>
+              <CardBody>
+                <MovieTabPhotos movieId={movieId} />
+              </CardBody>
+            </Card>
+          </Tab>
 
-        <Tab
-          key="info"
-          title={
-            <div className="flex items-center space-x-2">
-              <Server />
-              <span>Information</span>
-            </div>
-          }
-          id="tab-info"
-          aria-controls="tab-infos"
-        >
-          <Card>
-            <CardBody>
-              <MovieTabInfo movie={movie} />
-            </CardBody>
-          </Card>
-        </Tab>
+          <Tab
+            key="info"
+            title={
+              <div className="flex items-center space-x-2">
+                <Server />
+                <span>Information</span>
+              </div>
+            }
+            id="tab-info"
+            aria-controls="tab-infos"
+          >
+            <Card>
+              <CardBody>
+                <MovieTabInfo movie={movie} />
+              </CardBody>
+            </Card>
+          </Tab>
 
-        <Tab
-          key="credits"
-          title={
-            <div className="flex items-center space-x-2">
-              <TagUser />
-              <span>Credits</span>
-            </div>
-          }
-          id="tab-credits"
-          aria-controls="tab-credits"
-        >
-          <Card>
-            <CardBody>
-              {/* <MovieTabVideo movieId={movieId} /> */}
-              <MovieTabCredits movieId={movieId} />
-            </CardBody>
-          </Card>
-        </Tab>
+          <Tab
+            key="credits"
+            title={
+              <div className="flex items-center space-x-2">
+                <TagUser />
+                <span>Credits</span>
+              </div>
+            }
+            id="tab-credits"
+            aria-controls="tab-credits"
+          >
+            <Card>
+              <CardBody>
+                {/* <MovieTabVideo movieId={movieId} /> */}
+                <MovieTabCredits movieId={movieId} />
+              </CardBody>
+            </Card>
+          </Tab>
 
-        <Tab
-          key="review"
-          title={
-            <div className="flex items-center space-x-2">
-              <TagUser />
-              <span>Reviews</span>
-            </div>
-          }
-          id="tab-review"
-          aria-controls="tab-reviews"
-        >
-          <Card>
-            <CardBody>
-              <MovieTabReview movieId={movieId} movie={movie} />
-            </CardBody>
-          </Card>
-        </Tab>
-        <Tab
-          key="videos"
-          title={
-            <div className="flex items-center space-x-2">
-              <VideoIcon />
-              <span>All Videos</span>
-            </div>
-          }
-          id="tab-videos"
-          aria-controls="tab-videos"
-        >
-          <Card>
-            <CardBody>
-              Movie Video
-              <MovieTabVideo movieId={movieId} />
-            </CardBody>
-          </Card>
-        </Tab>
-      </Tabs>
+          <Tab
+            key="review"
+            title={
+              <div className="flex items-center space-x-2">
+                <TagUser />
+                <span>Reviews</span>
+              </div>
+            }
+            id="tab-review"
+            aria-controls="tab-reviews"
+          >
+            <Card>
+              <CardBody>
+                <MovieTabReview movieId={movieId} movie={movie} />
+              </CardBody>
+            </Card>
+          </Tab>
+          <Tab
+            key="videos"
+            title={
+              <div className="flex items-center space-x-2">
+                <VideoIcon />
+                <span>All Videos</span>
+              </div>
+            }
+            id="tab-videos"
+            aria-controls="tab-videos"
+          >
+            <Card>
+              <CardBody>
+                Movie Video
+                <MovieTabVideo movieId={movieId} />
+              </CardBody>
+            </Card>
+          </Tab>
+        </Tabs>
+      </div>
     </div>
   );
 }

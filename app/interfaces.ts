@@ -146,3 +146,45 @@ export interface ICredits {
   cast: IPeople[];
   crew: IPeople[];
 }
+
+export interface IPerson {
+  adult: boolean;
+  also_known_as: string[];
+  biography: string;
+  birthday: string;
+  gender: number;
+  homepage?: string;
+  id: number;
+  imdb_id?: string;
+  known_for_department?: string;
+  name: string;
+  place_of_birth: string;
+  popularity: number;
+  profile_path: string;
+  images?: {
+    profiles: IProfileImage[];
+  };
+  external_ids?: IExternalIds;
+}
+
+export interface IProfileImage {
+  aspect_ratio: number;
+  file_path: string;
+  iso_639_1: string;
+  vote_average: number;
+  vote_count: number;
+  width: number;
+}
+
+export interface IExternalIds {
+  freebase_mid?: string;
+  freebase_id?: string;
+  imdb_id?: string;
+  tvrage_id?: string;
+  wikidata_id?: string;
+  facebook_id?: string;
+  instagram_id?: string;
+  tiktok_id?: string;
+  twitter_id?: string;
+  youtube_id?: string;
+}

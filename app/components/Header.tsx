@@ -7,7 +7,7 @@ export default function Header() {
 
   return (
     <header
-      className="flex sticky top-0 z-30 justify-between items-center px-3
+      className="flex sticky top-0 z-50 justify-between items-center px-3
     lg:px-10 py-1 bg-primary-400 dark:bg-black    
     "
     >

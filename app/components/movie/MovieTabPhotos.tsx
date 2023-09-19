@@ -157,7 +157,7 @@ export function MovieTabPhotos({ movieId }: { movieId: string }) {
       )}
 
       {movieImages && movieImages.backdrops.length > 0 && (
-        <div className="movie-tab-photo m-auto text-center">
+        <div className="movie-tab-photo m-auto text-center relative">
           <Tabs
             key="tabs-photo"
             color={tabColor}
@@ -167,7 +167,7 @@ export function MovieTabPhotos({ movieId }: { movieId: string }) {
             variant="bordered"
             onSelectionChange={(key) => handleChangeImageType(key)}
             classNames={{
-              tabList: "m-auto my-3",
+              tabList: "m-auto my-3 ",
               cursor: "",
               tab: "max-w-fit py-2 px-2 text-sm lg:py-4 lg:px-8 lg:text-xl lg:font-semibold",
               tabContent: "",
@@ -208,9 +208,9 @@ export function MovieTabPhotos({ movieId }: { movieId: string }) {
               </h3>
             </>
           ) : (
-            <h5 className="text-sm text-center my-5 mx-auto capitalize lg:text-xl">
+            <h5 className="text-sm text-center my-5 mx-auto capitalize lg:text-xl sticky  top-[68px] z-20">
               Photo Type {photoType} :
-              <span className="ml-3 text-lg">
+              <span className="ml-3 text-sm">
                 Total {photoList?.length} items
               </span>
             </h5>
