@@ -22,9 +22,11 @@ function CardPerson({ person }: { person: IPeople }) {
             />
           </Link>
         </div>
-        <div className="card-info p-3 lg:p-4">
-          <h4>{person.name}</h4>
-          <h5>{person?.character ? person.character : person.job}</h5>
+        <div className="card-info p-2 lg:p-3">
+          <h4 className="text-base">{person.name}</h4>
+          <p className="text-sm">
+            {person?.character ? person.character : person.job}
+          </p>
         </div>
       </div>
     </div>

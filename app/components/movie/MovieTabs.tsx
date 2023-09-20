@@ -38,7 +38,7 @@ export function MovieTabs({
             tabContent:
               "group-data-[selected=true]:text-primary p-2 md:p-3 lg:p-5",
           }}
-          defaultSelectedKey="credit"
+          defaultSelectedKey="credits"
           className="sticky top-[68px] z-30 pt-2 bg-white dark:bg-background"
         >
           <Tab

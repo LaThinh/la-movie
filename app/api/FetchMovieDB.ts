@@ -265,3 +265,28 @@ export async function getPersonDetails({
 
   return res.json();
 }
+
+export async function getPersonMovies({
+  personId,
+  language,
+}: {
+  personId: string;
+  language?: string;
+}) {
+  language = language || "en";
+  const url = `${baseUrl}/person/${personId}/movie_credits?language=${language}`;
+
+  const res = await fetch(url, {
+    method: "GET",
+    headers: fetchHeader,
+    //cache: "force-cache",
+    next: {
+      revalidate: 300,
+    },
+  });
+  if (!res.ok) {
+    throw new Error("Failed to fetch data Person Movies. URL Link: " + url);
+  }
+
+  return res.json();
+}

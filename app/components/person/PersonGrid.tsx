@@ -9,9 +9,9 @@ function PersonGrid({ peoples }: { peoples: IPeople[] }) {
       {peoples?.length && peoples.length > 0 && (
         <div
           className="person-grid grid grid-cols-2 gap-2 @xs:gap-4
-        @md:grid-cols-3 @md:gap-5
-        @xl:grid-cols-4 @xl:gap-6
-        @3xl:grid-cols-5 @3xl:gap-8
+        @lg:grid-cols-3 @lg:gap-5
+        @2xl:grid-cols-4 @xl:gap-6
+        @4xl:grid-cols-5 @3xl:gap-8
         @5xl:grid-cols-6 @7xl:grid-cols-7"
         >
           {peoples.map((people, index) => (

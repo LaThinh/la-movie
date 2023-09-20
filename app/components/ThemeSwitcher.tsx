@@ -39,7 +39,7 @@ export function ThemeSwitcher() {
           isSelected={theme === "dark"}
           onValueChange={changeTheme}
           size="md"
-          color={theme === "dark" ? "warning" : "secondary"}
+          color={theme === "dark" ? "warning" : "primary"}
           startContent={<SunIcon />}
           endContent={<MoonIcon />}
         />

@@ -1,18 +1,26 @@
 // "use client";
 import React, { Suspense } from "react";
-import { getPersonDetails } from "@/app/api/FetchMovieDB";
-import { IPerson } from "@/app/interfaces";
+import { getPersonDetails, getPersonMovies } from "@/app/api/FetchMovieDB";
+import { IMovie, IMovieItem, IPerson } from "@/app/interfaces";
 import Loading from "@/app/components/Loading";
 import Image from "next/image";
 import Socials from "@/app/components/Socials";
 import { SocialIcon } from "react-social-icons";
 import PersonInfo from "@/app/components/person/PersonInfo";
+import MovieGrid from "@/app/components/movie/MovieGrid";
+import MovieSlider from "@/app/components/movie/MovieSlider";
 
 export function NewlineText(props: string) {
   const newText = props.split("\n").map((str, id) => <p key={id}>{str}</p>);
 
   return newText;
 }
+
+type IMovieCredits = {
+  id: string;
+  cast: IMovieItem[];
+  crew: IMovieItem[];
+};
 
 export async function PersonDetailPage({
   params: { person_id },
@@ -26,15 +34,19 @@ export async function PersonDetailPage({
 
   const person: IPerson = await getPersonDetails({ personId: personId });
 
-  console.log(person);
+  const movieCredits: IMovieCredits = await getPersonMovies({
+    personId: personId,
+  });
+
+  //console.log(movieCredits.cast[0]);
 
   return (
     <>
       <Suspense fallback={<Loading text="Loading Person..." />}>
-        <div className="person-detail-page mx-auto w-full min-h-[90vh] max-w-screen-xl p-5 lg:p-10 flex flex-col lg:flex-row gap-10">
-          <div className="person-sidebar flex gap-10 lg:flex-col lg:basic-1/4 lg:min-w-[320px] basic-full @container">
-            <div className="flex flex-col items-center w-full @xl:flex-row gap-10">
-              <div className="person-image w-full max-w-[320px] border overflow-hidden rounded-xl shadow-lg">
+        <div className="person-detail-page mx-auto w-full overflow-hidden min-h-[90vh] max-w-screen-2xl p-5 xl:p-10 flex flex-col lg:flex-row gap-10">
+          <div className="person-sidebar flex flex-none gap-10 lg:flex-col lg:w-[28%] lg:min-w-[320px] basic-full @container">
+            <div className="flex flex-col items-center w-full @xl:flex-row @xl:items-start gap-6">
+              <div className="person-image w-full max-w-[400px] ">
                 <Image
                   src={`https://image.tmdb.org/t/p/w400/${person.profile_path}`}
                   alt={person.name}
@@ -42,13 +54,8 @@ export async function PersonDetailPage({
                   width="400"
                   height="500"
                   style={{ objectFit: "cover" }}
-                  className="max-w-full"
+                  className="max-w-full border overflow-hidden rounded-xl shadow-lg"
                 />
-              </div>
-              <div className="w-full">
-                <h1 className="person-name text-2xl lg:hidden font-bold">
-                  {person.name}
-                </h1>
                 <div className="person-socials flex-1">
                   {person?.external_ids && (
                     <Socials socialIds={person.external_ids} />
@@ -64,18 +71,50 @@ export async function PersonDetailPage({
                     </div>
                   )}
                 </div>
+              </div>
+              <div className="w-full">
+                <h1 className="person-name text-2xl my-5 lg:hidden font-bold @xl:text-left">
+                  {person.name}
+                </h1>
+
                 <PersonInfo person={person} />
               </div>
             </div>
           </div>
 
-          <div className="person-main flex-flex-col flex-1">
+          <div className="person-main flex flex-col lg:w-[68%] lg:max-w-[calc(100%-360px)]">
             <h1 className="person-name hidden lg:text-3xl lg:block font-bold">
               {person.name}
             </h1>
             <div className="person-desc text-justify [&>p]:mt-3">
-              <h5 className="text-xl font-semibold lg:text-2xl">Biography</h5>
-              {NewlineText(person.biography)}
+              {person?.biography && (
+                <>
+                  <h3 className="text-xl font-semibold lg:text-2xl">
+                    Biography
+                  </h3>
+                  {NewlineText(person.biography)}
+                </>
+              )}
+            </div>
+
+            <div>
+              {movieCredits?.cast && movieCredits.cast.length > 0 && (
+                <div className="top-movie-cast  mt-5 lg:mt-10">
+                  <h4 className="my-3 pb-2 text-left text-lg lg:text-2xl border-b">
+                    Top Movie Cast
+                  </h4>
+                  <MovieSlider movieList={movieCredits.cast} />
+                </div>
+              )}
+
+              {movieCredits?.crew && movieCredits.crew.length > 0 && (
+                <div className="top-movie-crew mt-5 lg:mt-10">
+                  <h4 className="my-3 pb-2 text-left text-lg lg:text-2xl border-b">
+                    Top Movie Crew
+                  </h4>
+                  <MovieSlider movieList={movieCredits.crew} />
+                </div>
+              )}
             </div>
           </div>
         </div>

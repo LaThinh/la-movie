@@ -25,6 +25,8 @@ export interface IMovieItem {
   popularity?: string;
   vote_average?: number;
   vote_count?: number;
+  department?: string;
+  character?: string;
 }
 
 export interface IMovie {
