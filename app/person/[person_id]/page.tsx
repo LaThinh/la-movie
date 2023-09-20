@@ -10,17 +10,17 @@ import PersonInfo from "@/app/components/person/PersonInfo";
 import MovieGrid from "@/app/components/movie/MovieGrid";
 import MovieSlider from "@/app/components/movie/MovieSlider";
 
-export function NewlineText(props: string) {
-  const newText = props.split("\n").map((str, id) => <p key={id}>{str}</p>);
-
-  return newText;
-}
-
 type IMovieCredits = {
   id: string;
   cast: IMovieItem[];
   crew: IMovieItem[];
 };
+
+export function NewlineText(props: string) {
+  const newText = props.split("\n").map((str, id) => <p key={id}>{str}</p>);
+
+  return newText;
+}
 
 export async function PersonDetailPage({
   params: { person_id },
@@ -33,12 +33,9 @@ export async function PersonDetailPage({
   const personId = person_id.split("-")[0];
 
   const person: IPerson = await getPersonDetails({ personId: personId });
-
   const movieCredits: IMovieCredits = await getPersonMovies({
     personId: personId,
   });
-
-  //console.log(movieCredits.cast[0]);
 
   return (
     <>
@@ -100,9 +97,9 @@ export async function PersonDetailPage({
             <div>
               {movieCredits?.cast && movieCredits.cast.length > 0 && (
                 <div className="top-movie-cast  mt-5 lg:mt-10">
-                  <h4 className="my-3 pb-2 text-left text-lg lg:text-2xl border-b">
+                  <h3 className="my-3 pb-2 text-left text-lg lg:text-2xl border-b">
                     Top Movie Cast
-                  </h4>
+                  </h3>
                   <MovieSlider movieList={movieCredits.cast} />
                 </div>
               )}

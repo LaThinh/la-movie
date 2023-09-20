@@ -38,7 +38,7 @@ export function ThemeSwitcher() {
         <Switch
           isSelected={theme === "dark"}
           onValueChange={changeTheme}
-          size="lg"
+          size="md"
           color={theme === "dark" ? "warning" : "primary"}
           startContent={<SunIcon />}
           endContent={<MoonIcon />}
