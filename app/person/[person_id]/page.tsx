@@ -51,6 +51,7 @@ export async function PersonDetailPage({
                   width="400"
                   height="500"
                   style={{ objectFit: "cover" }}
+                  priority={true}
                   className="max-w-full border overflow-hidden rounded-xl shadow-lg"
                 />
                 <div className="person-socials flex-1">
