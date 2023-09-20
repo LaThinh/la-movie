@@ -38,10 +38,11 @@ export function ThemeSwitcher() {
         <Switch
           isSelected={theme === "dark"}
           onValueChange={changeTheme}
-          size="md"
+          size="lg"
           color={theme === "dark" ? "warning" : "primary"}
           startContent={<SunIcon />}
           endContent={<MoonIcon />}
+          name="Theme"
         />
       </div>
     </>

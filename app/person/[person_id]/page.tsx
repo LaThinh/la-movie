@@ -89,9 +89,9 @@ export async function PersonDetailPage({
             <div className="person-desc text-justify [&>p]:mt-3">
               {person?.biography && (
                 <>
-                  <h3 className="text-xl font-semibold lg:text-2xl">
+                  <h2 className="text-xl font-semibold lg:text-2xl">
                     Biography
-                  </h3>
+                  </h2>
                   {NewlineText(person.biography)}
                 </>
               )}
