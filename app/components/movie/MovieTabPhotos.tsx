@@ -49,8 +49,8 @@ export function filterPhotoLanguage({
   return resultPhotos;
 }
 
-export function MovieTabPhotos({ movieId }: { movieId: string }) {
-  const [movieImages, setMovieImages] = useState<IMovieImages>();
+export function MovieTabPhotos({ movieImages }: { movieImages: IMovieImages }) {
+  //const [movieImages, setMovieImages] = useState<IMovieImages>();
   const [moviePhotoLanguage, setMoviePhotoLanguage] = useState<IMovieImages>();
   const [photoList, setPhotoList] = useState<IPhoto[]>();
   const [loading, setLoading] = useState(true);
@@ -63,24 +63,32 @@ export function MovieTabPhotos({ movieId }: { movieId: string }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   useEffect(() => {
-    const getPhotos = async () => {
-      const data = await getMovieImages({ movieId: movieId });
-      if (data) {
-        setMovieImages(data);
-      }
-      console.log(data);
-      setLoading(false);
+    // const getPhotos = async () => {
+    //   // const data = await getMovieImages({ movieId: movieId });
+    //   // if (data) {
+    //   //   setMovieImages(data);
+    //   // }
+    //   // console.log(data);
+    //   // setLoading(false);
 
-      const photoLanguage = filterPhotoLanguage({
-        movieImages: data,
-        language: "en",
-      });
+    //   const photoLanguage = filterPhotoLanguage({
+    //     movieImages: movieImages,
+    //     language: "en",
+    //   });
 
-      setMoviePhotoLanguage(photoLanguage);
-      console.log(photoLanguage);
-    };
+    //   setMoviePhotoLanguage(photoLanguage);
+    //   console.log(photoLanguage);
+    // };
 
-    getPhotos();
+    // getPhotos();
+
+    const photoLanguage = filterPhotoLanguage({
+      movieImages: movieImages,
+      language: "en",
+    });
+
+    setMoviePhotoLanguage(photoLanguage);
+    setLoading(false);
 
     document.addEventListener("keydown", keyDownHandler, false);
 
@@ -208,7 +216,7 @@ export function MovieTabPhotos({ movieId }: { movieId: string }) {
               </h3>
             </>
           ) : (
-            <h5 className="text-sm text-center my-5 mx-auto capitalize lg:text-xl sticky  top-[68px] z-20">
+            <h5 className="text-sm text-center my-5 mx-auto capitalize lg:text-xl">
               Photo Type {photoType} :
               <span className="ml-3 text-sm">
                 Total {photoList?.length} items

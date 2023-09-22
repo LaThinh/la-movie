@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 
-import { IMovie } from "@/app/interfaces";
+import { ICredits, IMovie } from "@/app/interfaces";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
@@ -9,9 +9,10 @@ import { Metadata } from "next";
 import Recommendations from "@/app/components/movie/Recommendations";
 import MovieInfo from "@/app/components/movie/MovieInfo";
 import Trailer from "@/app/components/movie/Trailer";
-import { getMovieDetails } from "@/app/api/FetchMovieDB";
+import { getMovieCredits, getMovieDetails } from "@/app/api/FetchMovieDB";
 import SliderVideos from "@/app/components/SliderVideos";
 import MovieTabs from "@/app/components/movie/MovieTabs";
+import PersonSlider from "@/app/components/person/PersonSlider";
 
 type MovieDetailProps = {
   params: { movieId: string };
@@ -47,6 +48,8 @@ export async function MovieDetailPage(props: MovieDetailProps) {
     append_to_response: "keywords",
   });
 
+  const movieCredits: ICredits = await getMovieCredits({ movieId: movieId });
+
   return (
     <div className="movie-detail min-h-screen">
       {!movie ? (
@@ -69,19 +72,19 @@ export async function MovieDetailPage(props: MovieDetailProps) {
             {movie?.title}
           </h1>
 
-          <div className="trailer-desktop m-auto max-w-screen-2xl">
-            <SliderVideos
-              movieId={movie.id}
-              limitDefault={18}
-              language={lang}
-            />
+          <div className="trailer-desktop m-auto max-w-screen-2xl flex flex-col gap-5">
+            {movieCredits?.cast && movieCredits.cast.length > 0 && (
+              <PersonSlider personList={movieCredits.cast} />
+            )}
+
+            <SliderVideos movieId={movie.id} limitDefault={9} language={lang} />
             {/* <Trailer movieId={movie.id} limitDefault={12} /> */}
           </div>
 
           <MovieTabs movieId={movie.id} movie={movie} />
 
           <div className="movie-detail-container mt-10 m-auto p-3 md:p-4 lg:p-6 xl:p-8 max-w-screen-2xl">
-            <div className="flex flex-col lg:flex-row gap-5 rounded-2xl">
+            {/* <div className="flex flex-col lg:flex-row gap-5 rounded-2xl">
               <div
                 className="@container left-info p-5 font-medium rounded-xl
               bg-slate-200/50 dark:bg-transparent dark:border
@@ -93,7 +96,7 @@ export async function MovieDetailPage(props: MovieDetailProps) {
               <div className="right-content lg:w-1/2 font-medium flex-1 ">
                 <Comments id={movie?.id} />
               </div>
-            </div>
+            </div> */}
 
             <Recommendations movieId={movie.id} />
           </div>

@@ -6,6 +6,7 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
+  Image,
   ScrollShadow,
   Spinner,
 } from "@nextui-org/react";
@@ -15,36 +16,32 @@ import { Scrollbar } from "swiper/modules";
 import Rating from "./Rating";
 
 export default function MovieTabReview({
-  movieId,
+  reviews,
   movie,
 }: {
-  movieId: string;
+  reviews: IMovieReviews;
   movie: IMovie;
 }) {
-  const [reviews, setReviews] = useState<IMovieReviews>();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const getReviews = async () => {
-      const data = await getMovieReviews({ movieId: movieId, language: "vi" });
-      setReviews(data);
-      setLoading(false);
-    };
-
-    getReviews();
-  }, []);
-
-  console.log(reviews);
-
   return (
-    <div className="movie-reviews">
-      {loading && (
-        <div className="text-primary-500 p-5 text-center text-xl">
-          Loading review <Spinner />
+    <div className="tab-reviews flex flex-col lg:flex-row gap-5 m-auto max-w-screen-xl xl:gap-10 lg:p-5 relative">
+      <div className="tab-movie-sidebar hidden lg:w-1/4 lg:flex lg:max-w-[300px] sticky top-[200px]">
+        <div className="movie-poster-image w-full aspect-[2/3] flex flex-col gap-5 pt-20">
+          <Image
+            src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
+            alt={movie.title}
+            width={300}
+            height={450}
+            loading="eager"
+            radius="none"
+            removeWrapper
+            className="w-full rounded-lg shadow-xl bg-slate-300"
+          />
+          <h4 className="text-xl text-center">{movie.original_title}</h4>
         </div>
-      )}
+      </div>
+
       {reviews?.results && reviews.results.length > 0 && (
-        <div>
+        <div className="tab-movie-content lg:flex-1">
           <h3 className="text-primary-500 my-3 lg:mb-5 lg:text-xl">
             Reviews Movie: {movie.title}
           </h3>

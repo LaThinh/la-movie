@@ -178,12 +178,14 @@ export async function getMovieImages({
 }) {
   language = language || "en";
   const url = `${baseUrl}/movie/${movieId}/images`;
+  console.log(url);
+
   const res = await fetch(url, {
     method: "GET",
     headers: fetchHeader,
     //cache: "force-cache",
     next: {
-      revalidate: 100,
+      revalidate: 300,
     },
   });
   if (!res.ok) {

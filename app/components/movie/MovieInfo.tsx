@@ -59,6 +59,7 @@ function MovieInfo({ movie }: { movie: IMovie }) {
                 href={`/genre/${item.id}`}
                 className="genre bg-primary-500 text-white dark:bg-primary-700 dark:border dark:hover:bg-primary-500
                 rounded-md py-1 px-3 cursor-pointer whitespace-nowrap hover:bg-blue-500 hover:text-white"
+                prefetch={false}
               >
                 {item?.name}
               </Link>
@@ -89,6 +90,7 @@ function MovieInfo({ movie }: { movie: IMovie }) {
                     bg-green-700  hover:bg-green-500 hover:text-white
                     dark:bg-primary-700 dark:hover:bg-green-600
                     "
+                    prefetch={false}
                   >
                     {item?.name}
                   </Link>
