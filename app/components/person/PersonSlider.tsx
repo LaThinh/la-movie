@@ -21,9 +21,9 @@ function PersonSlider({ personList }: { personList: IPeople[] }) {
       {!personList && <Loading text="Loading Casts" />}
       {personList?.length && personList.length > 0 && (
         <div className="px-3 lg:px-5">
-          <h3 className="my-3 pb-2 text-left text-lg lg:text-2xl border-b">
+          <h2 className="my-3 pb-2 text-left text-lg lg:text-2xl border-b">
             Top {personList.length} Billed Cast
-          </h3>
+          </h2>
           <Swiper
             slidesPerView={"auto"}
             spaceBetween={18}
