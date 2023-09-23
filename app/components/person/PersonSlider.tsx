@@ -43,11 +43,11 @@ function PersonSlider({ personList }: { personList: IPeople[] }) {
               <SwiperSlide
                 key={index}
                 id={`person-${person.id}`}
-                className="!w-[110px] lg:!w-[187px] my-2 aspect-[2/3]
+                className="!w-[110px] lg:!w-[187px] my-2 
                 rounded-lg border shadow-md overflow-hidden "
               >
                 <Link
-                  className="group relative block bg-gray-300  "
+                  className="group relative block bg-gray-300 aspect-[2/3] "
                   href={`/person/${person.id}-${convertToSlug(person.name)}`}
                   prefetch={false}
                 >
@@ -68,12 +68,12 @@ function PersonSlider({ personList }: { personList: IPeople[] }) {
                 </Link>
                 <div className="card-info p-3 h-20 bg-white dark:bg-slate-800 text-left">
                   <strong
-                    className="font-semibold text-sm line-clamp-2 max-h-10 mb-1"
+                    className="font-semibold text-base line-clamp-2 max-h-10 mb-1"
                     title={person.original_name}
                   >
                     {person.original_name}
                   </strong>
-                  <p className="text-sm hidden">
+                  <p className="text-sm">
                     {person?.character ? person.character : person.job}
                   </p>
                 </div>

@@ -5,13 +5,9 @@ import { NewlineText } from "@/app/person/[person_id]/page";
 
 function PersonInfo({ person }: { person: IPerson }) {
   return (
-    <div className="person-info text-left">
+    <div className="person-info text-left @container">
       <h3 className="text-xl lg:text-2xl mb-5">Personal Info</h3>
-      <ul
-        className="person-infos flex flex-col gap-3
-      [&>li>strong]:text-lg [&>li>p]:text-base
-      "
-      >
+      <ul className="person-infos flex flex-col gap-3 [&>li>strong]:text-lg [&>li>p]:text-base">
         <li>
           <strong>Birthday</strong>
           <p>{person.birthday}</p>

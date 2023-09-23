@@ -40,10 +40,13 @@ export async function PersonDetailPage({
   return (
     <>
       <Suspense fallback={<Loading text="Loading Person..." />}>
-        <div className="person-detail-page mx-auto w-full overflow-hidden min-h-[90vh] max-w-screen-2xl p-5 xl:p-10 flex flex-col lg:flex-row gap-10">
-          <div className="person-sidebar flex flex-none gap-10 lg:flex-col lg:w-[28%] lg:min-w-[320px] basic-full @container">
-            <div className="flex flex-col items-center w-full @xl:flex-row @xl:items-start gap-6">
-              <div className="person-image w-full max-w-[400px] ">
+        <div className="person-detail-page mx-auto w-full  min-h-[90vh] max-w-screen-2xl  xl:p-10 flex flex-col lg:flex-row gap-5">
+          <h1 className="person-name text-3xl my-0 py-2 w-full sticky top-16 z-30 bg-white lg:hidden font-bold @xl:text-left">
+            {person.name}
+          </h1>
+          <div className="person-sidebar p-5 flex flex-none gap-10 lg:flex-col lg:w-[26%] lg:min-w-[260px] basic-full @container">
+            <div className="flex flex-col items-center w-full @xl:flex-row @xl:items-start gap-6 lg:pt-12 relative">
+              <div className="person-image w-full max-w-[400px]">
                 <Image
                   src={`https://image.tmdb.org/t/p/w400/${person.profile_path}`}
                   alt={person.name}
@@ -71,16 +74,12 @@ export async function PersonDetailPage({
                 </div>
               </div>
               <div className="w-full">
-                <h1 className="person-name text-2xl my-5 lg:hidden font-bold @xl:text-left">
-                  {person.name}
-                </h1>
-
                 <PersonInfo person={person} />
               </div>
             </div>
           </div>
 
-          <div className="person-main flex flex-col lg:w-[68%] lg:max-w-[calc(100%-360px)]">
+          <div className="person-main p-5 flex flex-col lg:w-[70%] lg:max-w-[calc(100%-300px)]">
             <h1 className="person-name hidden lg:text-3xl lg:block font-bold">
               {person.name}
             </h1>

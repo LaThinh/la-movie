@@ -5,7 +5,7 @@ import { SocialIcon } from "react-social-icons";
 
 function Socials({ socialIds }: { socialIds: IExternalIds }) {
   return (
-    <div className="socials flex flex-wrap gap-4 my-5">
+    <div className="socials flex flex-wrap gap-4 my-5 justify-center">
       {socialIds.facebook_id && (
         <SocialIcon
           target="_blank"
