@@ -52,7 +52,7 @@ const SliderVideos = ({
     if (total == 0) {
       getVideoDefaultEN();
     }
-  }, [total]);
+  }, [movieId, total]);
 
   //const dataVideo: IVideos = await getVideosTrailer(movieId);
   //const videos = dataVideo.results;

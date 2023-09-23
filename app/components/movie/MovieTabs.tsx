@@ -123,17 +123,10 @@ export function MovieTabs({
                   <div className="flex items-center space-x-2">
                     <GalleryIcon />
                     <span>Photos</span>
-                    <span className="font-normal text-gray-400 hidden">
-                      (
-                      {movieImages.backdrops.length +
-                        movieImages.logos.length +
-                        movieImages.posters.length}
-                      )
-                    </span>
                   </div>
                 }
                 id="tab-photos"
-                aria-label="Tab Photo"
+                aria-label="Photos"
               >
                 <Card>
                   <CardBody>
@@ -158,7 +151,7 @@ export function MovieTabs({
                   </div>
                 }
                 id="tab-credits"
-                aria-label="Credits"
+                aria-label={`Credits (${movieCredits.cast.length})`}
               >
                 <Card>
                   <CardBody>
@@ -184,7 +177,7 @@ export function MovieTabs({
                   </div>
                 }
                 id="tab-reviews"
-                aria-label="Reviews"
+                aria-label={`Reviews (${movieReviews.results.length})`}
               >
                 <Card>
                   <CardBody>

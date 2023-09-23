@@ -93,7 +93,7 @@ export default function ModalVideos({
               loading="eager"
               isZoomed
               className="w-full aspect-video cursor-pointer"
-              src={`https://img.youtube.com/vi/${video.key}/hqdefault.jpg`}
+              src={`https://img.youtube.com/vi/${video.key}/mqdefault.jpg`}
             />
             <div className="absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center items-center">
               <VideoIcon width={48} height={48} className="text-white" />
