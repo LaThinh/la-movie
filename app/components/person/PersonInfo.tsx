@@ -29,6 +29,14 @@ function PersonInfo({ person }: { person: IPerson }) {
           </p>
         </li>
         <li>
+          <strong>Know For</strong>
+          <p>{person.known_for_department}</p>
+        </li>
+        <li className="flex gap-2">
+          <strong>Popularity: </strong>
+          <p>{person.popularity}</p>
+        </li>
+        <li>
           <strong>Also Known As</strong>
           <div className="flex flex-col gap-2">
             {person?.also_known_as &&
@@ -36,10 +44,6 @@ function PersonInfo({ person }: { person: IPerson }) {
                 <p key={index}>{str}</p>
               ))}
           </div>
-        </li>
-        <li className="flex gap-2">
-          <strong>Popularity: </strong>
-          <p>{person.popularity}</p>
         </li>
       </ul>
     </div>

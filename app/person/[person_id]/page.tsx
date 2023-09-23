@@ -9,6 +9,7 @@ import { SocialIcon } from "react-social-icons";
 import PersonInfo from "@/app/components/person/PersonInfo";
 import MovieGrid from "@/app/components/movie/MovieGrid";
 import MovieSlider from "@/app/components/movie/MovieSlider";
+import PersonImageGallery from "@/app/components/person/PersonImageGallery";
 
 type IMovieCredits = {
   id: string;
@@ -40,12 +41,15 @@ export async function PersonDetailPage({
   return (
     <>
       <Suspense fallback={<Loading text="Loading Person..." />}>
-        <div className="person-detail-page mx-auto w-full  min-h-[90vh] max-w-screen-2xl  xl:p-10 flex flex-col lg:flex-row gap-5">
-          <h1 className="person-name text-3xl my-0 py-2 w-full sticky top-16 z-30 bg-white lg:hidden font-bold @xl:text-left">
+        <div className="person-detail-page mx-auto w-full min-h-[90vh] max-w-screen-2xl  xl:p-10 flex flex-col lg:flex-row gap-5">
+          <h1
+            className="person-name text-2xl my-0 py-4 w-full sticky top-16 z-30 border-b shadow-md
+            bg-white lg:hidden font-bold @xl:text-left"
+          >
             {person.name}
           </h1>
-          <div className="person-sidebar p-5 flex flex-none gap-10 lg:flex-col lg:w-[26%] lg:min-w-[260px] basic-full @container">
-            <div className="flex flex-col items-center w-full @xl:flex-row @xl:items-start gap-6 lg:pt-12 relative">
+          <div className="person-sidebar  p-5 flex flex-none gap-10 lg:flex-col lg:w-[26%] lg:min-w-[260px] basic-full @container">
+            <div className="flex flex-col sticky top-16 items-center w-full @xl:flex-row @xl:items-start gap-6 lg:pt-8">
               <div className="person-image w-full max-w-[400px]">
                 <Image
                   src={`https://image.tmdb.org/t/p/w400/${person.profile_path}`}
@@ -79,11 +83,14 @@ export async function PersonDetailPage({
             </div>
           </div>
 
-          <div className="person-main p-5 flex flex-col lg:w-[70%] lg:max-w-[calc(100%-300px)]">
-            <h1 className="person-name hidden lg:text-3xl lg:block font-bold">
+          <div className="person-main flex flex-col lg:w-[70%] lg:max-w-[calc(100%-300px)]">
+            <h1
+              className="person-name hidden lg:text-3xl lg:block font-bold 
+            sticky top-16 z-30 border-b shadow-md bg-white py-4"
+            >
               {person.name}
             </h1>
-            <div className="person-desc text-justify [&>p]:mt-3">
+            <div className="person-desc text-justify [&>p]:mt-3  mt-5">
               {person?.biography && (
                 <>
                   <h2 className="text-xl font-semibold lg:text-2xl">
@@ -113,6 +120,10 @@ export async function PersonDetailPage({
                 </div>
               )}
             </div>
+
+            {person?.images && person.images.profiles.length > 0 && (
+              <PersonImageGallery profileImages={person.images.profiles} />
+            )}
           </div>
         </div>
       </Suspense>

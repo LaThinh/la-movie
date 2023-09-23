@@ -176,6 +176,7 @@ export interface IProfileImage {
   vote_average: number;
   vote_count: number;
   width: number;
+  height: number;
 }
 
 export interface IExternalIds {

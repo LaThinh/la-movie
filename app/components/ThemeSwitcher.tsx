@@ -42,7 +42,8 @@ export function ThemeSwitcher() {
           color={theme === "dark" ? "warning" : "primary"}
           startContent={<SunIcon />}
           endContent={<MoonIcon />}
-          name="Theme"
+          name="switch-theme"
+          aria-label="Switch Theme"
         />
       </div>
     </>

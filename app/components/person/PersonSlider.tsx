@@ -43,7 +43,7 @@ function PersonSlider({ personList }: { personList: IPeople[] }) {
               <SwiperSlide
                 key={index}
                 id={`person-${person.id}`}
-                className="!w-[110px] lg:!w-[187px] my-2 
+                className="!w-[130px] lg:!w-[187px] my-2 
                 rounded-lg border shadow-md overflow-hidden "
               >
                 <Link
@@ -68,7 +68,7 @@ function PersonSlider({ personList }: { personList: IPeople[] }) {
                 </Link>
                 <div className="card-info p-3 h-20 bg-white dark:bg-slate-800 text-left">
                   <strong
-                    className="font-semibold text-base line-clamp-2 max-h-10 mb-1"
+                    className="font-semibold text-sm lg:text-base line-clamp-2 max-h-10 mb-1"
                     title={person.original_name}
                   >
                     {person.original_name}

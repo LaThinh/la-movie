@@ -104,7 +104,8 @@ export function MovieTabs({
               </div>
             }
             id="tab-info"
-            aria-controls="tab-infos"
+            aria-controls="info"
+            aria-label="Tab Info"
           >
             <Card>
               <CardBody>
@@ -118,7 +119,7 @@ export function MovieTabs({
               movieImages?.backdrops ||
               movieImages?.logos) && (
               <Tab
-                key="photo"
+                key="photos"
                 title={
                   <div className="flex items-center space-x-2">
                     <GalleryIcon />
@@ -132,8 +133,9 @@ export function MovieTabs({
                     </span>
                   </div>
                 }
-                id="tab-photo"
-                aria-controls="tab-photo"
+                id="tab-photos"
+                aria-controls="tab-photos"
+                aria-label="Tab Photo"
               >
                 <Card>
                   <CardBody>
@@ -159,6 +161,7 @@ export function MovieTabs({
                 }
                 id="tab-credits"
                 aria-controls="tab-credits"
+                aria-label="Tab Credits"
               >
                 <Card>
                   <CardBody>
@@ -173,7 +176,7 @@ export function MovieTabs({
             movieReviews.results &&
             movieReviews.results.length > 0 && (
               <Tab
-                key="review"
+                key="reviews"
                 title={
                   <div className="flex items-center space-x-2">
                     <TagUser />
@@ -183,8 +186,9 @@ export function MovieTabs({
                     </span>
                   </div>
                 }
-                id="tab-review"
+                id="tab-reviews"
                 aria-controls="tab-reviews"
+                aria-label="Tab Reviews"
               >
                 <Card>
                   <CardBody>
@@ -204,6 +208,7 @@ export function MovieTabs({
             }
             id="tab-videos"
             aria-controls="tab-videos"
+            aria-label="Tab Videos"
           >
             <Card>
               <CardBody>

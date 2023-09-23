@@ -19,6 +19,12 @@ export default function Recommendations({ movieId }: { movieId: string }) {
       //console.log(data?.results[0]);
       //const listMovie = data?.results;
       setListMovie(data?.results);
+
+      const movieItems: IMovieItem[] = listMovie.filter((movie) => {
+        return movie.poster_path == null;
+      });
+
+      setListMovie(movieItems);
     }
 
     getData();
@@ -63,11 +69,14 @@ export default function Recommendations({ movieId }: { movieId: string }) {
                 slidesPerView: 5,
                 spaceBetween: 18,
               },
+              1400: {
+                slidesPerView: 6,
+                spaceBetween: 20,
+              },
             }}
           >
             {listMovie.map((movie: IMovieItem) => (
               <SwiperSlide key={movie.id} className="w-[240px]">
-                {/* {movie?.overview} */}
                 <CardMovie movie={movie} />
               </SwiperSlide>
             ))}

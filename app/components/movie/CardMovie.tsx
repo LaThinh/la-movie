@@ -22,21 +22,21 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
       key={movie.id}
     >
       <Link
-        className="group relative block min-h-[240px] overflow-hidden bg-gray-300 xl:min-h-[360px]"
+        className="group relative block aspect-[2/3] overflow-hidden bg-gray-300 "
         href={`/movie/${movie?.id}-${convertToSlug(movie.title)}`}
       >
         <Image
-          src={`https://image.tmdb.org/t/p/w400/${movie?.poster_path}`}
+          src={`https://image.tmdb.org/t/p/w300/${movie?.poster_path}`}
           alt={movie?.title || "Title"}
-          sizes="400"
-          width={360}
-          height={500}
+          sizes="300"
+          width={300}
+          height={450}
           loading="eager"
           radius="none"
           isZoomed
           removeWrapper
           // style={{ objectFit: "cover" }}
-          className="w-full object-cover m-auto"
+          className="w-full object-cover m-auto aspect-[2/3]"
           //className="!relative inset-0 h-full w-full object-cover object-center transition duration-300 group-hover:scale-110"
         />
 
@@ -79,7 +79,7 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
         className="flex flex-1 flex-col justify-between text-gray-700 dark:text-white 
       text-left p-3 lg:p-4 "
       >
-        <h3 className="mb-2 text-lg font-semibold line-clamp-2">
+        <h3 className="mb-2 text-xl font-semibold line-clamp-2 h-14">
           <Link
             className="text-gray-700 dark:text-gray-200"
             href={`/movie/${movie.id}-${convertToSlug(movie.title)}`}
@@ -88,12 +88,12 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
             {movie.title}
           </Link>
         </h3>
-        <div className="release-date sm:hidden font-semibold italic mb-2">
+        <div className="release-date text-sm sm:hidden font-semibold italic mb-2">
           {movie?.release_date.toLocaleString()}
         </div>
 
         <p
-          className="text-gray-500 dark:text-gray-200 line-clamp-4"
+          className="text-gray-500 dark:text-gray-200 text-sm line-clamp-3"
           title={movie.overview}
         >
           {movie.overview}
@@ -112,11 +112,11 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
             }
           >
             <div className="rating ">
-              <Rating rating={Math.ceil(vote / 2)} />
+              <Rating rating={Math.ceil(vote / 2)} size="small" />
             </div>
           </Tooltip>
 
-          <div className="release-date hidden sm:block font-semibold italic">
+          <div className="release-date text-sm hidden sm:block font-semibold italic">
             {movie?.release_date.toLocaleString()}
           </div>
         </div>

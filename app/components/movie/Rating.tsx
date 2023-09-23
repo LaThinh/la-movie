@@ -39,7 +39,7 @@ export default function Rating({
   }
 
   return (
-    <div className="flex items-center space-x-1">
+    <div className="flex items-center space-x-1 max-w-[200px]">
       {ratingElm}
       {showLabel && (
         <span className="label whitespace-nowrap">
