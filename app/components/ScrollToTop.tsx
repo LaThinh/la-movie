@@ -9,8 +9,8 @@ import {
 import { useEffect } from "react";
 
 const ScrollToTopContainerVariants: Variants = {
-  hide: { opacity: 0 },
-  show: { opacity: 1 },
+  hide: { opacity: 0, visibility: "hidden" },
+  show: { opacity: 1, visibility: "visible" },
 };
 
 const isBrowser = () => typeof window !== "undefined"; //The approach recommended by Next.js

@@ -50,7 +50,7 @@ function MovieSlider({
                 href={`/movie/${movie?.id}-${convertToSlug(movie.title)}`}
               >
                 <Image
-                  src={`https://image.tmdb.org/t/p/w400/${movie?.poster_path}`}
+                  src={`https://image.tmdb.org/t/p/w200/${movie?.poster_path}`}
                   alt={movie?.title || "Title"}
                   sizes="100"
                   width={180}
