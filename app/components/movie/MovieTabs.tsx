@@ -105,7 +105,7 @@ export function MovieTabs({
             }
             id="tab-info"
             aria-controls="info"
-            aria-label="Tab Info"
+            aria-label="Information"
           >
             <Card>
               <CardBody>
