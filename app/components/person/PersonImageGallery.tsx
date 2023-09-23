@@ -31,6 +31,7 @@ function PersonImageGallery({
                     alt={`Image Size ${image.width} x ${image.height}`}
                     radius="none"
                     width={300}
+                    height={450}
                     removeWrapper
                     className={`w-full m-auto aspect-[${image.aspect_ratio}]`}
                   />

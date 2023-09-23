@@ -185,7 +185,7 @@ export async function getMovieImages({
     headers: fetchHeader,
     //cache: "force-cache",
     next: {
-      revalidate: 300,
+      revalidate: 3000,
     },
   });
   if (!res.ok) {
@@ -209,7 +209,7 @@ export async function getMovieReviews({
     headers: fetchHeader,
     //cache: "force-cache",
     next: {
-      revalidate: 300,
+      revalidate: 3000,
     },
   });
   if (!res.ok) {
@@ -233,7 +233,7 @@ export async function getMovieCredits({
     headers: fetchHeader,
     //cache: "force-cache",
     next: {
-      revalidate: 300,
+      revalidate: 3000,
     },
   });
   if (!res.ok) {
@@ -258,7 +258,7 @@ export async function getPersonDetails({
     headers: fetchHeader,
     //cache: "force-cache",
     next: {
-      revalidate: 300,
+      revalidate: 3000,
     },
   });
   if (!res.ok) {
@@ -283,7 +283,7 @@ export async function getPersonMovies({
     headers: fetchHeader,
     //cache: "force-cache",
     next: {
-      revalidate: 300,
+      revalidate: 3000,
     },
   });
   if (!res.ok) {
