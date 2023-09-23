@@ -16,19 +16,11 @@ export default function Recommendations({ movieId }: { movieId: string }) {
   useEffect(() => {
     async function getData() {
       const data = await getRecommendations(movieId);
-      //console.log(data?.results[0]);
-      //const listMovie = data?.results;
       setListMovie(data?.results);
-
-      const movieItems: IMovieItem[] = listMovie.filter((movie) => {
-        return movie.poster_path == null;
-      });
-
-      setListMovie(movieItems);
     }
 
     getData();
-  }, []);
+  }, [movieId]);
 
   return (
     <div className="movie-recommend">

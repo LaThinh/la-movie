@@ -25,20 +25,22 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
         className="group relative block aspect-[2/3] overflow-hidden bg-gray-300 "
         href={`/movie/${movie?.id}-${convertToSlug(movie.title)}`}
       >
-        <Image
-          src={`https://image.tmdb.org/t/p/w300/${movie?.poster_path}`}
-          alt={movie?.title || "Title"}
-          sizes="300"
-          width={300}
-          height={450}
-          loading="eager"
-          radius="none"
-          isZoomed
-          removeWrapper
-          // style={{ objectFit: "cover" }}
-          className="w-full object-cover m-auto aspect-[2/3]"
-          //className="!relative inset-0 h-full w-full object-cover object-center transition duration-300 group-hover:scale-110"
-        />
+        {movie.poster_path != null && (
+          <Image
+            src={`https://image.tmdb.org/t/p/w300/${movie?.poster_path}`}
+            alt={movie?.title || "Title"}
+            sizes="300"
+            width={300}
+            height={450}
+            loading="eager"
+            radius="none"
+            isZoomed
+            removeWrapper
+            // style={{ objectFit: "cover" }}
+            className="w-full object-cover m-auto aspect-[2/3]"
+            //className="!relative inset-0 h-full w-full object-cover object-center transition duration-300 group-hover:scale-110"
+          />
+        )}
 
         <span
           className="absolute z-10 top-2 right-2 border-2 p-4 hidden
