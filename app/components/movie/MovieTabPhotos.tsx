@@ -95,7 +95,7 @@ export function MovieTabPhotos({ movieImages }: { movieImages: IMovieImages }) {
     return () => {
       document.removeEventListener("keydown", keyDownHandler, false);
     };
-  }, []);
+  }, [movieImages]);
 
   const handleChangeImageType = (key: React.Key) => {
     if (key == "backdrops") {

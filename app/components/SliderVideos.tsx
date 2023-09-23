@@ -38,7 +38,7 @@ const SliderVideos = ({
       setLoading(false);
     }
     getData();
-  }, [limit]);
+  }, [movieId, language]);
 
   useEffect(() => {
     async function getVideoDefaultEN() {

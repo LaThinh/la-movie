@@ -58,7 +58,7 @@ export function MovieTabs({
     };
 
     getMovieTabsData();
-  }, []);
+  }, [movieId]);
 
   useEffect(() => {
     const tabParam = searchParams.get("tab");
@@ -104,7 +104,6 @@ export function MovieTabs({
               </div>
             }
             id="tab-info"
-            aria-controls="info"
             aria-label="Information"
           >
             <Card>
@@ -134,7 +133,6 @@ export function MovieTabs({
                   </div>
                 }
                 id="tab-photos"
-                aria-controls="tab-photos"
                 aria-label="Tab Photo"
               >
                 <Card>
@@ -160,8 +158,7 @@ export function MovieTabs({
                   </div>
                 }
                 id="tab-credits"
-                aria-controls="tab-credits"
-                aria-label="Tab Credits"
+                aria-label="Credits"
               >
                 <Card>
                   <CardBody>
@@ -187,8 +184,7 @@ export function MovieTabs({
                   </div>
                 }
                 id="tab-reviews"
-                aria-controls="tab-reviews"
-                aria-label="Tab Reviews"
+                aria-label="Reviews"
               >
                 <Card>
                   <CardBody>
@@ -207,8 +203,7 @@ export function MovieTabs({
               </div>
             }
             id="tab-videos"
-            aria-controls="tab-videos"
-            aria-label="Tab Videos"
+            aria-label="All Videos"
           >
             <Card>
               <CardBody>

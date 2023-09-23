@@ -29,7 +29,7 @@ const Trailer = ({
       setLoading(false);
     }
     getData();
-  }, [limit]);
+  }, [movieId, limit]);
 
   //const dataVideo: IVideos = await getVideosTrailer(movieId);
   //const videos = dataVideo.results;
