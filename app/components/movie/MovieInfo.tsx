@@ -99,9 +99,6 @@ function MovieInfo({ movie }: { movie: IMovie }) {
           </li>
         )}
       </ul>
-      <div className="video-trailer block w-full">
-        <Trailer movieId={movie.id} limitDefault={9} />
-      </div>
     </div>
   );
 }

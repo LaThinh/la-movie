@@ -81,7 +81,7 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
         className="flex flex-1 flex-col justify-between text-gray-700 dark:text-white 
       text-left p-3 lg:p-4 "
       >
-        <h3 className="mb-2 text-xl font-semibold line-clamp-2 h-14">
+        <h4 className="mb-2 text-lg  line-clamp-2 h-14">
           <Link
             className="text-gray-700 dark:text-gray-200"
             href={`/movie/${movie.id}-${convertToSlug(movie.title)}`}
@@ -89,7 +89,7 @@ const CardMovie = ({ movie }: { movie: IMovieItem }) => {
           >
             {movie.title}
           </Link>
-        </h3>
+        </h4>
         <div className="release-date text-sm sm:hidden font-semibold italic mb-2">
           {movie?.release_date.toLocaleString()}
         </div>

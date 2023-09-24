@@ -65,16 +65,6 @@ export async function PersonDetailPage({
                   {person?.external_ids && (
                     <Socials socialIds={person.external_ids} />
                   )}
-                  {person?.homepage && (
-                    <div className="flex gap-3 items-center">
-                      <strong>Homepage:</strong>
-                      <SocialIcon
-                        url={person.homepage}
-                        target="_blank"
-                        network="squarespace"
-                      />
-                    </div>
-                  )}
                 </div>
               </div>
               <div className="w-full">
@@ -83,7 +73,7 @@ export async function PersonDetailPage({
             </div>
           </div>
 
-          <div className="person-main flex flex-col lg:w-[70%] lg:max-w-[calc(100%-300px)]">
+          <div className="person-main px-4 flex flex-col lg:w-[70%] lg:max-w-[calc(100%-300px)]">
             <h1
               className="person-name hidden lg:text-3xl lg:block font-bold 
             sticky top-16 z-30 border-b shadow-md bg-white py-4"

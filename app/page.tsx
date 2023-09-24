@@ -62,10 +62,10 @@ export default async function HomePage() {
       <div className="md:px-3 lg:px-5 2xl:px-8">
         <CarouselSliderMovie movieList={dataPopular} />
       </div>
-      <div className="mx-auto py-6 lg:py-8  w-full max-w-screen-2xl px-3 md:px-5 lg:px-8">
-        <h2 className="mb-10 text-center text-2xl font-bold  lg:text-3xl">
+      <div className="mx-auto py-6 lg:py-8 w-full max-w-screen-2xl px-3 md:px-5 lg:px-8">
+        <h3 className="mb-10 text-center text-2xl font-bold  lg:text-3xl">
           {"Top Trending Movies"}
-        </h2>
+        </h3>
         {/* {<Trending page={"1"} />} */}
         <InfiniteScrollMovie movieData={dataTrending.results} fromPage={1} />
       </div>

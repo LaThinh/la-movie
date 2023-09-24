@@ -11,13 +11,17 @@ import MovieInfo from "@/app/components/movie/MovieInfo";
 import Trailer from "@/app/components/movie/Trailer";
 import { getMovieCredits, getMovieDetails } from "@/app/api/FetchMovieDB";
 import SliderVideos from "@/app/components/SliderVideos";
-import MovieTabs from "@/app/components/movie/MovieTabs";
+//import MovieTabs from "@/app/components/movie/MovieTabs";
 import PersonSlider from "@/app/components/person/PersonSlider";
 
 type MovieDetailProps = {
   params: { movieId: string };
   searchParams: { [key: string]: string | undefined };
 };
+
+const MovieTabs = dynamic(() => import("@/app/components/movie/MovieTabs"), {
+  loading: () => <p>Loading Tabs...</p>,
+});
 
 export async function generateMetadata(
   props: MovieDetailProps
@@ -83,7 +87,7 @@ export async function MovieDetailPage(props: MovieDetailProps) {
 
           <MovieTabs movieId={movie.id} movie={movie} />
 
-          <div className="movie-detail-container mt-10 m-auto p-3 md:p-4 lg:p-6 xl:p-8 max-w-screen-2xl">
+          <div className="movie-detail-container my-5 m-auto p-3 md:p-4 lg:p-6 xl:p-8 max-w-screen-2xl">
             {/* <div className="flex flex-col lg:flex-row gap-5 rounded-2xl">
               <div
                 className="@container left-info p-5 font-medium rounded-xl

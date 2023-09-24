@@ -55,25 +55,34 @@ export function MovieTabs({
       setMovieImages(dataImages);
       setMovieReviews(dataReviews);
       setMovieCredits(dataCredits);
+      console.log("Fetch done");
+      const tabParam = searchParams.get("tab");
+      if (tabParam && tabParam.length > 0) {
+        setTimeout(function () {
+          setTabSelected(tabParam);
+        }, 1000);
+      }
     };
 
     getMovieTabsData();
   }, [movieId]);
 
-  useEffect(() => {
-    const tabParam = searchParams.get("tab");
-    if (tabParam && tabParam.length > 0) {
-      setTabSelected(tabParam);
-    }
-  }, [searchParams]);
+  // useEffect(() => {
+  //   const tabParam = searchParams.get("tab");
+  //   if (tabParam && tabParam.length > 0) {
+  //     setTimeout(function () {
+  //       setTabSelected(tabParam);
+  //     }, 3000);
+  //   }
+  // }, [searchParams]);
 
   useEffect(() => {
-    if (tabSelected) window.history.pushState({}, "", "?tab=" + tabSelected);
+    if (tabSelected) window.history.replaceState({}, "", "?tab=" + tabSelected);
   }, [tabSelected]);
 
   return (
     <div>
-      <div className="flex w-full flex-col max-w-screen-2xl mx-auto my-10 ">
+      <div className="flex w-full flex-col max-w-screen-2xl mx-auto my-5 lg:my-10 ">
         <Tabs
           aria-label="Options"
           id="movie-tab"
@@ -85,9 +94,9 @@ export function MovieTabs({
             tabList:
               "gap-2 lg:gap-6 w-full h-16 relative rounded-none p-0 border-b border-divider",
             cursor: "w-full bg-primary",
-            tab: "max-w-fit px-2 py-2 h-10 text-sm font-semibold md:text-lg lg:text-2xl lg:px-4",
+            tab: "max-w-fit h-10 text-sm font-semibold md:text-lg lg:text-xl",
             tabContent:
-              "group-data-[selected=true]:text-primary p-2 md:p-3 lg:p-5",
+              "group-data-[selected=true]:text-primary p-2 md:p-3 lg:p-4",
           }}
           defaultSelectedKey={"info"}
           selectedKey={tabSelected}
@@ -120,7 +129,7 @@ export function MovieTabs({
               <Tab
                 key="photos"
                 title={
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center gap-2">
                     <GalleryIcon />
                     <span>Photos</span>
                   </div>
@@ -145,13 +154,10 @@ export function MovieTabs({
                   <div className="flex items-center space-x-2">
                     <TagUser />
                     <span>Credits</span>
-                    <span className="font-normal text-gray-400">
-                      ({movieCredits.cast.length})
-                    </span>
                   </div>
                 }
                 id="tab-credits"
-                aria-label={`Credits (${movieCredits.cast.length})`}
+                aria-label={`Credits`}
               >
                 <Card>
                   <CardBody>
@@ -171,13 +177,10 @@ export function MovieTabs({
                   <div className="flex items-center space-x-2">
                     <TagUser />
                     <span>Reviews</span>
-                    <span className="font-normal text-gray-400">
-                      ({movieReviews.results.length})
-                    </span>
                   </div>
                 }
                 id="tab-reviews"
-                aria-label={`Reviews (${movieReviews.results.length})`}
+                aria-label={`Reviews`}
               >
                 <Card>
                   <CardBody>
@@ -192,7 +195,7 @@ export function MovieTabs({
             title={
               <div className="flex items-center space-x-2">
                 <VideoIcon />
-                <span>All Videos</span>
+                <span>Videos</span>
               </div>
             }
             id="tab-videos"
