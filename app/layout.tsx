@@ -4,6 +4,9 @@ import { Inter } from "next/font/google";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Providers } from "./providers";
+import { Suspense } from "react";
+import Loading from "@/app/components/Loading";
+import PageLoading from "./components/LoadingProgressBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +29,12 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <Header />
-          <main className="main flex flex-col text-center">{children}</main>
+          <main className="main flex flex-col text-center">
+            <Suspense fallback={<Loading text="Loading Page" />}>
+              {children}
+            </Suspense>
+          </main>
+          <PageLoading />
           <Footer />
         </Providers>
       </body>

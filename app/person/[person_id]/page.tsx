@@ -1,13 +1,12 @@
 // "use client";
 import React, { Suspense } from "react";
-import { getPersonDetails, getPersonMovies } from "@/app/api/FetchMovieDB";
-import { IMovie, IMovieItem, IPerson } from "@/app/interfaces";
-import Loading from "@/app/components/Loading";
+import { Metadata } from "next";
 import Image from "next/image";
+import { getPersonDetails, getPersonMovies } from "@/app/api/FetchMovieDB";
+import { IMovieItem, IPerson } from "@/app/interfaces";
+import Loading from "@/app/components/Loading";
 import Socials from "@/app/components/Socials";
-import { SocialIcon } from "react-social-icons";
 import PersonInfo from "@/app/components/person/PersonInfo";
-import MovieGrid from "@/app/components/movie/MovieGrid";
 import MovieSlider from "@/app/components/movie/MovieSlider";
 import PersonImageGallery from "@/app/components/person/PersonImageGallery";
 
@@ -16,6 +15,23 @@ type IMovieCredits = {
   cast: IMovieItem[];
   crew: IMovieItem[];
 };
+
+export async function generateMetadata({
+  params: { person_id },
+}: {
+  params: { person_id: string };
+}): Promise<Metadata> {
+  const personId = person_id.split("-")[0];
+  const person: IPerson = await getPersonDetails({ personId: personId });
+
+  return {
+    title: `${person.name} | La Movie`,
+    description: person.biography,
+    openGraph: {
+      images: [`https://image.tmdb.org/t/p/w400/${person.profile_path}`],
+    },
+  };
+}
 
 export function NewlineText(props: string) {
   const newText = props.split("\n").map((str, id) => <p key={id}>{str}</p>);
