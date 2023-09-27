@@ -8,7 +8,7 @@ import { Suspense } from "react";
 import Loading from "@/app/components/Loading";
 import PageLoading from "./components/LoadingProgressBar";
 
-const inter = Inter({ subsets: ["latin"] });
+const interFont = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App La Movie",
@@ -26,15 +26,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="light" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={interFont.className}>
         <Providers>
           <Header />
+          <PageLoading />
           <main className="main flex flex-col text-center">
             <Suspense fallback={<Loading text="Loading Page" />}>
               {children}
             </Suspense>
           </main>
-          <PageLoading />
           <Footer />
         </Providers>
       </body>
