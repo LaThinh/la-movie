@@ -92,7 +92,7 @@ export async function PersonDetailPage({
           <div className="person-main px-4 flex flex-col lg:w-[70%] lg:max-w-[calc(100%-300px)]">
             <h1
               className="person-name hidden lg:text-3xl lg:block font-bold 
-            sticky top-16 z-30 border-b shadow-md bg-white py-4"
+            sticky top-16 z-30 border-b shadow-sm bg-white py-4 dark:bg-slate-600"
             >
               {person.name}
             </h1>

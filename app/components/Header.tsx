@@ -1,13 +1,9 @@
 import Link from "next/link";
 import { ThemeSwitcher } from "./ThemeSwitcher";
-import PageLoading from "@/app/components/LoadingProgressBar";
 
 export default function Header() {
-  //const router = useRouter();
-  //console.log(router.query);
-
   return (
-    <header className="flex sticky top-0 z-50 justify-between items-center px-3 lg:px-10 py-1 bg-primary-400 dark:bg-black">
+    <header className="flex w-full sticky top-0 z-50 justify-between items-center px-3 lg:px-10 py-1 bg-primary-400 dark:bg-black">
       <div className="header-container max-w-screen-2xl flex justify-between items-center w-full m-auto">
         <Link
           href="/"
@@ -31,7 +27,6 @@ export default function Header() {
           <ThemeSwitcher />
         </div>
       </div>
-      <PageLoading />
     </header>
   );
 }

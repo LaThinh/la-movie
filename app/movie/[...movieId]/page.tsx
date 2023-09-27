@@ -13,6 +13,7 @@ import { getMovieCredits, getMovieDetails } from "@/app/api/FetchMovieDB";
 import SliderVideos from "@/app/components/SliderVideos";
 //import MovieTabs from "@/app/components/movie/MovieTabs";
 import PersonSlider from "@/app/components/person/PersonSlider";
+import BannerParallax from "@/app/components/BannerParallax";
 
 type MovieDetailProps = {
   params: { movieId: string };
@@ -61,15 +62,21 @@ export async function MovieDetailPage(props: MovieDetailProps) {
       ) : (
         <div className="movie-detail-view m-auto">
           {movie?.backdrop_path && (
-            <div className="banner h-[54vh] max-h-[720px] max-w-[2800px] m-auto relative overflow-hidden">
-              <Image
-                alt={movie?.title}
-                src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
-                className="object-cover w-full"
-                priority={true}
-                fill
-              />
-            </div>
+            // <div className="banner h-[54vh] max-h-[720px] max-w-[2800px] m-auto relative overflow-hidden">
+            //   <Image
+            //     alt={movie?.title}
+            //     src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
+            //     className="object-cover w-full"
+            //     priority={true}
+            //     fill
+            //   />
+
+            // </div>
+
+            <BannerParallax
+              imageUrl={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
+              imageTitle={movie.title}
+            />
           )}
 
           <h1 className="text-2xl lg:text-4xl 2xl:text-6xl my-3 xl:my-6 leading-normal ">
