@@ -7,6 +7,7 @@ import { Providers } from "./providers";
 import { Suspense } from "react";
 import Loading from "@/app/components/Loading";
 import PageLoading from "./components/LoadingProgressBar";
+import { Analytics } from "@vercel/analytics/react";
 
 const interFont = Inter({ subsets: ["latin"] });
 
@@ -36,6 +37,7 @@ export default function RootLayout({
             </Suspense>
           </main>
           <Footer />
+          <Analytics />
         </Providers>
       </body>
     </html>
