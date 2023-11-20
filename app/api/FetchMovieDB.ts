@@ -6,20 +6,17 @@ const options: RequestInit = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization:
-      process.env.THE_MOVIE_DATABASE_API?.toString() ||
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3YzQxODJmN2Y4M2U1MTMwZmE2ZjRiOTRlMGM2OGE3NyIsInN1YiI6IjY0YjYwN2VlMzc4MDYyMDBmZjNhMmNkYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nv6BfKpMo2TI6mBuoJaOcXGOdKmZEd2F7E7Q01RkaGY",
+    Authorization: "Bearer " + process.env.NEXT_PUBLIC_MOVIE_API,
   },
   next: {
-    revalidate: 100,
+    revalidate: 300,
   },
+  cache: "force-cache",
 };
 
 const fetchHeader = {
   accept: "application/json",
-  Authorization:
-    process.env.THE_MOVIE_DATABASE_API?.toString() ||
-    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3YzQxODJmN2Y4M2U1MTMwZmE2ZjRiOTRlMGM2OGE3NyIsInN1YiI6IjY0YjYwN2VlMzc4MDYyMDBmZjNhMmNkYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nv6BfKpMo2TI6mBuoJaOcXGOdKmZEd2F7E7Q01RkaGY",
+  Authorization: "Bearer " + process.env.NEXT_PUBLIC_MOVIE_API,
 };
 
 let language = "en-EN";
@@ -37,6 +34,7 @@ export async function getTrending(page?: number) {
   const pageCurrent: number = page || 1;
   const url = `${baseUrl}/trending/movie/day?page=${pageCurrent}&language=${language}`;
   const res = await fetch(url, options);
+
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");
@@ -77,6 +75,24 @@ export async function getVideosTrailer({
 }) {
   language = language || "en";
   const url = `${baseUrl}/movie/${movieId}/videos?language=${language}`;
+  console.log("Get Videos Trailer " + url);
+  const res = await fetch(url, options);
+  if (!res.ok) {
+    throw new Error("Failed to fetch data trailer. URL Link: " + url);
+  }
+
+  return res.json();
+}
+
+export async function getMovieVideos({
+  movieId,
+  language,
+}: {
+  movieId: string;
+  language?: string;
+}) {
+  language = language || "en";
+  const url = `${baseUrl}/movie/${movieId}/videos?language=${language}`;
   const res = await fetch(url, options);
   if (!res.ok) {
     throw new Error("Failed to fetch data trailer. URL Link: " + url);
@@ -100,6 +116,9 @@ export async function getMovieDetails({
     : "";
   const url = `${baseUrl}/movie/${movieId}?${appendResponse}language=${language}`;
   const res = await fetch(url, options);
+
+  //console.log(options);
+
   if (!res.ok) {
     throw new Error("Failed to fetch data Movie Detail. URL Link: " + url);
   }
