@@ -4,7 +4,7 @@ import { ICredits, IMovie } from "@/app/interfaces";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
-import Comments from "@/app/components/Comments";
+// import Comments from "@/app/components/Comments";
 import { Metadata } from "next";
 import Recommendations from "@/app/components/movie/Recommendations";
 import MovieInfo from "@/app/components/movie/MovieInfo";
