@@ -7,9 +7,9 @@ const nextConfig = {
         unoptimized: true,
     },
 
-    experimental: {
-        serverActions: true,
-    },
+    // experimental: {
+    //     serverActions: true,
+    // },
 
     serverRuntimeConfig: {
         movieToken: process.env.THE_MOVIE_API_TOKEN
@@ -21,7 +21,11 @@ const nextConfig = {
         // !! WARN !!
         ignoreBuildErrors: true,
     },
-
+    logging: {
+        fetches: {
+            fullUrl: true,
+        },
+    },
 }
 
 module.exports = nextConfig

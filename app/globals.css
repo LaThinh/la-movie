@@ -5,26 +5,26 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+	--foreground-rgb: 0, 0, 0;
+	--background-start-rgb: 214, 219, 220;
+	--background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+	:root {
+		--foreground-rgb: 255, 255, 255;
+		--background-start-rgb: 0, 0, 0;
+		--background-end-rgb: 0, 0, 0;
+	}
 }
 
 body {
-  font-family: "Roboto Condensed", "sans-serif";
-  /* font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif; */
+	font-family: "Roboto Condensed", "sans-serif";
+	/* font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif; */
 }
 
 main {
-  min-height: 80vh;
+	min-height: calc(100vh - 160px);
 }
 
 h1,
@@ -33,45 +33,44 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Fjalla One";
+	font-family: "Fjalla One";
 }
 
 .font-script {
-  @apply font-pacifico;
+	@apply font-pacifico;
 }
 
 header nav a {
-  @apply text-white hover:text-yellow-400;
+	@apply text-white hover:text-yellow-400;
 }
 
 a {
-  @apply text-c-blue hover:text-c-blue-light;
+	@apply text-c-blue hover:text-c-blue-light;
 }
 
 .form-control {
-  @apply focus:outline-0;
+	@apply focus:outline-0;
 }
 
 .page-title {
-  @apply font-bold my-2 text-3xl lg:text-5xl lg:my-4;
+	@apply font-bold my-2 text-3xl lg:text-5xl lg:my-4;
 }
 
 .movie-info-list {
-  @apply flex flex-col gap-5;
+	@apply flex flex-col gap-5;
 }
 .movie-info-list li {
-  @apply flex flex-wrap gap-3;
+	@apply flex flex-wrap gap-3;
 }
 .movie-info-list h4 {
-  @apply w-1/5 min-w-[90px];
+	@apply w-1/5 max-w-[120px];
 }
 
 .movie-info-list p {
-  @apply flex-1;
+	@apply flex-1;
 }
 
 .image-slider-shadow {
-  display: block;
-  -webkit-box-reflect: below 1px
-    linear-gradient(transparent, transparent, #0004, #000400);
+	display: block;
+	-webkit-box-reflect: below 1px linear-gradient(transparent, transparent, #0004, #000400);
 }
