@@ -62,7 +62,6 @@ const CardMovie = ({ movie, lang }: { movie: IMovieItem; lang?: string }) => {
 						value: "text-[18px] font-bold text-primary-500",
 					}}
 					size="lg"
-					strokeWidth={5}
 					maxValue={10}
 					value={vote}
 					color={
