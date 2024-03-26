@@ -2,6 +2,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+![image](https://github.com/LaThinh/la-movie/assets/5600400/26e8e552-97a6-4395-ae27-d0f4daa18b62)
+
+
 First, run the development server:
 
 ```bash
@@ -19,6 +22,8 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
 ## Learn More
+
+![image](https://github.com/LaThinh/la-movie/assets/5600400/59c8325f-edf6-4c5d-add4-3788dc475f90)
 
 To learn more about Next.js, take a look at the following resources:
 
