@@ -10,6 +10,9 @@ const nextConfig = {
     // experimental: {
     //     serverActions: true,
     // },
+    experimental: {
+        missingSuspenseWithCSRBailout: false,
+    },
 
     serverRuntimeConfig: {
         movieToken: process.env.THE_MOVIE_API_TOKEN

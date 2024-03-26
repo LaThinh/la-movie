@@ -8,6 +8,7 @@ import { Suspense } from "react";
 import Loading from "@/app/components/Loading";
 import PageLoading from "./components/LoadingProgressBar";
 import { Analytics } from "@vercel/analytics/react";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 
 const interFont = Inter({ subsets: ["latin"] });
 
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 			className="light scroll-smooth focus:scroll-auto"
 			suppressHydrationWarning
 		>
+			<GoogleTagManager gtmId="G-C6ZWMDMFNJ" />
 			<body className={`${interFont.className} `}>
 				<Providers>
 					<Header />
@@ -36,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 					</main>
 					<Footer />
 					{/* <Analytics /> */}
+					<GoogleAnalytics gaId="G-C6ZWMDMFNJ" />
 				</Providers>
 			</body>
 		</html>
