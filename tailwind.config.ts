@@ -47,6 +47,18 @@ module.exports = {
 				"c-gray": "#A6ABBD",
 				"c-primary": "#2C73D2",
 				"c-primary-light": "#009CE9",
+				"c-secondary": "#bc6c25",
+			},
+
+			animation: {
+				"text-gradient": "text 2.5s linear infinite",
+			},
+			keyframes: {
+				text: {
+					to: {
+						backgroundPosition: "-200% center",
+					},
+				},
 			},
 		},
 	},

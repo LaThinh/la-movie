@@ -27,9 +27,9 @@ function BannerParallax({
 		<>
 			<div
 				ref={ref}
-				className={`banner aspect-square
-        h-[63vh] max-h-[720px]
-        lg:aspect-[24/7] max-w-[2800px] w-full m-auto relative overflow-hidden
+				className={`banner w-full m-auto relative overflow-hidden
+				h-[63vh] min-h-[500px] max-h-[720px]
+				aspect-square lg:aspect-[24/7] max-w-[2800px] 
         `}
 			>
 				<motion.div style={{ y }} className="w-full h-full">

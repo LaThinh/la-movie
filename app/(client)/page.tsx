@@ -2,7 +2,6 @@ import Image from "next/image";
 import { IMovieListPage, ITrending } from "../interfaces";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useSearchParams } from "next/navigation";
 import Trending from "../components/Trending";
 import Head from "next/head";
 import { Metadata } from "next";
@@ -56,9 +55,14 @@ export default async function HomePage() {
 	return (
 		<div className="home-page main">
 			<h1 className="text-c-blue-light font-script text-3xl lg:text-4xl xl:text-5xl my-5 lg:my-10">
-				Welcome to La Movies
+				<span
+					className="animate-text-gradient bg-gradient-to-r from-[#b2a8fd] via-[#8678f9] to-[#c7d2fe] 
+    bg-[200%_auto] bg-clip-text text-transparent"
+				>
+					Welcome to La Movies
+				</span>
 			</h1>
-			<div className="md:px-3 lg:px-5 2xl:px-8">
+			<div className="">
 				<CarouselSliderMovie movieList={dataPopular} />
 			</div>
 			<div className="mx-auto py-6 lg:py-8 w-full max-w-screen-2xl px-3 md:px-5 lg:px-8">

@@ -5,7 +5,11 @@ import NavMenu from "./NavMenu";
 
 export default function Header() {
 	return (
-		<header className="flex w-full sticky top-0 z-50 justify-between items-center px-3 lg:px-10 py-1 bg-primary-400 dark:bg-black">
+		<header
+			className="flex w-full sticky top-0 z-50 
+			justify-between items-center px-3 lg:px-10 py-1 
+			bg-primary/90 backdrop-blur-md dark:bg-black shadow-lg"
+		>
 			<div className="header-container max-w-screen-2xl flex justify-between items-center w-full m-auto">
 				<NavMenu />
 

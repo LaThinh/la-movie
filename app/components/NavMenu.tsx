@@ -1,35 +1,62 @@
 "use client";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 
+const menus = [
+	{
+		href: "/",
+		title: "Home",
+		title_vn: "Trang chủ",
+	},
+	{
+		href: "/about",
+		title: "About",
+		title_vn: "Giới thiệu",
+	},
+	{
+		href: "/movie",
+		title: "Movie",
+		title_vn: "Phim",
+	},
+	{
+		href: "/movie/genre",
+		title: "Genre",
+		title_vn: "Thể loại",
+	},
+	{
+		href: "/search",
+		title: "Search",
+		title_vn: "Tìm kiếm",
+	},
+];
 export default function NavMenu() {
+	let lang = "en"; //Set value default
 	const params = useParams();
-
-	let lang = params?.lang;
-
-	if (!lang && typeof window !== "undefined") {
-		lang = localStorage.getItem("lang") || "en";
+	if (params?.lang) {
+		lang = params.lang.toString();
+	} else if (typeof window !== "undefined") {
+		const localLang = localStorage.getItem("lang");
+		if (localLang) lang = localLang.toString();
 	}
-	lang = lang?.toString();
 
 	return (
 		<>
 			<Link
 				href={`/${lang}`}
-				className="font-script text-3xl p-3 font-bold  text-white hover:text-yellow-400"
+				className="logo p-3 font-script font-bold 
+				text-3xl text-white hover:text-yellow-400"
 			>
 				La <span className=" ">Movie</span>
 			</Link>
-			<nav className="gap-5 lg:gap-8 xl:gap-10  text-white font-bold text-xl hidden md:flex">
-				<Link href={`/${lang}`} prefetch>
-					Home
-				</Link>
-				<Link href={`/${lang}/about`}>About</Link>
-				<Link href={`/${lang}/movie`}>Movie</Link>
-				<Link href={`/${lang}/movie/genre`}>Genre</Link>
-				<Link href={`/${lang}/search`}>Search</Link>
-				{/* <Link href="/dashboard">Dashboard</Link> */}
+			<nav className="gap-5 lg:gap-8 xl:gap-10 font-bold text-xl hidden md:flex">
+				{/* <Link href={`/${lang}/about`}>About</Link>
+				<Link href="/dashboard">Dashboard</Link> */}
+				{menus.map((menu) => (
+					<Link key={menu.href} href={`/${lang}${menu.href}`} className="capitalize">
+						{lang === "vi" ? menu.title_vn : menu.title}
+					</Link>
+				))}
 			</nav>
 		</>
 	);
