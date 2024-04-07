@@ -67,7 +67,7 @@ export interface IKeyword {
 }
 
 export interface IVideos {
-	id: number;
+	id?: number;
 	results: IVideoItem[];
 }
 
@@ -145,7 +145,7 @@ export interface IPeople {
 }
 
 export interface ICredits {
-	id: number;
+	id?: number;
 	cast: IPeople[];
 	crew: IPeople[];
 }

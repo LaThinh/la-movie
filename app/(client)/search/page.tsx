@@ -10,7 +10,6 @@ import MovieGrid from "@/app/components/movie/MovieGrid";
 import { useInView } from "react-intersection-observer";
 import Head from "next/head";
 import MovieList from "@/app/components/movie/MovieList";
-import SelectLanguages from "@/app/components/SelectLanguages";
 
 export interface ISearchResult {
 	page: number;
@@ -49,7 +48,7 @@ const SearchPage = (props: SearchPage) => {
 	//   [selectedKeys]
 	// );
 
-	const [lang, setLang] = useState<string>(localStorage.getItem("lang") || "en");
+	const [lang, setLang] = useState<string>("en");
 
 	const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		setLang(e.target.value);
@@ -343,15 +342,14 @@ const SearchPage = (props: SearchPage) => {
 										{searchResult?.total_results ?? 0} results
 									</h3>
 									<div className="search-language">
-										<SelectLanguages />
-										{/* <Select
+										<Select
 											label="Language"
 											className="w-28 lg:w-36"
 											//color="primary"
 											size="sm"
 											radius="lg"
 											selectionMode="single"
-											defaultSelectedKeys={[lang]}
+											defaultSelectedKeys={["en"]}
 											onChange={handleLanguageChange}
 										>
 											<SelectItem key="en" value="en">
@@ -372,7 +370,7 @@ const SearchPage = (props: SearchPage) => {
 											<SelectItem key="ja" value="ja">
 												Japan
 											</SelectItem>
-										</Select> */}
+										</Select>
 									</div>
 								</div>
 							</div>

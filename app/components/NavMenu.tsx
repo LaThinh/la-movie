@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const menus = [
 	{
@@ -18,6 +18,11 @@ const menus = [
 		href: "/movie",
 		title: "Movie",
 		title_vn: "Phim",
+	},
+	{
+		href: "/tv",
+		title: "TV",
+		title_vn: "TV",
 	},
 	{
 		href: "/movie/genre",
@@ -40,6 +45,12 @@ export default function NavMenu() {
 		if (localLang) lang = localLang.toString();
 	}
 
+	const [isClient, setIsClient] = useState(false);
+
+	useEffect(() => {
+		setIsClient(true);
+	}, []);
+
 	return (
 		<>
 			<Link
@@ -52,11 +63,12 @@ export default function NavMenu() {
 			<nav className="gap-5 lg:gap-8 xl:gap-10 font-bold text-xl hidden md:flex">
 				{/* <Link href={`/${lang}/about`}>About</Link>
 				<Link href="/dashboard">Dashboard</Link> */}
-				{menus.map((menu) => (
-					<Link key={menu.href} href={`/${lang}${menu.href}`} className="capitalize">
-						{lang === "vi" ? menu.title_vn : menu.title}
-					</Link>
-				))}
+				{isClient &&
+					menus.map((menu) => (
+						<Link key={menu.href} href={`/${lang}${menu.href}`} className="capitalize">
+							{lang === "vi" ? menu.title_vn : menu.title}
+						</Link>
+					))}
 			</nav>
 		</>
 	);

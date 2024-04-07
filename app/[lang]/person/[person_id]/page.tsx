@@ -48,7 +48,6 @@ export async function PersonDetailPage({
 	console.log(person_id);
 
 	const personId = person_id.split("-")[0];
-	const personName = person_id.replace(person_id, "").replaceAll("-", " ").trim();
 
 	const person: IPerson = await getPersonDetails({ personId: personId });
 	const movieCredits: IMovieCredits = await getPersonMovies({
@@ -57,7 +56,7 @@ export async function PersonDetailPage({
 
 	return (
 		<>
-			<Suspense fallback={<Loading text={`Loading Person ${personName}... `} />}>
+			<Suspense fallback={<Loading text={`Loading Person...`} />}>
 				<div className="person-detail-page mx-auto w-full min-h-[90vh] max-w-screen-2xl  xl:p-10 flex flex-col lg:flex-row gap-5">
 					<h1
 						className="person-name text-2xl my-0 py-4 w-full sticky top-16 z-30 border-b shadow-md

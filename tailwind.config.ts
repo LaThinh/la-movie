@@ -52,11 +52,23 @@ module.exports = {
 
 			animation: {
 				"text-gradient": "text 2.5s linear infinite",
+				text: "text2 3s ease infinite",
 			},
 			keyframes: {
 				text: {
 					to: {
 						backgroundPosition: "-200% center",
+					},
+				},
+
+				text2: {
+					"0%, 100%": {
+						"background-size": "200% 200%",
+						"background-position": "left center",
+					},
+					"50%": {
+						"background-size": "200% 200%",
+						"background-position": "right center",
 					},
 				},
 			},

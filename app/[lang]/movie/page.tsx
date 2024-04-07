@@ -17,7 +17,7 @@ export default async function MoviePage({ params }: { params: { lang: string } }
 	const movieGenres: IGenre[] = await getMovieGenre(lang);
 
 	return (
-		<div className="movie-page flex flex-col gap-6 container m-auto max-w-screen-2xl">
+		<div className="movie-page flex flex-1 flex-col gap-6 container m-auto max-w-screen-2xl">
 			<h1 className="page-title">Movies Page</h1>
 
 			<div className="wrapper flex flex-col  gap-8">

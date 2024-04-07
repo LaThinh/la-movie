@@ -7,10 +7,8 @@ const nextConfig = {
         unoptimized: true,
     },
 
-    // experimental: {
-    //     serverActions: true,
-    // },
     experimental: {
+        // serverActions: true,
         missingSuspenseWithCSRBailout: false,
     },
 

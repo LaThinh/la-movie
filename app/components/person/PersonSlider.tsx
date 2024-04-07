@@ -14,7 +14,7 @@ import { convertToSlug } from "@/app/lib/utils";
 PersonSlider.propTypes = {};
 
 function PersonSlider({ personList }: { personList: IPeople[] }) {
-	const isViewMore = personList.length > 10 ? true : false;
+	const isViewMore = personList?.length > 10 ? true : false;
 	personList = personList.slice(0, 10);
 
 	return (

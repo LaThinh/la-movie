@@ -102,7 +102,6 @@ const CardMovie = ({ movie, lang }: { movie: IMovieItem; lang?: string }) => {
 				>
 					{movie.overview}
 				</p>
-				<p>{movie?.original_language}</p>
 				<div className="card-footer flex flex-wrap gap-2 justify-center sm:justify-between align-middle items-center mt-4 w-full">
 					<div className="popularity hidden w-full">{movie?.popularity}</div>
 
