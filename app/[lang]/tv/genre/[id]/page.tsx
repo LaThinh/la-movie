@@ -17,7 +17,6 @@ export async function generateMetadata(
 	{ params, searchParams }: Props,
 	parent: ResolvingMetadata
 ): Promise<Metadata> {
-	// fetch data
 	const tvGenres: IGenre[] = await getTvGenre({ lang: params.lang });
 	const currentGenre = tvGenres.find((genre) => genre.id == params.id);
 

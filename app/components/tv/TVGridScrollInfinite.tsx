@@ -67,6 +67,10 @@ export default function TVGridScrollInfinite(props: TVGridScroll) {
 					data = await getTVTrending({ page: page, time: "day", lang: lang });
 					break;
 
+				case "Popular":
+					data = await getTVPopular({ page: page, lang: lang });
+					break;
+
 				case "Genre":
 					data = await getDiscoverTvGenres({
 						genreId: props?.genreId || "16",

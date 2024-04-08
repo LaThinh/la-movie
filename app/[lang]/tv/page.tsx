@@ -25,7 +25,7 @@ export default async function TVPage({ params }: { params: { lang: string } }) {
 					<TvGenres genres={tvGenres} lang={lang} displayAll />
 				</div>
 
-				<TVGridScrollInfinite TVItems={TVItems} lang={lang} type="Trending" />
+				<TVGridScrollInfinite TVItems={TVItems} lang={lang} type="Popular" />
 			</div>
 		</div>
 	);

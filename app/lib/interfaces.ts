@@ -155,3 +155,11 @@ export interface IKeyword {
 	id: number;
 	name: string;
 }
+
+export interface ITvListPage {
+	title?: string;
+	page: number;
+	results: ITVItem[];
+	total_results: number;
+	total_pages: number;
+}

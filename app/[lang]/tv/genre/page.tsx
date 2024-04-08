@@ -18,7 +18,6 @@ export default async function MoviePage({
 	const lang = params.lang || "en";
 
 	const tvGenres: IGenre[] = await getTvGenre({ lang: lang });
-
 	const dataTvGenre = await getTVTrending({ lang: lang, time: "day" });
 	const TVItems: ITVItem[] = await dataTvGenre?.results;
 
