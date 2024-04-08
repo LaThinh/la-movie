@@ -1,4 +1,4 @@
-import { BASE_URL } from "../lib/constants";
+// import { BASE_URL } from "../lib/constants";
 import { getServerSideSitemapIndex } from "next-sitemap";
 import { ITVItem } from "../lib/interfaces";
 import { getTVPopular } from "../lib/fetchTv";
@@ -13,6 +13,7 @@ export async function GET(request: Request) {
 	const pageTo = 10;
 	const lang = "en";
 
+	const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://movie.laquocthinh.com";
 	// let Movies: IMovieItem[] = [];
 	// let TVs: ITVItem[] = [];
 	// for (let page = pageFrom; page < pageTo; page++) {
