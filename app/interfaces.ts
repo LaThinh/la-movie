@@ -44,6 +44,12 @@ export interface IMovie {
 	tagline?: string;
 	status: string;
 	vote_average: number;
+	type: string;
+	vote_count: number;
+	runtime?: number;
+	budget: number;
+	revenue: number;
+
 	genres: {
 		id: number;
 		name: string;
@@ -54,11 +60,23 @@ export interface IMovie {
 		iso_639_1: string;
 	}[];
 	production_countries: {
+		iso_3166_1: string;
 		name: string;
 	}[];
+	production_companies: {
+		id: number;
+		logo_path: string;
+		name: string;
+		origin_country: string;
+	}[];
+
 	keywords?: {
 		keywords: IKeyword[];
 	};
+	images?: IMovieImages;
+	videos?: IVideos;
+	credits?: ICredits;
+	reviews?: IMovieReviews;
 }
 
 export interface IKeyword {
@@ -125,9 +143,11 @@ export interface IReview {
 }
 
 export interface IMovieReviews {
-	id: number;
+	id?: number;
 	page: number;
 	results: IReview[];
+	total_pages?: number;
+	total_results?: number;
 }
 
 export interface IPeople {

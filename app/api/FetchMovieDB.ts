@@ -43,8 +43,9 @@ export async function getTrending(page?: number) {
 	return res.json();
 }
 
-export async function getPopular(page?: number) {
+export async function getPopular({ page, lang }: { page?: number; lang?: string }) {
 	const pageCurrent: number = page || 1;
+	const language = lang || "en";
 	const url = `${baseUrl}/movie/popular?page=${pageCurrent}&language=${language}`;
 	const res = await fetch(url, options);
 	if (!res.ok) {

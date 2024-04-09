@@ -51,7 +51,7 @@ module.exports = {
 			},
 
 			animation: {
-				"text-gradient": "text 2.5s linear infinite",
+				"text-gradient": "text 3.5s linear infinite",
 				text: "text2 3s ease infinite",
 			},
 			keyframes: {

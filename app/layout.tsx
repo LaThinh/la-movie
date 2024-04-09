@@ -32,6 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				name="google-site-verification"
 				content="AEBdKA2ofkzRezhsUitEoSaRB3Emx5mVVRJspLyIIO8"
 			/>
+
 			<GoogleTagManager gtmId="GTM-WZ4XMWS8" />
 			<body className={`${interFont.className} `}>
 				<Providers>

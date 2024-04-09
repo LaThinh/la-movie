@@ -12,7 +12,7 @@ function MovieGrid({ movieList }: { movieList: IMovieItem[] }) {
 	const params = useParams();
 	const lang = params?.lang?.toString() || localStorage.getItem("lang") || "en";
 
-	console.log(data[0]);
+	// console.log(data[0]);
 
 	return (
 		<div className="movie-container @container">

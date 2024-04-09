@@ -19,9 +19,13 @@ import Link from "next/link";
 
 export default function CarouselSliderMovie({
 	movieList,
+	lang,
 }: {
 	movieList: IMovieListPage;
+	lang?: string;
 }) {
+	const language = lang || "en";
+
 	return (
 		<div>
 			<div className="movie-recommend  mb-20">
@@ -67,7 +71,10 @@ export default function CarouselSliderMovie({
 									>
 										{/* {movie?.overview} */}
 										<div className="movie-banner relative w-320 rounded-2xl overflow-hidden pb-36">
-											<Link href={`/movie/${movie.id}`} title={movie?.original_title}>
+											<Link
+												href={`${language}/movie/${movie.id}`}
+												title={movie?.original_title}
+											>
 												<Image
 													src={`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`}
 													// width={500}

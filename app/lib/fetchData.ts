@@ -6,7 +6,7 @@ export const options: RequestInit = {
 		Authorization: "Bearer " + process.env.NEXT_PUBLIC_MOVIE_API,
 	},
 	next: {
-		revalidate: 600,
+		revalidate: 7200,
 	},
 	cache: "force-cache",
 };

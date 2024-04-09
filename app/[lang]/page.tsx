@@ -23,13 +23,11 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage({ params }: { params: { lang: string } }) {
-	//const params = useParams();
 	const lang = params?.lang || "en";
 	console.log(params);
-	console.log(lang);
 
-	const dataTrending: ITrending = (await getMovieTrending(1, lang)) || null;
-	const dataPopular: IMovieListPage = await getPopular();
+	const dataTrending: ITrending = await getMovieTrending(1, lang);
+	const dataPopular: IMovieListPage = await getPopular({ lang: lang });
 
 	return (
 		<div className="home-page main">
@@ -37,7 +35,7 @@ export default async function HomePage({ params }: { params: { lang: string } })
 				Welcome to La Movies
 			</h1>
 			<div className="md:px-3 lg:px-5 2xl:px-8 !px-0">
-				<CarouselSliderMovie movieList={dataPopular} />
+				<CarouselSliderMovie movieList={dataPopular} lang={lang} />
 			</div>
 			<div className="mx-auto py-6 lg:py-8 w-full max-w-screen-2xl px-3 md:px-5 lg:px-8">
 				<h3 className="mb-10 text-center text-2xl font-bold  lg:text-3xl">

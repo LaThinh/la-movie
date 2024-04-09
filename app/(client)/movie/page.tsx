@@ -8,7 +8,7 @@ export interface IMoviePageProps {}
 
 export default async function Movie() {
 	const genreList = await getAllGenres();
-	const dataPopular = await getPopular();
+	const dataPopular = await getPopular({});
 
 	return (
 		<div className="layout-movie flex gap-2 xl:gap-10 w-full flex-col xl:items-end m-auto xl:max-w-[1920px] p-2 lg:p-5 relative ">

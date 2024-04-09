@@ -19,7 +19,7 @@ export default function ModalVideos({
 	videos,
 	title,
 }: {
-	type: "button" | "slider" | "icon";
+	type: "button" | "slider" | "icon" | "item";
 	video: IVideoItem;
 	videos?: IVideoItem[];
 	title?: string;
@@ -125,6 +125,38 @@ export default function ModalVideos({
 				</div>
 			)}
 
+			{type === "item" && (
+				<div
+					className="video-item w-full flex flex-col gap-2 border rounded-lg overflow-hidden
+        						bg-white dark:bg-primary-700  border-gray-300 shadow-lg"
+				>
+					<Link
+						className="video-link-image relative w-full"
+						onClick={onOpen}
+						onPress={handleSetCurrent}
+					>
+						<Image
+							width={640}
+							height={360}
+							alt={video.name}
+							radius="none"
+							loading="eager"
+							isZoomed
+							className=" aspect-video cursor-pointer"
+							src={`https://img.youtube.com/vi/${video.key}/sddefault.jpg`}
+						/>
+						<div className="absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center items-center">
+							<VideoIcon width={48} height={48} className="text-white" />
+						</div>
+					</Link>
+					<div className="video-info py-2 px-3">
+						<h3 className="video-title line-clamp-1 text-gray-700 dark:text-white">
+							{video.name} - {video.type}
+						</h3>
+					</div>
+				</div>
+			)}
+
 			<Modal
 				backdrop="opaque"
 				size="5xl"
@@ -134,10 +166,11 @@ export default function ModalVideos({
 				placement="center"
 				classNames={{
 					backdrop: "bg-gradient-to-t from-zinc-700 to-zinc-900/50 backdrop-opacity-30",
-					closeButton: "top-3 right-3",
+					closeButton: "top-3 right-3 text-xl",
 				}}
 				scrollBehavior={"outside"}
 				onOpenChange={onOpenChange}
+				isDismissable={false}
 				motionProps={{
 					variants: {
 						enter: {
@@ -167,7 +200,7 @@ export default function ModalVideos({
 									{currentVideo.site} | {currentVideo.name} | {currentVideo?.type}
 								</div>
 								{videos && videos.length > 1 && (
-									<div className="modal-control flex gap-2 w-36mr-5 items-center">
+									<div className="modal-control flex gap-2 w-36 mr-5 items-center">
 										<Link
 											href="#"
 											onClick={handlePrevVideo}

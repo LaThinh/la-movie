@@ -49,7 +49,7 @@ export default async function HomePage() {
 	// console.log(dataTrending.results[0]);
 
 	console.log("Get Movie Popular");
-	const dataPopular: IMovieListPage = await getPopular();
+	const dataPopular: IMovieListPage = await getPopular({});
 	// console.log(dataPopular.results[0]);
 
 	return (
