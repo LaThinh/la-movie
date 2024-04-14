@@ -1,10 +1,11 @@
 import React from "react";
 import { getLanguages } from "@/app/lib/fetchData";
-import { getMovieGenre } from "@/app/lib/fetchMovie";
+import { getMovieGenre, getMoviePopular } from "@/app/lib/fetchMovie";
 import { IGenre } from "@/app/lib/interfaces";
 import Link from "next/link";
 import MovieGenres from "@/app/components/movie/MovieGenres";
 import InfiniteScrollMovie from "@/app/components/InfiniteScrollMovie";
+import MovieGridScrollInfinite from "@/app/components/movie/MovieGridScrollInfinite";
 
 // import SelectLanguages from "@/app/components/SelectLanguages";
 // import dynamic from "next/dynamic";
@@ -15,6 +16,7 @@ export default async function MoviePage({ params }: { params: { lang: string } }
 	const lang = params.lang || "en";
 
 	const movieGenres: IGenre[] = await getMovieGenre(lang);
+	const moviePopular = await getMoviePopular({ page: 1, lang: lang });
 
 	return (
 		<div className="movie-page flex flex-1 flex-col gap-6 container m-auto max-w-screen-2xl">
@@ -26,7 +28,12 @@ export default async function MoviePage({ params }: { params: { lang: string } }
 				</div>
 			</div>
 
-			<InfiniteScrollMovie fromPage={1} toPage={10} />
+			{/* <InfiniteScrollMovie fromPage={1} toPage={10} /> */}
+			<MovieGridScrollInfinite
+				type="Popular"
+				lang={lang}
+				MovieItem={moviePopular.results}
+			/>
 		</div>
 	);
 }

@@ -24,9 +24,10 @@ export const metadata: Metadata = {
 
 export default async function HomePage({ params }: { params: { lang: string } }) {
 	const lang = params?.lang || "en";
+	const page = 1;
 	console.log(params);
 
-	const dataTrending: ITrending = await getMovieTrending(1, lang);
+	const dataTrending: ITrending = await getMovieTrending({ time: "day", page, lang });
 	const dataPopular: IMovieListPage = await getPopular({ lang: lang });
 
 	return (

@@ -52,14 +52,15 @@ export async function getDiscoverMovieGenres({
 }) {
 	const lang = language || defaultLanguage;
 	const p = page || "1";
+	const shortBy = sort_by ? "&sort_by=" + sort_by : "";
 
-	const url = `${baseUrl}/discover/movie?with_genres=${genreId}&page=${p}&language=${lang}`;
+	const url = `${baseUrl}/discover/movie?with_genres=${genreId}&page=${p}&language=${lang}${shortBy}`;
 	const res = await fetch(url, options);
 	if (!res.ok) {
 		throw new Error("Failed to fetch getGenreList. URL Link: " + url);
 	}
 
-	// console.log("Fetch Genre. Url = " + url);
+	console.log("Fetch Genre. Url = " + url);
 	// const data = await res.json();
 	// console.log(data);
 
@@ -84,10 +85,38 @@ export async function getMovieRecommendations({
 	return res.json();
 }
 
-export async function getMovieTrending(page?: number, lang?: string) {
+export async function getMovieTrending({
+	time,
+	page,
+	lang,
+}: {
+	time?: "day" | "week";
+	page?: number;
+	lang?: string;
+}) {
+	const pTime = time || "day";
 	const language = lang || defaultLanguage;
 	const pageCurrent: number = page || 1;
-	const url = `${baseUrl}/trending/movie/day?page=${pageCurrent}&language=${language}`;
+
+	const url = `${baseUrl}/trending/movie/${pTime}?page=${pageCurrent}&language=${language}`;
+	const res = await fetch(url, options);
+
+	if (!res.ok) {
+		// This will activate the closest `error.js` Error Boundary
+		throw new Error("Failed to fetch data");
+	}
+
+	return res.json();
+}
+
+export async function getMoviePopular({ page, lang }: { page?: number; lang?: string }) {
+	const pageCurrent: number = page || 1;
+	const language = lang || defaultLanguage;
+
+	const url = `${baseUrl}/movie/popular?page=${pageCurrent}&language=${language}`;
+
+	console.log(url);
+
 	const res = await fetch(url, options);
 
 	if (!res.ok) {

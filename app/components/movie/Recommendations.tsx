@@ -28,7 +28,7 @@ export default function Recommendations({ movieId }: { movieId: string }) {
 		}
 
 		getData();
-	}, [movieId]);
+	}, [lang, movieId]);
 
 	return (
 		<div className="movie-recommend">

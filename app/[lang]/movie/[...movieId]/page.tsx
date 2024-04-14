@@ -39,10 +39,15 @@ export async function generateMetadata(
 	// optionally access and extend (rather than replace) parent metadata
 	const previousImages = (await parent).openGraph?.images || [];
 
+	console.log(movie);
+
+	//const title = `Movie ${movie.title}`
+
 	return {
-		title: movie.title,
+		title: `${movie.title} Movie (${movie.release_date}) ${movie?.tagline}  | La Movie - Review Movie Poster Photo Banner Download`,
 		description: movie.overview,
 		keywords: keywords.join(", "),
+
 		//publisher: tv.first_air_date.toDateString(),
 		openGraph: {
 			images: [

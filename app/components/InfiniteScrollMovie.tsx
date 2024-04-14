@@ -40,8 +40,8 @@ export default function InfiniteScrollMovie({
 			console.log("Fetch Data Movie Page " + page);
 			try {
 				setLoading(true);
-				const data: ITrending = await getMovieTrending(page, lang);
-				console.log(data?.results);
+				const data: ITrending = await getMovieTrending({ time: "day", page, lang });
+				//console.log(data?.results);
 				if (movieList.length < 1) setMovieList(data?.results);
 				else {
 					setMovieList((prevList) => [...prevList, ...data?.results]);

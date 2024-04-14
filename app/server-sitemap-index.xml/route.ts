@@ -10,7 +10,7 @@ export async function GET(request: Request) {
 	// const urls = await fetch('https//example.com/api')
 
 	const pageFrom = 1;
-	const pageTo = 10;
+	const pageTo = 20;
 	const lang = "en";
 
 	const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://movie.laquocthinh.com";

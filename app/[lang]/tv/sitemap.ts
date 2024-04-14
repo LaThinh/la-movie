@@ -8,7 +8,7 @@ export async function generateSitemaps() {
 	//return [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }];
 
 	const sitemaps = [];
-	for (let i = 0; i < 10; i++) {
+	for (let i = 0; i < 25; i++) {
 		sitemaps.push({ id: i }); // Start IDs from 1 as requested
 	}
 

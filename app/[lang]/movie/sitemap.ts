@@ -25,7 +25,7 @@ export default async function sitemap({
 	let Movies: IMovieItem[] = [];
 	const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "";
 	for (let page = pageFrom; page < pageTo; page++) {
-		const dataTv = await getMovieTrending(page, "en");
+		const dataTv = await getMovieTrending({ time: "day", page, lang });
 		const result = await dataTv.results;
 
 		result.map((item: IMovieItem) => Movies.push(item));
