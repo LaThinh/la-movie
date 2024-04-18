@@ -1,11 +1,11 @@
 "use client";
 
-import { Select, SelectItem } from "@nextui-org/react";
 import { ILanguage } from "@/app/lib/interfaces";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { getLanguages } from "../lib/fetchData";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { Select, SelectItem } from "@nextui-org/select";
 
 export default function SelectLanguages({ languages }: { languages?: ILanguage[] }) {
 	const params = useParams();
@@ -63,7 +63,7 @@ export default function SelectLanguages({ languages }: { languages?: ILanguage[]
 			{langs.length > 0 && (
 				<Select
 					label="Select Language"
-					className="w-48 bg-white dark:bg-gray-700 rounded-lg"
+					className="w-48 bg-white  rounded-lg"
 					onChange={handleChangeLanguage}
 					defaultSelectedKeys={[currentLang]}
 					size="sm"

@@ -11,7 +11,20 @@ export default function Footer() {
 		>
 			<div className="container m-auto max-w-screen-2xl flex justify-between py lg:p-6">
 				<div className="footer-logo flex flex-col gap-3">
-					<Image src="/la-movie-2.svg" width="210" height="70" alt="La Movie" />
+					<Image
+						src="/la-movie.svg"
+						width="210"
+						height="70"
+						alt="La Movie"
+						className="hidden dark:block"
+					/>
+					<Image
+						src="/la-movie-2.svg"
+						width="210"
+						height="70"
+						alt="La Movie"
+						className="block dark:hidden"
+					/>
 
 					<div className="copyright">
 						Copyright (c) 2024 by{" "}

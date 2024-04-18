@@ -51,7 +51,7 @@ export function GenreIdPage({ params }: { params: { genreId: string } }) {
 		if (paramPage && parseInt(paramPage) > 1) {
 			setPage(parseInt(paramPage));
 		}
-	}, [genreList.length, params.genreId, searchParams]);
+	}, [genreList.length, params.genreId]);
 
 	useEffect(() => {
 		const fetchData = async () => {
