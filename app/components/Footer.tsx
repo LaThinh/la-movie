@@ -62,7 +62,7 @@ export default function Footer() {
 							<h5>Source From TMDB</h5>
 							<Link href="https://www.themoviedb.org" rel="noopener" target="_blank">
 								<Image
-									src="/logo-TMBD.svg"
+									src="/logo-TMDB.svg"
 									width="120"
 									height="64"
 									alt="La Movie"
