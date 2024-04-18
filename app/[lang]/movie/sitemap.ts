@@ -34,7 +34,7 @@ export default async function sitemap({
 	return Movies.map((item) => ({
 		url: `${BASE_URL}/${lang}/movie/${item.id}-${convertToSlug(item.title)}`,
 		lastModified: new Date(),
-		changeFrequency: "monthly",
+		changeFrequency: "daily",
 		priority: 0.8,
 	}));
 }

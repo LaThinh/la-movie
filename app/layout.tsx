@@ -28,17 +28,48 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 			className="light scroll-smooth focus:scroll-auto"
 			suppressHydrationWarning
 		>
-			<meta
-				name="google-site-verification"
-				content="AEBdKA2ofkzRezhsUitEoSaRB3Emx5mVVRJspLyIIO8"
-			/>
+			<head>
+				<link
+					rel="icon"
+					type="image/png"
+					sizes="32x32"
+					href="/favicon_io/favicon-32x32.png"
+				/>
+				<link
+					rel="icon"
+					type="image/png"
+					sizes="16x16"
+					href="/favicon_io/favicon-16x16.png"
+				/>
+				<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+				<link
+					rel="icon"
+					type="image/png"
+					sizes="192x192"
+					href="/favicon_io/android-chrome-192x192.png"
+				/>
+				<link
+					rel="icon"
+					type="image/png"
+					sizes="512x512"
+					href="/favicon_io/android-chrome-512x512.png"
+				/>
+				<meta name="mobile-web-app-capable" content="yes" />
+				<meta name="apple-mobile-web-app-capable" content="yes" />
+				<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+				<meta
+					name="google-site-verification"
+					content="AEBdKA2ofkzRezhsUitEoSaRB3Emx5mVVRJspLyIIO8"
+				/>
+			</head>
 
 			<GoogleTagManager gtmId="GTM-WZ4XMWS8" />
-			<body className={`${interFont.className} `}>
+			<body className={`${interFont.className} min-h-screen`}>
 				<Providers>
 					<Header />
 					<PageLoading />
-					<main className="main flex flex-col text-center items-start">
+					<main className="main flex flex-1 flex-col text-center items-start">
 						<Suspense fallback={<Loading text="Loading Page" />}>{children}</Suspense>
 					</main>
 					<Footer />

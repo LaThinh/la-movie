@@ -51,7 +51,7 @@ export function GenreIdPage({ params }: { params: { genreId: string } }) {
 		if (paramPage && parseInt(paramPage) > 1) {
 			setPage(parseInt(paramPage));
 		}
-	}, []);
+	}, [genreList.length, params.genreId, searchParams]);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -69,7 +69,7 @@ export function GenreIdPage({ params }: { params: { genreId: string } }) {
 		};
 
 		fetchData();
-	}, [page]);
+	}, [page, params?.genreId]);
 
 	function handlePaginationChange(page: number) {
 		setPage(page);

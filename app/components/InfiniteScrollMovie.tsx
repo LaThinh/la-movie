@@ -55,7 +55,7 @@ export default function InfiniteScrollMovie({
 		getMovie(page);
 
 		//console.log(movieList);
-	}, [page]);
+	}, [lang, page]);
 
 	const handleLoadMore = () => {
 		setPage(page + 1);

@@ -23,8 +23,12 @@ body {
 	/* font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif; */
 }
 
+body > div[data-overlay-container] {
+	@apply flex flex-col min-h-screen;
+}
+
 main {
-	min-height: calc(100vh - 160px);
+	/* min-height: calc(100vh - 160px); */
 }
 
 h1,
@@ -41,7 +45,7 @@ h6 {
 }
 
 header nav a {
-	@apply text-white hover:text-yellow-400;
+	@apply text-white hover:text-yellow-500;
 }
 
 a {
@@ -90,4 +94,8 @@ a {
 .image-slider-shadow {
 	display: block;
 	-webkit-box-reflect: below 1px linear-gradient(transparent, transparent, #0004, #000400);
+}
+
+.footer-menu-links a {
+	@apply text-gray-700 dark:text-white hover:text-c-blue-light;
 }

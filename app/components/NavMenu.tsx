@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -55,10 +56,11 @@ export default function NavMenu() {
 		<>
 			<Link
 				href={`/${lang}`}
-				className="logo p-3 font-script font-bold 
+				className="logo font-script font-bold 
 				text-3xl text-white hover:text-yellow-400"
 			>
-				La <span className=" ">Movie</span>
+				{/* La <span className=" ">Movie</span> */}
+				<Image src="/la-movie.svg" width="180" height="60" alt="La Movie" />
 			</Link>
 			<nav className="gap-5 lg:gap-8 xl:gap-10 font-bold text-xl hidden md:flex">
 				{/* <Link href={`/${lang}/about`}>About</Link>

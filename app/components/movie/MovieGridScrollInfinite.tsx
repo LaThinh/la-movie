@@ -97,7 +97,7 @@ export default function MovieGridScrollInfinite(props: MovieGridScroll) {
 
 	useEffect(() => {
 		if (page === 1 && props?.MovieItem) {
-			setMovieList(props?.MovieItem);
+			setMovieList(props.MovieItem);
 		} else {
 			loadMoreData(page);
 		}

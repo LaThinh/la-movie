@@ -59,11 +59,11 @@ export default function SelectLanguages({ languages }: { languages?: ILanguage[]
 	};
 
 	return (
-		<div className="select-language flex">
+		<div className="select-language">
 			{langs.length > 0 && (
 				<Select
 					label="Select Language"
-					className="w-48 bg-white rounded-lg"
+					className="w-48 bg-white dark:bg-gray-700 rounded-lg"
 					onChange={handleChangeLanguage}
 					defaultSelectedKeys={[currentLang]}
 					size="sm"
