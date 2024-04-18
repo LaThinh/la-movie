@@ -78,7 +78,7 @@ export default function InfiniteScrollMovie({
 			</div>
 			<h3 className="text-lg hidden text-gray-700 my-5">End Trending page {page}</h3>
 			<Button
-				className="load-more mt-10 mb-5 px-5 py-2"
+				className="load-more mt-10 mb-5 px-8 py-2 rounded-full font-bold"
 				ref={ref}
 				size="lg"
 				color="primary"

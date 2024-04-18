@@ -27,8 +27,8 @@ body > div[data-overlay-container] {
 	@apply flex flex-col min-h-screen;
 }
 
-main {
-	/* min-height: calc(100vh - 160px); */
+main.demo {
+	min-height: calc(100vh - 160px);
 }
 
 h1,
