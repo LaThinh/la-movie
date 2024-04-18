@@ -6,10 +6,13 @@ import Image from "next/image";
 export default function Footer() {
 	return (
 		<footer
-			className="footer  flex flex-col w-full border-t items-center
+			className="footer p-4 flex flex-col w-full border-t items-center @container
 		bg-slate-50 text-gray-700 dark:bg-slate-700 dark:text-white"
 		>
-			<div className="container m-auto max-w-screen-2xl flex justify-between py lg:p-6">
+			<div
+				className="container @container m-auto max-w-screen-2xl flex flex-wrap gap-4 justify-center
+				@md:justify-between lg:p-6"
+			>
 				<div className="footer-logo flex flex-col gap-3">
 					<Image
 						src="/la-movie.svg"
@@ -39,9 +42,9 @@ export default function Footer() {
 					</div>
 				</div>
 
-				<div className="footer-menu w-full flex-1">
-					<div className="footer-cols m-auto max-w-lg flex flex-col lg:flex-row gap-2">
-						<div className="footer-menu-links w-1/2 flex flex-col gap-3 ">
+				<div className="footer-menu order-5 w-full min-w-80 flex-1 @container">
+					<div className="footer-cols m-auto max-w-md flex flex-wrap justify-center @md:flex-row @md:justify-between ">
+						<div className="footer-menu-links w-36 flex flex-col gap-3 ">
 							{/* <h5>Links</h5> */}
 							<ul className="flex flex-col gap-2">
 								<li>
@@ -58,7 +61,7 @@ export default function Footer() {
 								</li>
 							</ul>
 						</div>
-						<div className="footer-menu-links w-1/2 flex flex-col gap-5">
+						<div className="footer-menu-links w-36 flex flex-col gap-5">
 							<h5>Source From TMDB</h5>
 							<Link href="https://www.themoviedb.org" rel="noopener" target="_blank">
 								<Image
@@ -72,7 +75,9 @@ export default function Footer() {
 						</div>
 					</div>
 				</div>
-				<SelectLanguages />
+				<div className="order-3 md:order-7">
+					<SelectLanguages />
+				</div>
 			</div>
 			<div className="footer-copyright w-full text-center"></div>
 			<ScrollToTopButton />

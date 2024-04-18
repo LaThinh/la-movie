@@ -6,7 +6,7 @@ import { MetadataRoute } from "next";
 export async function generateSitemaps() {
 	const sitemaps = [];
 
-	for (let i = 0; i <= 25; i++) {
+	for (let i = 0; i <= 50; i++) {
 		sitemaps.push({ id: i }); // Start IDs from 1 as requested
 	}
 
