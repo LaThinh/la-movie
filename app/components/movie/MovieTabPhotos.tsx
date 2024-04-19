@@ -48,7 +48,13 @@ export function filterPhotoLanguage({
 	return resultPhotos;
 }
 
-export function MovieTabPhotos({ movieImages }: { movieImages: IMovieImages }) {
+export function MovieTabPhotos({
+	movieImages,
+	title,
+}: {
+	movieImages: IMovieImages;
+	title?: string;
+}) {
 	//const [movieImages, setMovieImages] = useState<IMovieImages>();
 	const [moviePhotoLanguage, setMoviePhotoLanguage] = useState<IMovieImages>(movieImages);
 	const [photoList, setPhotoList] = useState<IPhoto[]>();
@@ -222,7 +228,7 @@ export function MovieTabPhotos({ movieImages }: { movieImages: IMovieImages }) {
 												(photoType === PhotoType.Posters && "w342") ||
 												"original"
 											}/${image.file_path}`}
-											alt={`Image BackDrops ${index} ${image?.file_path}`}
+											alt={`Movie ${title} Poster Images, BackDrops Images, Logo Images ${photoType} ${index} ${image?.file_path}`}
 											// sizes="400"
 											width={
 												(photoType === PhotoType.BackDrops && "780") ||
@@ -235,6 +241,9 @@ export function MovieTabPhotos({ movieImages }: { movieImages: IMovieImages }) {
 											radius="none"
 											isZoomed
 											removeWrapper
+											title={`Movie ${title} New Photo Banner Images ${photoType} ${
+												index + 1
+											}`}
 										/>
 									</div>
 								))}
@@ -294,9 +303,12 @@ export function MovieTabPhotos({ movieImages }: { movieImages: IMovieImages }) {
 											<ModalBody className="p-0 text-center items-center">
 												<Image
 													src={`https://image.tmdb.org/t/p/original/${photoList[indexShow].file_path}`}
-													alt={"Title"}
+													alt={`Movie ${title} Poster Images, BackDrops Images, Logo Images`}
 													radius="none"
 													className="w-full m-auto block"
+													title={`Movie ${title} Poster Images, BackDrops Images, Logo Images ${
+														indexShow + 1
+													}`}
 												/>
 											</ModalBody>
 											<ModalFooter className="flex items-center justify-between lg:hidden">

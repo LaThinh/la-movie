@@ -119,7 +119,7 @@ export function MovieTabs({ movieId, movie }: { movieId: string; movie: IMovie }
 						>
 							<Card>
 								<CardBody>
-									<MovieTabPhotos movieImages={movie.images} />
+									<MovieTabPhotos movieImages={movie.images} title={movie.title} />
 								</CardBody>
 							</Card>
 						</Tab>

@@ -61,6 +61,7 @@ function PersonSlider({ personList }: { personList: IPeople[] }) {
 										loading="eager"
 										radius="none"
 										isZoomed
+										title={person.name}
 										//removeWrapper
 										style={{ objectFit: "cover" }}
 										//className="w-full object-cover m-auto h-[270px]"

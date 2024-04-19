@@ -102,6 +102,7 @@ export default function ModalVideos({
 						className="video-link-image relative"
 						onClick={onOpen}
 						onPress={handleSetCurrent}
+						title={video.name}
 					>
 						<Image
 							width={320}

@@ -18,6 +18,7 @@ function CardPerson({ person }: { person: IPeople }) {
 						<Image
 							src={`https://image.tmdb.org/t/p/w185/${person.profile_path}`}
 							alt={person.original_name}
+							title={person.original_name}
 							radius="none"
 						/>
 					</Link>
