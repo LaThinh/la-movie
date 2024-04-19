@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function AboutPage({ params }: { params: { lang: string } }) {
 	return (
 		<div className="about about-page">
-			<div className="h-[40rem] w-full dark:bg-black bg-white  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex items-center justify-center">
+			<div className="h-[24rem] w-full dark:bg-black bg-white  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex items-center justify-center">
 				{/* Radial gradient for the container to give a faded look */}
 				<div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
 				<div className="container m-auto max-w-5xl flex flex-col gap-10 text-center">

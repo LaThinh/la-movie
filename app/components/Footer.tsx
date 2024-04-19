@@ -11,9 +11,9 @@ export default function Footer() {
 		>
 			<div
 				className="container @container m-auto max-w-screen-2xl flex flex-wrap gap-4 justify-center
-				@md:justify-between lg:p-6"
+				lg:p-6"
 			>
-				<div className="footer-logo flex flex-col gap-3">
+				<div className="footer-logo flex items-center flex-col gap-3">
 					<Image
 						src="/la-movie.svg"
 						width="210"
@@ -42,9 +42,9 @@ export default function Footer() {
 					</div>
 				</div>
 
-				<div className="footer-menu order-5 w-full min-w-80 flex-1 @container">
-					<div className="footer-cols m-auto max-w-md flex flex-wrap justify-center @md:flex-row @md:justify-between ">
-						<div className="footer-menu-links w-36 flex flex-col gap-3 ">
+				<div className="footer-menu order-5 w-full min-w-72 flex-1 @container">
+					<div className="footer-cols m-auto flex flex-wrap justify-center @md:flex-row @md:justify-evenly">
+						<div className="footer-menu-links w-32 flex flex-col gap-3 ">
 							{/* <h5>Links</h5> */}
 							<ul className="flex flex-col gap-2">
 								<li>
@@ -61,7 +61,7 @@ export default function Footer() {
 								</li>
 							</ul>
 						</div>
-						<div className="footer-menu-links w-36 flex flex-col gap-5">
+						<div className="footer-menu-links w-32 flex flex-col gap-5">
 							<h5>Source From TMDB</h5>
 							<Link href="https://www.themoviedb.org" rel="noopener" target="_blank">
 								<Image
@@ -80,7 +80,6 @@ export default function Footer() {
 				</div>
 			</div>
 			<div className="footer-copyright w-full text-center"></div>
-			<ScrollToTopButton />
 		</footer>
 	);
 }

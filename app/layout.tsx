@@ -9,6 +9,7 @@ import Loading from "@/app/components/Loading";
 import PageLoading from "./components/LoadingProgressBar";
 import { Analytics } from "@vercel/analytics/react";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
+import ScrollToTopButton from "./components/ScrollToTop";
 
 const interFont = Inter({ subsets: ["latin"] });
 
@@ -73,6 +74,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 						<Suspense fallback={<Loading text="Loading Page" />}>{children}</Suspense>
 					</main>
 					<Footer />
+					<ScrollToTopButton />
+
 					{/* <Analytics /> */}
 					<GoogleAnalytics gaId="G-C6ZWMDMFNJ" />
 				</Providers>

@@ -20,7 +20,7 @@ export default async function MoviePage({ params }: { params: { lang: string } }
 		<div className="movie-page flex flex-1 flex-col gap-6 container m-auto max-w-screen-2xl">
 			<h1 className="page-title">Movies Page</h1>
 
-			<div className="wrapper flex flex-col  gap-8">
+			<div className="wrapper flex flex-col px-3 gap-8">
 				<div className="toolbar">
 					<MovieGenres genres={movieGenres} lang={lang} displayAll />
 				</div>

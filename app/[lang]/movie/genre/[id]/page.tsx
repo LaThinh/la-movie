@@ -51,7 +51,7 @@ export default async function MovieGenre({
 						</div>
 
 						<div className="movie-grid ">
-							<MovieGrid movieList={genreMovies.results} />
+							{/* <MovieGrid movieList={genreMovies.results} /> */}
 							<MovieGridScrollInfinite
 								type="Genre"
 								genreId={genreId}
