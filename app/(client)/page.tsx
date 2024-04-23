@@ -9,6 +9,7 @@ import ScrollLoadMore from "../components/InfiniteScrollMovie";
 import InfiniteScrollMovie from "../components/InfiniteScrollMovie";
 import { getPopular, getTrending } from "../api/FetchMovieDB";
 import CarouselSliderMovie from "../components/movie/CarouselSliderMovie";
+import MovieGridScrollInfinite from "@/app/components/movie/MovieGridScrollInfinite";
 
 async function getData() {
 	var language = "en-EN" || "vi-VN";
@@ -70,7 +71,8 @@ export default async function HomePage() {
 					{"Top Trending Movies"}
 				</h3>
 				{/* {<Trending page={"1"} />} */}
-				<InfiniteScrollMovie movieData={dataTrending.results} fromPage={1} />
+				{/* <InfiniteScrollMovie movieData={dataTrending.results} fromPage={1} /> */}
+				<MovieGridScrollInfinite type="Popular" fromPage={1} toPage={7} />
 			</div>
 		</div>
 	);

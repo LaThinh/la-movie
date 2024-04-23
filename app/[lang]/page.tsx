@@ -11,6 +11,7 @@ import InfiniteScrollMovie from "../components/InfiniteScrollMovie";
 import { getPopular, getTrending } from "../api/FetchMovieDB";
 import CarouselSliderMovie from "../components/movie/CarouselSliderMovie";
 import { getMovieTrending } from "@/app/lib/fetchMovie";
+import MovieGridScrollInfinite from "../components/movie/MovieGridScrollInfinite";
 
 type IHomePage = {
 	trendingData: ITrending;
@@ -27,7 +28,7 @@ export default async function HomePage({ params }: { params: { lang: string } })
 	const page = 1;
 	console.log(params);
 
-	const dataTrending: ITrending = await getMovieTrending({ time: "day", page, lang });
+	// const dataTrending: ITrending = await getMovieTrending({ time: "day", page, lang });
 	const dataPopular: IMovieListPage = await getPopular({ lang: lang });
 
 	return (
@@ -43,7 +44,8 @@ export default async function HomePage({ params }: { params: { lang: string } })
 					{"Top Trending Movies"}
 				</h3>
 				{/* {<Trending page={"1"} />} */}
-				<InfiniteScrollMovie movieData={dataTrending.results} fromPage={1} />
+				{/* <InfiniteScrollMovie fromPage={1} toPage={7} /> */}
+				<MovieGridScrollInfinite type="Trending" fromPage={1} toPage={7} />
 			</div>
 		</div>
 	);

@@ -51,7 +51,9 @@ function MovieSlider({
 						>
 							<Link
 								className="group relative block bg-gray-300 h-[270px]"
-								href={`/${lang}/movie/${movie?.id}-${convertToSlug(movie.title)}`}
+								href={`/${lang}/movie/${movie?.id}-${convertToSlug(
+									movie?.title || "title"
+								)}`}
 							>
 								<Image
 									src={`https://image.tmdb.org/t/p/w200/${movie?.poster_path}`}
@@ -85,7 +87,9 @@ function MovieSlider({
 										{movie.department}
 									</p>
 								)}
-								<p className="text-sm hidden">{movie.release_date.toString()}</p>
+								<p className="text-sm ">
+									{movie?.release_date?.toString() || "release_date"}
+								</p>
 							</div>
 						</SwiperSlide>
 					))}

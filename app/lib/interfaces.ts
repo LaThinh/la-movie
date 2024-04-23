@@ -1,4 +1,4 @@
-import { ICredits, IPeople, IVideos } from "@/app/interfaces";
+import { ICredits, IMovieItem, IVideos } from "@/app/interfaces";
 
 export interface ILanguage {
 	iso_639_1: string;
@@ -162,4 +162,21 @@ export interface ITvListPage {
 	results: ITVItem[];
 	total_results: number;
 	total_pages: number;
+}
+
+// People
+
+export interface IPeople {
+	id: number;
+	adult: boolean;
+	credit_id?: string;
+	name: string;
+	original_name: string;
+	profile_path: string;
+	gender: number;
+	popularity: number;
+	known_for_department: string;
+	character?: string;
+	job?: string;
+	known_for: IMovieItem[];
 }

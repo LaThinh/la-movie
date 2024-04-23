@@ -21,15 +21,20 @@ const menus = [
 		title_vn: "Phim",
 	},
 	{
+		href: "/person",
+		title: "People",
+		title_vn: "Diễn viên",
+	},
+	{
 		href: "/tv",
 		title: "TV",
 		title_vn: "TV",
 	},
-	{
-		href: "/movie/genre",
-		title: "Genre",
-		title_vn: "Thể loại",
-	},
+	// {
+	// 	href: "/movie/genre",
+	// 	title: "Genre",
+	// 	title_vn: "Thể loại",
+	// },
 	{
 		href: "/search",
 		title: "Search",
