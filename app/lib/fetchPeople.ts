@@ -9,7 +9,7 @@ export async function getPeoplePopular({ lang, page }: { lang?: string; page?: s
 	const res = await fetch(url, {
 		headers: fetchHeader,
 		next: {
-			revalidate: 72000,
+			revalidate: 1,
 		},
 	});
 	if (!res.ok) {
@@ -17,8 +17,6 @@ export async function getPeoplePopular({ lang, page }: { lang?: string; page?: s
 	}
 
 	const data = await res.json();
-
-	console.log(data);
-
+	// console.log(data);
 	return data;
 }

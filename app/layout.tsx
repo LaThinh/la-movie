@@ -14,8 +14,11 @@ import ScrollToTopButton from "./components/ScrollToTop";
 const interFont = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "La Movie App - The Movie DB",
-	description: "La Movie Develop by Paul La | NextJs 14",
+	title: {
+		default: "La Movie App - The Movie DB",
+		template: "%s - La Movie Review Film Hot",
+	},
+	description: "La Movie developed by Paul La use NextJs 14 and The Movie Database API",
 };
 
 export async function generateStaticParams() {

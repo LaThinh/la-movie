@@ -14,7 +14,9 @@ export default function PersonPage({ params }: { params: { lang: string } }) {
 		dark:bg-gradient-to-tr dark:from-slate-900 dark:to-slate-700
 		"
 		>
-			<h1 className="page-title !m-0 pb-6">Top Ranking Popular People</h1>
+			<h1 className="page-title !m-0 pt-4 pb-10 font-bold lg:text-6xl">
+				Top Ranking Popular People
+			</h1>
 			<PeoplePopular lang={params.lang} />
 		</div>
 	);

@@ -27,7 +27,7 @@ function MovieSlider({
 	const lang = params?.lang?.toString() || localStorage.getItem("lang") || "en";
 
 	return (
-		<div className="movie-slider max-w-full mb-5">
+		<div className="movie-slider max-w-full">
 			{movies?.length && movies.length > 0 && (
 				<Swiper
 					slidesPerView={"auto"}
@@ -87,9 +87,7 @@ function MovieSlider({
 										{movie.department}
 									</p>
 								)}
-								<p className="text-sm ">
-									{movie?.release_date?.toString() || "release_date"}
-								</p>
+								<p className="text-sm ">{movie?.release_date?.toString() || ""}</p>
 							</div>
 						</SwiperSlide>
 					))}

@@ -2,40 +2,53 @@
 
 import { getPeoplePopular } from "@/app/lib/fetchPeople";
 import { IPeople } from "@/app/lib/interfaces";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import CardPerson from "./CardPerson";
 import CardPeople from "./CardPeople";
 import { Button } from "@nextui-org/react";
 import { useInView } from "react-intersection-observer";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export default function PeoplePopular({ lang }: { lang?: string }) {
 	const language = lang || "en";
-	const [page, setPage] = useState(1);
-	const [peopleList, setPeopleList] = useState<IPeople[]>([]);
-	const [loading, setLoading] = useState(false);
-	const searchParams = useSearchParams();
 
-	// const fromPage = searchParams.get("page")
-	// 	? Number(searchParams.get("page"))
-	// 	: props.fromPage;
-	// const toPage = props.toPage;
-	const maxPage = 2;
+	const [peopleList, setPeopleList] = useState<IPeople[]>([]);
+	const [loading, setLoading] = useState(true);
+	const searchParams = useSearchParams();
+	const pathname = usePathname();
+
+	const [startPage, setStartPage] = useState(1);
+
+	const fromPage = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
+	const toPage = fromPage + 5;
+
+	const [page, setPage] = useState(fromPage | 1);
+	// const maxPage = toPage;
 
 	const { ref } = useInView({
 		onChange(inView, entry) {
-			if (inView && !loading && page < maxPage) {
+			if (inView && !loading && page < startPage + 5) {
 				setPage(page + 1);
 			}
 		},
 	});
 
-	const getPopularData = async (page: number) => {
+	const createQueryString = useCallback(
+		(name: string, value: string) => {
+			const params = new URLSearchParams(searchParams.toString());
+			params.set(name, value);
+
+			return params.toString();
+		},
+		[searchParams]
+	);
+
+	const getPopularDataPage = async (page: number) => {
 		console.log("getPopularData page " + page);
 		setLoading(true);
 
 		const cPage = page.toString();
-		const dataPeoplePopular = await getPeoplePopular({ lang, page: cPage });
+		const dataPeoplePopular = await getPeoplePopular({ lang: language, page: cPage });
 		// console.log(dataPeoplePopular);
 		if (peopleList.length < 1) {
 			setPeopleList(dataPeoplePopular?.results);
@@ -46,7 +59,15 @@ export default function PeoplePopular({ lang }: { lang?: string }) {
 	};
 
 	useEffect(() => {
-		getPopularData(page);
+		setStartPage(fromPage);
+		//getPopularDataPage(page);
+	}, []);
+
+	useEffect(() => {
+		getPopularDataPage(page);
+		const newPath = pathname + "?" + createQueryString("page", page.toString());
+		// router.push(newPath);
+		window.history.replaceState(null, "", newPath);
 	}, [page]);
 
 	const handleLoadMore = () => {
@@ -54,12 +75,19 @@ export default function PeoplePopular({ lang }: { lang?: string }) {
 	};
 
 	return (
-		<div className="people-popular-list w-full m-auto max-w-screen-xl flex flex-col gap-3 pb-20 items-center">
+		<div className="people-popular-list w-full m-auto max-w-[2000px] flex flex-col gap-3 pb-10 px-3 lg:px-5 items-center">
+			{/* <div className="fixed text-4xl z-50">
+				Is Loading {loading ? "true" : "false"} {fromPage} {startPage}
+			</div> */}
 			{peopleList && peopleList.length > 0 && (
-				<div className="w-full flex flex-col gap-12 p-2">
+				<div className="w-full grid grid-cols-1 2xl:grid-cols-2 gap-10 gap-y-14">
 					{peopleList.map((people, index) => (
-						<div key={people.id}>
-							<CardPeople type="List" ranking={index + 1} people={people} />
+						<div key={index}>
+							<CardPeople
+								type="List"
+								ranking={index + (startPage - 1) * 20 + 1}
+								people={people}
+							/>
 						</div>
 					))}
 				</div>
@@ -76,7 +104,7 @@ export default function PeoplePopular({ lang }: { lang?: string }) {
 				isLoading={loading}
 				spinnerPlacement="end"
 			>
-				{loading ? `Loading movie page ${page}` : `Load more page ${page + 1}`}
+				{loading ? `Loading People Ranking page ${page}` : `Load more page ${page + 1}`}
 			</Button>
 		</div>
 	);

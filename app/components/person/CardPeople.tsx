@@ -53,13 +53,15 @@ function CardPeople({
 					</div>
 				</div>
 			) : (
-				<div className={`card-person @container person-${people.id}`}>
-					<div className="list-info flex flex-wrap gap-5 rounded-xl shadow-lg bg-white dark:bg-slate-700 overflow-hidden">
-						<div className="card-profile relative w-full @3xl:w-[400px] @2xl:max-w-1/3">
+				<div
+					className={`card-person @container person-${people.id} w-full m-auto max-w-screen-sm lg:max-w-screen-lg`}
+				>
+					<div className="list-info flex flex-wrap rounded-xl shadow-lg bg-white dark:bg-slate-700 overflow-hidden">
+						<div className="card-profile relative w-full @2xl:w-[340px] @2xl:max-w-1/3 @5xl:w-[400px]">
 							<Link
 								href={`/person/${people.id}-${convertToSlug(people.name)}`}
 								title={people.name}
-								className="flex items-center justify-center aspect-[2/3] bg-gray-200"
+								className="w-full m-auto max-w-[400px] flex items-center justify-center aspect-[2/3] bg-gray-200"
 							>
 								{people?.profile_path ? (
 									<Image
@@ -77,27 +79,36 @@ function CardPeople({
 							</Link>
 						</div>
 
-						<div className="card-info @3xl:p-5 @container flex flex-1 flex-col gap-3 items-center @3xl:items-start">
-							<div className="flex items-center gap-5">
+						<div className="card-info w-full p-5 @container flex @2xl:flex-1 flex-wrap gap-3 justify-center items-center @2xl:items-start">
+							<div className="flex flex-1 justify-center items-center gap-5 lg:justify-start">
 								<div
 									className="text-3xl font-bold rounded-full shadow-lg
 								bg-yellow-500 w-20 aspect-square flex justify-center items-center"
 								>
-									#{ranking}
+									{ranking && ranking < 100 ? `#${ranking}` : ranking}
 								</div>
-								<h2 className="text-2xl font-bold @lg:text-3xl @xl:text-4xl">
-									{people.name}
-								</h2>
-								<span className="text-xl mt-3 text-gray-500 dark:text-gray-400 ">
-									({people.known_for_department})
-								</span>
+								<div className="flex flex-col items-start justify-center">
+									<div className="flex gap-2 items-end">
+										<h2 className="">
+											<Link
+												href={`/person/${people.id}-${convertToSlug(people.name)}`}
+												className="text-2xl text-black dark:!text-white font-bold @lg:text-3xl @xl:text-4xl text-nowrap"
+											>
+												{people.name}
+											</Link>
+										</h2>
+										<span className="text-xl text-gray-500 dark:text-gray-400 ">
+											({people.known_for_department})
+										</span>
+									</div>
+
+									<span className="text-lg @3xl:text-2xl text-green-600 dark:text-gray-300 font-bold">
+										Popularity: {people.popularity}
+									</span>
+								</div>
 							</div>
 
-							<div className="w-full flex gap-5 items-center @3xl:pl-[100px] px-4">
-								<span className="text-lg @3xl:text-2xl text-green-600 font-bold">
-									Popularity: {people.popularity}
-								</span>
-
+							<div className=" flex flex-col gap-5 items-center @3xl:pl-[100px] px-4 hidden">
 								<Button
 									radius="full"
 									as={Link}

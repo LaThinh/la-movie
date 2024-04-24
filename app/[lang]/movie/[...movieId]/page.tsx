@@ -30,29 +30,55 @@ export async function generateMetadata(
 	const movie: IMovie = await getMovieDetails({
 		movieId: movieId,
 		language: lang,
-		append_to_response: "keywords",
+		append_to_response: "keywords,credits",
 	});
 
-	let keywords: string[] = [];
-	keywords.push(movie.title);
-	movie.keywords?.keywords.map((key) => keywords.push(key.name));
 	// optionally access and extend (rather than replace) parent metadata
 	const previousImages = (await parent).openGraph?.images || [];
 
 	console.log(movie);
 
-	//const title = `Movie ${movie.title}`
+	//const title = `Movie ${movie.title}`;
+
+	let year = "";
+	if (movie.release_date) {
+		const releaseDate = new Date(movie.release_date);
+		year = `(${releaseDate.getFullYear()})`;
+	}
+
+	let arrCastNames: string[] = [];
+	movie.credits?.cast.map((cast) => {
+		arrCastNames.push(cast.name);
+	});
+
+	let arrCrewNames: string[] = [];
+	movie.credits?.crew.map((crew) => {
+		arrCrewNames.push(crew.name);
+	});
+
+	const castName = arrCastNames.slice(0, 3).join(", ");
+
+	let keywords: string[] = [];
+	keywords.push(movie.title);
+	keywords.push(year);
+	movie.keywords?.keywords.map((key) => keywords.push(key.name));
 
 	return {
-		title: `${movie.title} Movie (${movie.release_date}) ${movie?.tagline}  | La Movie - Review Movie Poster Photo Banner Download`,
-		description: movie.overview,
-		keywords: keywords.join(", "),
+		title: `${movie.title}  Movie ${year}  - ${castName}`,
+		description: `${movie?.tagline} ${arrCrewNames.slice(0, 3).join(", ")} - ${
+			movie.overview
+		} - La Movie - Review Movie. Download Poster, Backdrop, Logo Banner Movie ${
+			movie.original_title
+		}`,
+		keywords: `${keywords.join(", ")}, ${arrCastNames.join(", ")}, ${arrCrewNames.join(
+			", "
+		)}`,
 
 		//publisher: tv.first_air_date.toDateString(),
 		openGraph: {
 			images: [
-				`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`,
-				`https://image.tmdb.org/t/p/original/${movie?.poster_path}`,
+				`https://image.tmdb.org/t/p/original${movie?.backdrop_path}`,
+				`https://image.tmdb.org/t/p/original${movie?.poster_path}`,
 				...previousImages,
 			],
 		},
