@@ -19,14 +19,14 @@ type IHomePage = {
 };
 
 export const metadata: Metadata = {
-	title: "Welcome to La Movies | Review Film Hot",
+	title: "Welcome to La Movie",
 	description: "La Movie developed by Paul La use Next.js and The Movie Database API",
 };
 
 export default async function HomePage({ params }: { params: { lang: string } }) {
 	const lang = params?.lang || "en";
-	const page = 1;
-	console.log(params);
+	// const page = 1;
+	// console.log(params);
 
 	// const dataTrending: ITrending = await getMovieTrending({ time: "day", page, lang });
 	const dataPopular: IMovieListPage = await getPopular({ lang: lang });
@@ -45,7 +45,7 @@ export default async function HomePage({ params }: { params: { lang: string } })
 				</h3>
 				{/* {<Trending page={"1"} />} */}
 				{/* <InfiniteScrollMovie fromPage={1} toPage={7} /> */}
-				<MovieGridScrollInfinite type="Trending" fromPage={1} toPage={7} />
+				<MovieGridScrollInfinite type="Trending" lang={lang} fromPage={1} toPage={7} />
 			</div>
 		</div>
 	);

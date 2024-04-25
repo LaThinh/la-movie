@@ -82,7 +82,7 @@ export default function CarouselSliderMovie({
 													alt={movie?.title || "Title"}
 													width={320}
 													height={500}
-													className={`image-slider-shadow`}
+													className={`image-slider-shadow aspect-[320/500]`}
 													style={{ objectFit: "cover" }}
 												/>
 												<div className="movie-info absolute bottom-36 bg-gradient-to-t from-white from-50% vie-white/50 vie-70% to-transparent p-3 pt-20 text-left">

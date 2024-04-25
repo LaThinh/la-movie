@@ -58,6 +58,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 					sizes="512x512"
 					href="/favicon_io/android-chrome-512x512.png"
 				/>
+				<link rel="icon" href="/favicon.ico" sizes="any" />
+				<link
+					rel="apple-touch-icon"
+					href="/favicon_io/apple-touch-icon.png>"
+					type="image/png"
+					sizes="180"
+				/>
+
 				<meta name="mobile-web-app-capable" content="yes" />
 				<meta name="apple-mobile-web-app-capable" content="yes" />
 				<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />

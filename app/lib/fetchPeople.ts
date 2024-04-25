@@ -9,7 +9,7 @@ export async function getPeoplePopular({ lang, page }: { lang?: string; page?: s
 	const res = await fetch(url, {
 		headers: fetchHeader,
 		next: {
-			revalidate: 1,
+			revalidate: 7200,
 		},
 	});
 	if (!res.ok) {
