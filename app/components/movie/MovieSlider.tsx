@@ -54,6 +54,7 @@ function MovieSlider({
 								href={`/${lang}/movie/${movie?.id}-${convertToSlug(
 									movie?.title || "title"
 								)}`}
+								prefetch={false}
 							>
 								<Image
 									src={`https://image.tmdb.org/t/p/w200/${movie?.poster_path}`}
