@@ -9,7 +9,7 @@ const options: RequestInit = {
 		Authorization: "Bearer " + process.env.NEXT_PUBLIC_MOVIE_API,
 	},
 	next: {
-		revalidate: 300,
+		revalidate: 7200,
 	},
 	cache: "force-cache",
 };
@@ -304,7 +304,7 @@ export async function getPersonMovies({
 		headers: fetchHeader,
 		//cache: "force-cache",
 		next: {
-			revalidate: 3000,
+			revalidate: 7200,
 		},
 	});
 	if (!res.ok) {

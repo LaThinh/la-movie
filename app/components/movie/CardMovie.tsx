@@ -27,6 +27,7 @@ const CardMovie = ({ movie, lang }: { movie: IMovieItem; lang?: string }) => {
 			<Link
 				className="group relative block aspect-[2/3] overflow-hidden bg-gray-300 "
 				href={movieSlug}
+				prefetch={false}
 			>
 				{movie.poster_path != null && (
 					<Image
@@ -88,6 +89,7 @@ const CardMovie = ({ movie, lang }: { movie: IMovieItem; lang?: string }) => {
 						className="text-gray-700 dark:text-gray-200"
 						href={`/movie/${movie.id}-${convertToSlug(movie.title)}`}
 						title={movie?.original_title}
+						prefetch={false}
 					>
 						{movie.title}
 					</Link>

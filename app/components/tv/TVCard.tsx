@@ -25,6 +25,7 @@ export default function TVCard({ tv, lang }: { tv: ITVItem; lang?: string }) {
 				<Link
 					className="group relative block aspect-[2/3] overflow-hidden bg-gray-300 "
 					href={tvSlug}
+					prefetch={false}
 				>
 					{tv.poster_path != null && (
 						<Image
@@ -86,6 +87,7 @@ export default function TVCard({ tv, lang }: { tv: ITVItem; lang?: string }) {
 							className="text-gray-700 dark:text-gray-200"
 							href={tvSlug}
 							title={tv?.original_name}
+							prefetch={false}
 						>
 							{tv.name}{" "}
 							{tv?.original_language && (

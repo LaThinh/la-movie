@@ -27,7 +27,7 @@ export async function getMovieGenre(language?: string) {
 	const res = await fetch(url, {
 		headers: fetchHeader,
 		next: {
-			revalidate: 1200,
+			revalidate: 72000,
 		},
 	});
 	if (!res.ok) {

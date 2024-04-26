@@ -36,7 +36,7 @@ export async function generateMetadata(
 	// optionally access and extend (rather than replace) parent metadata
 	const previousImages = (await parent).openGraph?.images || [];
 
-	console.log(movie);
+	// console.log(movie);
 
 	//const title = `Movie ${movie.title}`;
 
