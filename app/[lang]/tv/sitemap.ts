@@ -37,5 +37,6 @@ export default async function sitemap({
 	return TVs.map((tv) => ({
 		url: `${BASE_URL}/${lang}/tv/${tv.id}-${convertToSlug(tv.name)}`,
 		lastModified: new Date(),
+		changeFrequency: "monthly",
 	}));
 }

@@ -4,17 +4,21 @@ export function convertToSlug(text: string) {
 	// 	.replace(/ /g, "-")
 	//     .replace(/[^\w-]+/g, "");
 
-	// Bỏ dấu tiếng Việt
-	const noAccentTitle = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+	try {
+		// Bỏ dấu tiếng Việt
+		const noAccentTitle = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-	// Chuyển đổi sang chữ thường
-	const lowerCaseTitle = noAccentTitle.toLowerCase();
+		// Chuyển đổi sang chữ thường
+		const lowerCaseTitle = noAccentTitle.toLowerCase();
 
-	// Thay thế khoảng trắng bằng dấu gạch nối
-	const slug = lowerCaseTitle.replace(/ /g, "-");
+		// Thay thế khoảng trắng bằng dấu gạch nối
+		const slug = lowerCaseTitle.replace(/ /g, "-");
 
-	// Loại bỏ các ký tự đặc biệt
-	return slug.replace(/[^a-z0-9-]/g, "");
+		// Loại bỏ các ký tự đặc biệt
+		return slug.replace(/[^a-z0-9-]/g, "");
+	} catch (error) {
+		return "Error";
+	}
 }
 
 export function minutesToHoursMinutes(minutes: number): string {

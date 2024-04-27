@@ -101,6 +101,8 @@ export async function getMovieTrending({
 	const url = `${baseUrl}/trending/movie/${pTime}?page=${pageCurrent}&language=${language}`;
 	const res = await fetch(url, options);
 
+	console.log(url);
+
 	if (!res.ok) {
 		// This will activate the closest `error.js` Error Boundary
 		throw new Error("Failed to fetch data");
@@ -114,6 +116,30 @@ export async function getMoviePopular({ page, lang }: { page?: number; lang?: st
 	const language = lang || defaultLanguage;
 
 	const url = `${baseUrl}/movie/popular?page=${pageCurrent}&language=${language}`;
+
+	console.log(url);
+
+	const res = await fetch(url, options);
+
+	if (!res.ok) {
+		// This will activate the closest `error.js` Error Boundary
+		throw new Error("Failed to fetch data");
+	}
+
+	return res.json();
+}
+
+export async function getMovieNowPlaying({
+	page,
+	lang,
+}: {
+	page?: number;
+	lang?: string;
+}) {
+	const pageCurrent: number = page || 1;
+	const language = lang || defaultLanguage;
+
+	const url = `${baseUrl}/movie/now_playing?page=${pageCurrent}&language=${language}`;
 
 	console.log(url);
 

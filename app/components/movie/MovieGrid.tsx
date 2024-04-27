@@ -6,13 +6,15 @@ import CardMovie from "@/app/components/movie/CardMovie";
 import { IMovieItem } from "@/app/interfaces";
 import { useParams } from "next/navigation";
 
-function MovieGrid({ movieList }: { movieList: IMovieItem[] }) {
+function MovieGrid({
+	movieList,
+	language,
+}: {
+	movieList: IMovieItem[];
+	language?: string;
+}) {
 	const data = movieList;
-
-	const params = useParams();
-	const lang = params?.lang?.toString() || localStorage.getItem("lang") || "en";
-
-	// console.log(data[0]);
+	const lang = language || "en";
 
 	return (
 		<div className="movie-container @container">

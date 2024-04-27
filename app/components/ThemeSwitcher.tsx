@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { SunIcon, MoonIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import SelectLanguages from "./SelectLanguages";
 
 export function ThemeSwitcher() {
 	const [mounted, setMounted] = useState(false);
@@ -40,6 +41,7 @@ export function ThemeSwitcher() {
 					className="text-white hover:text-yellow-400 font-semibold"
 				/>
 			</Link>
+			<SelectLanguages size="small" />
 			<div
 				title={`Click here  ${
 					theme == "light" ? "Change theme to Dark Mode" : "Back to Light Mode"

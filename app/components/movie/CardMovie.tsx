@@ -84,18 +84,18 @@ const CardMovie = ({ movie, lang }: { movie: IMovieItem; lang?: string }) => {
 				className="flex flex-1 flex-col justify-between text-gray-700 dark:text-white 
       text-left p-3 lg:p-4 "
 			>
-				<h4 className="mb-2 text-lg  line-clamp-2 h-14">
+				<h4 className="mb-2 text-lg  line-clamp-2">
 					<Link
 						className="text-gray-700 dark:text-gray-200"
 						href={`/movie/${movie.id}-${convertToSlug(movie.title)}`}
 						title={movie?.original_title}
 						prefetch={false}
 					>
-						{movie.title}
+						{movie.title || movie?.name}
 					</Link>
 				</h4>
 				<div className="release-date text-sm sm:hidden font-semibold italic mb-2">
-					{movie?.release_date.toLocaleString()}
+					{movie?.release_date?.toLocaleString()}
 				</div>
 
 				<p
@@ -121,7 +121,7 @@ const CardMovie = ({ movie, lang }: { movie: IMovieItem; lang?: string }) => {
 					</Tooltip>
 
 					<div className="release-date text-sm hidden sm:block font-semibold italic">
-						{movie?.release_date.toLocaleString()}
+						{movie?.release_date?.toLocaleString()}
 					</div>
 				</div>
 			</div>

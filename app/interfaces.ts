@@ -28,6 +28,8 @@ export interface IMovieItem {
 	vote_count?: number;
 	department?: string;
 	character?: string;
+	name?: string;
+	media_type?: string;
 }
 
 export interface IMovie {

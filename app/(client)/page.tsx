@@ -1,15 +1,12 @@
-import Image from "next/image";
-import { IMovieListPage, ITrending } from "../interfaces";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import Trending from "../components/Trending";
 import Head from "next/head";
+import Image from "next/image";
 import { Metadata } from "next";
-import ScrollLoadMore from "../components/InfiniteScrollMovie";
-import InfiniteScrollMovie from "../components/InfiniteScrollMovie";
+import { IMovieListPage, ITrending } from "../interfaces";
 import { getPopular, getTrending } from "../api/FetchMovieDB";
 import CarouselSliderMovie from "../components/movie/CarouselSliderMovie";
 import MovieGridScrollInfinite from "@/app/components/movie/MovieGridScrollInfinite";
+import TrendingMovie from "@/app/components/block/TrendingMovie";
+import { getMovieTrending } from "@/app/lib/fetchMovie";
 
 async function getData() {
 	var language = "en-EN" || "vi-VN";
@@ -24,7 +21,7 @@ async function getData() {
 				Authorization: process.env.THE_MOVIE_DATABASE_API as string,
 			},
 			next: {
-				revalidate: 10,
+				revalidate: 7200,
 			},
 		}
 	);
@@ -53,18 +50,26 @@ export default async function HomePage() {
 	const dataPopular: IMovieListPage = await getPopular({});
 	// console.log(dataPopular.results[0]);
 
+	const dataTrendingDay = await getMovieTrending({ time: "day", lang: "en" });
+	const dataTrendingWeek = await getMovieTrending({ time: "week", lang: "en" });
+
 	return (
 		<div className="home-page main">
-			<h1 className="text-c-blue-light font-script text-3xl lg:text-4xl xl:text-5xl my-5 lg:my-10">
+			{/* <h1 className="text-c-blue-light font-script text-3xl lg:text-4xl xl:text-5xl my-5 lg:my-10">
 				<span
 					className="animate-text-gradient bg-gradient-to-r from-[#b2a8fd] via-[#8678f9] to-[#c7d2fe] 
     bg-[200%_auto] bg-clip-text text-transparent"
 				>
 					Welcome to La Movies
 				</span>
-			</h1>
-			<div className="">
-				<CarouselSliderMovie movieList={dataPopular} />
+			</h1> */}
+			<div className="">{/* <CarouselSliderMovie movieList={dataPopular} /> */}</div>
+
+			<div className="home-sections w-full m-auto p-3 lg:p-6 max-w-screen-2xl">
+				<TrendingMovie
+					dataDay={dataTrendingDay?.results}
+					dataWeek={dataTrendingWeek?.results}
+				/>
 			</div>
 			<div className="mx-auto py-6 lg:py-8 w-full max-w-screen-2xl px-3 md:px-5 lg:px-8">
 				<h3 className="mb-10 text-center text-2xl font-bold  lg:text-3xl">
