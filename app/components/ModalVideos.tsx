@@ -197,8 +197,8 @@ export default function ModalVideos({
 					{(onClose) => (
 						<>
 							<ModalHeader className="flex flex-row flex-wrap gap-1 justify-center lg:justify-between items-center lg:pr-12">
-								<div className="video-title line-clamp-1 lg:whitespace-nowrap truncate pr-8 lg:flex-1">
-									{currentVideo.site} | {currentVideo.name} | {currentVideo?.type}
+								<div className="video-title line-clamp-1 lg:whitespace-nowrap truncate pr-8 lg:flex-1 max-w-[90%]">
+									{currentVideo.name} - {currentVideo?.type}
 								</div>
 								{videos && videos.length > 1 && (
 									<div className="modal-control flex gap-2 w-36 mr-5 items-center">

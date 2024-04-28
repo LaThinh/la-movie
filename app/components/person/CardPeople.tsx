@@ -54,7 +54,7 @@ function CardPeople({
 				</div>
 			) : (
 				<div
-					className={`card-person @container person-${people.id} w-full m-auto max-w-screen-sm lg:max-w-screen-lg`}
+					className={`card-person @container person-${people.id} w-full m-auto max-w-screen-md lg:max-w-screen-lg`}
 				>
 					<div className="list-info flex flex-wrap rounded-xl shadow-lg bg-white dark:bg-slate-700 overflow-hidden">
 						<div className="card-profile relative w-full @2xl:w-[340px] @2xl:max-w-1/3 @5xl:w-[400px]">

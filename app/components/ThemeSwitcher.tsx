@@ -34,13 +34,13 @@ export function ThemeSwitcher() {
 
 	return (
 		<>
-			<Link href={`/${lang}/search`} title="Go to Search Pages">
+			{/* <Link href={`/${lang}/search`} title="Go to Search Pages">
 				<MagnifyingGlassIcon
 					width="36"
 					height="36"
 					className="text-white hover:text-yellow-400 font-semibold"
 				/>
-			</Link>
+			</Link> */}
 			<SelectLanguages size="small" />
 			<div
 				title={`Click here  ${

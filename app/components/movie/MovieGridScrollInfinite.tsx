@@ -32,16 +32,16 @@ export default function MovieGridScrollInfinite(props: MovieGridScroll) {
 	const fromPage = searchParams.get("page")
 		? Number(searchParams.get("page"))
 		: props.fromPage;
-	const toPage = props.toPage;
+	const toPage = props.toPage || 5;
 
 	const [page, setPage] = useState<number>(fromPage || 1);
 	const [movieList, setMovieList] = useState<IMovieItem[]>([]);
 	const [loading, setLoading] = useState(true);
-	const maxPage = toPage ? toPage : (fromPage || 1) + 5;
+	//const maxPage = toPage ? toPage : (fromPage || 1) + 5;
 
 	const { ref } = useInView({
 		onChange(inView, entry) {
-			if (inView && !loading && page < maxPage) {
+			if (inView && !loading && page < toPage) {
 				setPage(page + 1);
 			}
 		},

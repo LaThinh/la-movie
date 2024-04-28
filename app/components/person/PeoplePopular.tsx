@@ -9,10 +9,16 @@ import { Button } from "@nextui-org/react";
 import { useInView } from "react-intersection-observer";
 import { usePathname, useSearchParams } from "next/navigation";
 
-export default function PeoplePopular({ lang }: { lang?: string }) {
+export default function PeoplePopular({
+	dataPeople,
+	lang,
+}: {
+	dataPeople: IPeople[];
+	lang?: string;
+}) {
 	const language = lang || "en";
 
-	const [peopleList, setPeopleList] = useState<IPeople[]>([]);
+	const [peopleList, setPeopleList] = useState<IPeople[]>(dataPeople);
 	const [loading, setLoading] = useState(true);
 	const searchParams = useSearchParams();
 	const pathname = usePathname();
@@ -64,6 +70,7 @@ export default function PeoplePopular({ lang }: { lang?: string }) {
 	}, []);
 
 	useEffect(() => {
+		if (page < 2) return;
 		getPopularDataPage(page);
 		const newPath = pathname + "?" + createQueryString("page", page.toString());
 		// router.push(newPath);

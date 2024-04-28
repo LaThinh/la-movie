@@ -39,7 +39,7 @@ export default async function HomePage({ params }: { params: { lang: string } })
 	const dataMoviePlaying = await getMoviePopular({ lang });
 
 	return (
-		<div className="home-page main">
+		<div className="home-page main bg-gradient-to-r from-gray-200 to-gray-50 dark:from-slate-800 dark:to-slate-700">
 			<MovieNowPlaying dataMovie={dataMoviePlaying.results} lang={lang} />
 			<h1 className="text-c-blue-light font-script text-3xl lg:text-4xl xl:text-5xl my-5 lg:my-10">
 				Welcome to La Movies
@@ -56,7 +56,7 @@ export default async function HomePage({ params }: { params: { lang: string } })
 				<CarouselSliderMovie movieList={dataPopular} lang={lang} />
 			</div> */}
 			<div className="mx-auto py-6 lg:py-8 w-full max-w-screen-2xl px-3 md:px-5 lg:px-8">
-				<h3 className="mb-10 text-center text-2xl lg:text-3xl">{"Top Popular Movies"}</h3>
+				<h3 className="text-center text-2xl lg:text-3xl">{"Top Popular Movies"}</h3>
 				{/* {<Trending page={"1"} />} */}
 				{/* <InfiniteScrollMovie fromPage={1} toPage={7} /> */}
 				<MovieGridScrollInfinite
@@ -64,7 +64,7 @@ export default async function HomePage({ params }: { params: { lang: string } })
 					MovieItem={dataPopular?.results}
 					lang={lang}
 					fromPage={1}
-					toPage={7}
+					toPage={5}
 				/>
 			</div>
 		</div>

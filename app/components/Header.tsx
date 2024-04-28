@@ -16,7 +16,7 @@ export default function Header() {
 			<div className="header-container max-w-screen-2xl flex justify-between items-center w-full m-auto">
 				<NavMenu />
 
-				<div className="settings flex gap-3 justify-end items-center w-28">
+				<div className="settings flex gap-3 justify-end items-center ">
 					<ThemeSwitcher />
 				</div>
 			</div>

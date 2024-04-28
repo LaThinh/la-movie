@@ -83,8 +83,8 @@ export default function MediaSlider({
 					//pauseOnMouseEnter: true,
 				}}
 				loop={loop}
-				// freeMode={true}
-				navigation={true}
+				freeMode={true}
+				// navigation={true}
 				// autoplay={false}
 				modules={[Pagination, FreeMode, Autoplay]}
 				className="mySwiper pb-10 px-2"

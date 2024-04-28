@@ -35,7 +35,7 @@ type IHomePage = {
 };
 
 export const metadata: Metadata = {
-	title: "Welcome to La Movies | Review Film Hot",
+	title: "La Movies | Review Film Hot",
 	description: "La Movie developed by Paul La use Next.js and The Movie Database API",
 };
 

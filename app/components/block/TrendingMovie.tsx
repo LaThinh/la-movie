@@ -54,9 +54,16 @@ export default function TrendingMovie({
 	const [time, setTime] = useState<any>("day");
 
 	return (
-		<div className="block-trending-movie flex flex-col gap-5 p-5 lg:p-6 overflow-hidden border rounded-xl">
+		<div
+			className="block-trending-movie flex flex-col gap-5 px-[10px] overflow-hidden
+		lg:p-6 lg:border lg:border-gray-200 lg:rounded-xl bg-neutral-200/50 backdrop-blur-xl dark:bg-slate-700/80"
+		>
 			<div className="block-title flex flex-wrap gap-2 items-center justify-center md:justify-between">
-				<h2 className="block-title text-xl lg:text-2xl xl:text-3xl whitespace-nowrap">
+				<h2
+					className={`block-title text-xl lg:text-2xl xl:text-3xl whitespace-nowrap ${
+						time === "day" ? "text-gradient-blue" : "text-gradient-purple"
+					} animate-text `}
+				>
 					{`Top Trending Movie ${time === "day" ? " Today" : "This Week"}`}
 				</h2>
 				<Tabs

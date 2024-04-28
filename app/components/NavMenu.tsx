@@ -5,20 +5,21 @@ import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const menus = [
-	{
-		href: "/",
-		title: "Home",
-		title_vn: "Trang chủ",
-	},
-	{
-		href: "/about",
-		title: "About",
-		title_vn: "Giới thiệu",
-	},
+	// {
+	// 	href: "/",
+	// 	title: "Home",
+	// 	title_vn: "Trang chủ",
+	// },
+
 	{
 		href: "/movie",
 		title: "Movie",
 		title_vn: "Phim",
+	},
+	{
+		href: "/tv",
+		title: "TV",
+		title_vn: "TV",
 	},
 	{
 		href: "/person",
@@ -26,9 +27,9 @@ const menus = [
 		title_vn: "Diễn viên",
 	},
 	{
-		href: "/tv",
-		title: "TV",
-		title_vn: "TV",
+		href: "/about",
+		title: "About",
+		title_vn: "Giới thiệu",
 	},
 	// {
 	// 	href: "/movie/genre",
@@ -67,7 +68,7 @@ export default function NavMenu() {
 				{/* La <span className=" ">Movie</span> */}
 				<Image src="/la-movie.svg" width="180" height="60" alt="La Movie" />
 			</Link>
-			<nav className="gap-5 lg:gap-8 xl:gap-10 font-bold text-xl hidden md:flex">
+			<nav className="flex-1 justify-center gap-5 lg:gap-8 xl:gap-10 font-bold text-xl hidden md:flex">
 				{/* <Link href={`/${lang}/about`}>About</Link>
 				<Link href="/dashboard">Dashboard</Link> */}
 				{isClient &&

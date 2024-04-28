@@ -47,7 +47,7 @@ function MovieSlider({
 					}}
 					loop={loop}
 					freeMode={true}
-					navigation={true}
+					// navigation={true}
 					// autoplay={false}
 					modules={[Pagination, FreeMode, Autoplay]}
 					className="mySwiper pb-10 px-2"

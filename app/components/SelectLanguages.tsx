@@ -56,7 +56,7 @@ export default function SelectLanguages({
 		<div className="select-language">
 			{size && size === "small" ? (
 				<Select
-					className={`w-16 rounded-xl border-none`}
+					className={`w-14 rounded`}
 					onChange={handleChangeLanguage}
 					defaultSelectedKeys={[currentLang]}
 					size="sm"
@@ -64,6 +64,7 @@ export default function SelectLanguages({
 					variant="bordered"
 					classNames={{
 						// listboxWrapper: "w-24",
+						trigger: "px-1 rounded border",
 						base: "bg-white uppercase text-xl !border-none",
 						innerWrapper: "",
 						selectorIcon: "text-gray-700",

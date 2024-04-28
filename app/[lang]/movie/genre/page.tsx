@@ -33,6 +33,8 @@ export default async function MoviePage({ params }: { params: { lang: string } }
 				type="Popular"
 				lang={lang}
 				MovieItem={moviePopular.results}
+				fromPage={1}
+				toPage={5}
 			/>
 		</div>
 	);

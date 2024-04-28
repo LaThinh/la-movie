@@ -282,6 +282,9 @@ export async function getPersonDetails({
 			revalidate: 3000,
 		},
 	});
+
+	console.log(url);
+
 	if (!res.ok) {
 		throw new Error("Failed to fetch data Person Detail. URL Link: " + url);
 	}

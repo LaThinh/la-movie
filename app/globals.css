@@ -57,7 +57,7 @@ a {
 }
 
 .text-gradient-blue {
-	@apply bg-gradient-to-tr from-blue-500 to-sky-300 bg-clip-text text-transparent;
+	@apply bg-gradient-to-tr from-blue-500 to-sky-400 bg-clip-text text-transparent;
 }
 
 .text-gradient-green {
@@ -98,4 +98,31 @@ a {
 
 .footer-menu-links a {
 	@apply text-gray-700 dark:text-white hover:text-c-blue-light;
+}
+
+.text-gradient-purple {
+	@apply bg-gradient-to-r from-fuchsia-600 to-purple-600 bg-clip-text text-transparent;
+}
+
+.text-gradient-blue {
+	@apply bg-gradient-to-r from-blue-500 to-sky-400 bg-clip-text text-transparent;
+}
+
+.text-gradient-blue-2 {
+	@apply bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent;
+}
+
+.text-gradient-green-yellow {
+	@apply bg-gradient-to-r from-green-300 to-yellow-300 bg-clip-text text-transparent;
+}
+
+@media (max-width: 1023px) {
+	.bg-backdrop-gradient {
+		@apply bg-slate-700/70 backdrop-blur-sm;
+	}
+}
+@media (min-width: 1024px) {
+	.bg-backdrop-gradient {
+		@apply bg-gradient-to-r from-gray-600/90  via-slate-500/50 via-60% to-gray-100/0  dark:from-slate-700/90;
+	}
 }

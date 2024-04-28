@@ -40,16 +40,17 @@ export function NewlineText(props: string) {
 }
 
 export async function PersonDetailPage({
-	params: { person_id },
+	params: { person_id, lang },
 }: {
-	params: { person_id: string };
+	params: { person_id: string; lang: string };
 }) {
 	console.log("Person Detail Page");
 	console.log(person_id);
 
 	const personId = person_id.split("-")[0];
+	const language = "en";
 
-	const person: IPerson = await getPersonDetails({ personId: personId });
+	const person: IPerson = await getPersonDetails({ personId: personId, language });
 	const movieCredits: IMovieCredits = await getPersonMovies({
 		personId: personId,
 	});
