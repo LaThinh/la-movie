@@ -52,7 +52,7 @@ export async function getTvGenre({ lang }: { lang?: string }) {
 	const res = await fetch(url, {
 		headers: fetchHeader,
 		next: {
-			revalidate: 72000,
+			tags: ["genre"],
 		},
 	});
 	if (!res.ok) {

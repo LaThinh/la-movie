@@ -61,7 +61,7 @@ export default function MediaSlider({
 	});
 
 	const params = useParams();
-	const lang = params?.lang?.toString() || localStorage.getItem("lang") || "en";
+	const lang = params?.lang?.toString() || "en";
 
 	if (!movies || movies.length < 1) {
 		return <div>No Media Item</div>;

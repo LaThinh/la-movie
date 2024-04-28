@@ -42,6 +42,7 @@ export default function TvGenres({
                         hover:text-white hover:border-primary-500 hover:bg-primary-500
                         ${selectId == "all" ? classActive : ""}
                         ${classSize}`}
+					prefetch={false}
 				>
 					All Genres
 				</Link>

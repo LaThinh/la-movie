@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 // const baseUrl = "https://api.themoviedb.org/3";
 // const options: RequestInit = {
 // 	method: "GET",
@@ -27,7 +28,7 @@ export async function getMovieGenre(language?: string) {
 	const res = await fetch(url, {
 		headers: fetchHeader,
 		next: {
-			revalidate: 72000,
+			tags: ["genre"],
 		},
 	});
 	if (!res.ok) {

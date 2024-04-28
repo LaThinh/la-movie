@@ -53,6 +53,7 @@ export default function MovieGenres({
                             hover:text-white hover:border-primary-500 hover:bg-primary-500
                             ${genre.id == selectId ? classActive : ""}
                             ${classSize}`}
+							prefetch={false}
 						>
 							{genre?.name?.replace("Phim ", "")}
 						</Link>

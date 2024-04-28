@@ -6,7 +6,8 @@ import { getPopular, getTrending } from "../api/FetchMovieDB";
 import CarouselSliderMovie from "../components/movie/CarouselSliderMovie";
 import MovieGridScrollInfinite from "@/app/components/movie/MovieGridScrollInfinite";
 import TrendingMovie from "@/app/components/block/TrendingMovie";
-import { getMovieTrending } from "@/app/lib/fetchMovie";
+import { getMoviePopular, getMovieTrending } from "@/app/lib/fetchMovie";
+import MovieNowPlaying from "@/app/components/block/MovieNowPlaying";
 
 async function getData() {
 	var language = "en-EN" || "vi-VN";
@@ -40,29 +41,20 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-	//const data: ITrending = await getData();
-	//console.log(data.results[0]);
-	console.log("Get data trending homepage");
 	const dataTrending: ITrending = (await getTrending(1)) || null;
-	// console.log(dataTrending.results[0]);
-
-	console.log("Get Movie Popular");
 	const dataPopular: IMovieListPage = await getPopular({});
 	// console.log(dataPopular.results[0]);
 
+	const lang = "en";
+
 	const dataTrendingDay = await getMovieTrending({ time: "day", lang: "en" });
 	const dataTrendingWeek = await getMovieTrending({ time: "week", lang: "en" });
+	const dataMoviePlaying = await getMoviePopular({ lang });
 
 	return (
 		<div className="home-page main">
-			{/* <h1 className="text-c-blue-light font-script text-3xl lg:text-4xl xl:text-5xl my-5 lg:my-10">
-				<span
-					className="animate-text-gradient bg-gradient-to-r from-[#b2a8fd] via-[#8678f9] to-[#c7d2fe] 
-    bg-[200%_auto] bg-clip-text text-transparent"
-				>
-					Welcome to La Movies
-				</span>
-			</h1> */}
+			<MovieNowPlaying dataMovie={dataMoviePlaying.results} lang={lang} />
+			<h1 className="page-title font-bold my-5">Welcome to La Movies</h1>
 			<div className="">{/* <CarouselSliderMovie movieList={dataPopular} /> */}</div>
 
 			<div className="home-sections w-full m-auto p-3 lg:p-6 max-w-screen-2xl">
@@ -75,9 +67,7 @@ export default async function HomePage() {
 				<h3 className="mb-10 text-center text-2xl font-bold  lg:text-3xl">
 					{"Top Trending Movies"}
 				</h3>
-				{/* {<Trending page={"1"} />} */}
-				{/* <InfiniteScrollMovie movieData={dataTrending.results} fromPage={1} /> */}
-				<MovieGridScrollInfinite type="Popular" fromPage={1} toPage={7} />
+				<MovieGridScrollInfinite type="Popular" fromPage={1} toPage={5} />
 			</div>
 		</div>
 	);

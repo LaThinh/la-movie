@@ -180,3 +180,23 @@ export interface IPeople {
 	job?: string;
 	known_for: IMovieItem[];
 }
+
+export interface IMediaItem {
+	id: number;
+	title?: string;
+	original_title?: string;
+	name?: string;
+	original_name?: string;
+	original_language?: string;
+	media_type: string;
+	poster_path: string; // Image
+	backdrop_path: string; //Image
+	overview: string;
+	genre_ids: number[];
+	release_date: Date;
+	popularity?: string;
+	vote_average?: number;
+	vote_count?: number;
+	department?: string;
+	character?: string;
+}
