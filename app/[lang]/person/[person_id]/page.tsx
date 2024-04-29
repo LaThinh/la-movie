@@ -48,9 +48,12 @@ export async function PersonDetailPage({
 	console.log(person_id);
 
 	const personId = person_id.split("-")[0];
-	const language = "en";
+	const language = lang || "en";
 
 	const person: IPerson = await getPersonDetails({ personId: personId, language });
+
+	console.log(person);
+
 	const movieCredits: IMovieCredits = await getPersonMovies({
 		personId: personId,
 	});

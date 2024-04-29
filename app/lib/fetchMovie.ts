@@ -83,7 +83,7 @@ export async function getMovieTrending({
 	const pageCurrent: number = page || 1;
 
 	const url = `${baseUrl}/trending/movie/${pTime}?page=${pageCurrent}&language=${language}`;
-	const res = await fetch(url, optionNoCache);
+	const res = await fetch(url, optionCache);
 
 	console.log(url);
 

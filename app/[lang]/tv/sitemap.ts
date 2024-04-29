@@ -28,7 +28,7 @@ export default async function sitemap({
 	let TVs: ITVItem[] = [];
 
 	for (let page = pageFrom; page < pageTo; page++) {
-		const dataTv = await getTVPopular({ page: page, lang: "en" });
+		const dataTv = await getTVPopular({ page, lang });
 		const result = await dataTv.results;
 
 		result.map((item: ITVItem) => TVs.push(item));
@@ -37,6 +37,6 @@ export default async function sitemap({
 	return TVs.map((tv) => ({
 		url: `${BASE_URL}/${lang}/tv/${tv.id}-${convertToSlug(tv.name)}`,
 		lastModified: new Date(),
-		changeFrequency: "monthly",
+		changeFrequency: "yearly",
 	}));
 }

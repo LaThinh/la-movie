@@ -79,24 +79,38 @@ function MovieSlider({
 									//className="!relative inset-0 h-full w-full object-cover object-center transition duration-300 group-hover:scale-110"
 								/>
 							</Link>
-							<div className="card-info p-3 h-20 bg-white dark:bg-slate-800 text-left">
+							<div className="card-info p-2 max-h-24 flex flex-col gap-2 justify-between bg-white dark:bg-slate-800 text-left">
 								<strong
-									className="font-semibold text-sm line-clamp-2 max-h-10 mb-1"
+									className="font-semibold text-sm line-clamp-2 inline-block w-full align-bottom"
 									title={movie.title}
 								>
-									{movie.title || movie?.name || "Title"}
+									<span className="inline align-bottom leading-4">
+										{movie.title || movie?.name || "Title"}
+									</span>
+									{movie?.character && (
+										<span
+											className="inline align-bottom text-xs line-clamp-1 leading-[14px] ml-1 text-gray-500"
+											title={movie.character}
+										>
+											- {movie.character}
+										</span>
+									)}
 								</strong>
-								{movie?.character && (
-									<p className="text-xs line-clamp-1" title={movie.character}>
-										{movie.character}
-									</p>
-								)}
+
 								{movie?.department && (
 									<p className="text-xs line-clamp-1" title={movie.department}>
 										{movie.department}
 									</p>
 								)}
-								<p className="text-sm ">{movie?.release_date?.toString() || ""}</p>
+
+								<div className="bottom-info flex justify-between gap-1 items-end">
+									<p className="text-sm" title="Release Date">
+										{movie?.release_date?.toString() || "Release Date"}
+									</p>
+									<div className="vote-average font-bold" title="Vote Average">
+										{movie.vote_average?.toFixed(1)}
+									</div>
+								</div>
 							</div>
 						</SwiperSlide>
 					))}
