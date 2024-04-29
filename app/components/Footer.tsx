@@ -19,14 +19,14 @@ export default function Footer() {
 						width="210"
 						height="70"
 						alt="La Movie"
-						className="hidden dark:block aspect-[12/5]"
+						className="hidden dark:block aspect-[24/8]"
 					/>
 					<Image
 						src="/la-movie-2.svg"
 						width="210"
 						height="70"
 						alt="La Movie"
-						className="block dark:hidden aspect-[12/5]"
+						className="block dark:hidden aspect-[24/8]"
 					/>
 
 					<div className="copyright">

@@ -28,7 +28,7 @@ function MovieSlider({
 	});
 
 	const params = useParams();
-	const lang = params?.lang?.toString() || localStorage.getItem("lang") || "en";
+	const lang = params?.lang?.toString() || "en";
 	const classSize = size && size === "small" ? "!w-[162px]" : "!w-[180px]";
 
 	return (

@@ -4,6 +4,7 @@ import { baseUrl, fetchHeader } from "@/app/lib/fetchData";
 export async function getPeoplePopular({ lang, page }: { lang?: string; page?: string }) {
 	const language = lang || "en";
 	const pageCurrent: string = page || "1";
+	// const isCached = Number(pageCurrent) < 2;
 
 	const url = `${baseUrl}/person/popular?language=${language}&page=${pageCurrent}`;
 	const res = await fetch(url, {

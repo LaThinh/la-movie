@@ -3,7 +3,6 @@
 import { getPeoplePopular } from "@/app/lib/fetchPeople";
 import { IPeople } from "@/app/lib/interfaces";
 import React, { useCallback, useEffect, useState } from "react";
-import CardPerson from "./CardPerson";
 import CardPeople from "./CardPeople";
 import { Button } from "@nextui-org/react";
 import { useInView } from "react-intersection-observer";
@@ -18,18 +17,16 @@ export default function PeoplePopular({
 }) {
 	const language = lang || "en";
 
-	const [peopleList, setPeopleList] = useState<IPeople[]>(dataPeople);
-	const [loading, setLoading] = useState(false);
-	const searchParams = useSearchParams();
 	const pathname = usePathname();
-
-	const [startPage, setStartPage] = useState(1);
+	const searchParams = useSearchParams();
+	const [loading, setLoading] = useState(false);
+	const [peopleList, setPeopleList] = useState<IPeople[]>([]);
 
 	const fromPage = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
-	const toPage = fromPage + 5;
+	const [startPage, setStartPage] = useState(1);
+	// const toPage = fromPage + 5;
 
-	const [page, setPage] = useState(fromPage | 1);
-	// const maxPage = toPage;
+	const [page, setPage] = useState(fromPage);
 
 	const { ref } = useInView({
 		onChange(inView, entry) {
@@ -66,11 +63,15 @@ export default function PeoplePopular({
 
 	useEffect(() => {
 		setStartPage(fromPage);
-		//getPopularDataPage(page);
+		if (startPage < 2 && fromPage == 1) {
+			setPeopleList(dataPeople);
+		}
 	}, []);
 
 	useEffect(() => {
-		if (page < 2) return;
+		if (page < 2) {
+			return;
+		}
 		getPopularDataPage(page);
 		const newPath = pathname + "?" + createQueryString("page", page.toString());
 		// router.push(newPath);
@@ -83,9 +84,10 @@ export default function PeoplePopular({
 
 	return (
 		<div className="people-popular-list w-full m-auto max-w-[2000px] flex flex-col gap-3 pb-10 px-3 lg:px-5 items-center">
-			{/* <div className="fixed text-4xl z-50">
+			<div className="fixed text-4xl z-50 hidden">
 				Is Loading {loading ? "true" : "false"} {fromPage} {startPage}
-			</div> */}
+			</div>
+
 			{peopleList && peopleList.length > 0 && (
 				<div className="w-full grid grid-cols-1 2xl:grid-cols-2 gap-10 gap-y-14">
 					{peopleList.map((people, index) => (
