@@ -18,6 +18,7 @@ function MovieInfo({ movie }: { movie: IMovie }) {
 								href={movie?.homepage || "/"}
 								target="_blank"
 								className="text-xl text-primary-500"
+								prefetch={false}
 							>
 								{movie?.original_title}
 							</Link>

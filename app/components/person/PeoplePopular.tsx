@@ -19,7 +19,7 @@ export default function PeoplePopular({
 	const language = lang || "en";
 
 	const [peopleList, setPeopleList] = useState<IPeople[]>(dataPeople);
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 	const searchParams = useSearchParams();
 	const pathname = usePathname();
 
@@ -111,7 +111,9 @@ export default function PeoplePopular({
 				isLoading={loading}
 				spinnerPlacement="end"
 			>
-				{loading ? `Loading People Ranking page ${page}` : `Load more page ${page + 1}`}
+				{loading
+					? `Loading People Ranking page ${page}`
+					: `Load more people page ${page + 1}`}
 			</Button>
 		</div>
 	);

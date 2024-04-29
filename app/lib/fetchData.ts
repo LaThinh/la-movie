@@ -1,5 +1,5 @@
 export const baseUrl = "https://api.themoviedb.org/3";
-export const options: RequestInit = {
+export const optionCache: RequestInit = {
 	method: "GET",
 	headers: {
 		accept: "application/json",
@@ -8,7 +8,16 @@ export const options: RequestInit = {
 	next: {
 		revalidate: 18000,
 	},
-	cache: "force-cache",
+	// cache: "force-cache",
+};
+
+export const optionNoCache: RequestInit = {
+	method: "GET",
+	headers: {
+		accept: "application/json",
+		Authorization: "Bearer " + process.env.NEXT_PUBLIC_MOVIE_API,
+	},
+	cache: "no-store",
 };
 
 export const fetchHeader = {

@@ -33,6 +33,7 @@ export default function TVInfo({ tv }: { tv: ITV }) {
 							target="_blank"
 							rel="noopener"
 							className="text-white"
+							prefetch={false}
 						>
 							{tv.name}
 						</Link>

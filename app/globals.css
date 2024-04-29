@@ -100,6 +100,10 @@ a {
 	@apply text-gray-700 dark:text-white hover:text-c-blue-light;
 }
 
+.swiper-banner {
+	--swiper-navigation-color: white;
+}
+
 .text-gradient-purple {
 	@apply bg-gradient-to-r from-fuchsia-600 to-purple-600 bg-clip-text text-transparent;
 }

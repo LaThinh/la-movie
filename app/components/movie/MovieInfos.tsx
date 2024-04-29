@@ -37,6 +37,7 @@ export default function MovieInfos({ movie }: { movie: IMovie }) {
 							target="_blank"
 							rel="noopener"
 							className="text-white"
+							prefetch={false}
 						>
 							{movie.title}
 						</Link>

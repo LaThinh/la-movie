@@ -2,7 +2,6 @@
 
 import { GalleryIcon } from "@/app/icons/GalleryIcon";
 import { Server, TagUser } from "@/app/icons/Icons";
-import { getTVImages } from "@/app/lib/fetchTv";
 import { ITV, ITVImages } from "@/app/lib/interfaces";
 import { Card, CardBody, Tab, Tabs } from "@nextui-org/react";
 import { VideoIcon } from "@radix-ui/react-icons";

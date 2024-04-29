@@ -6,67 +6,20 @@ import MovieTabInfo from "@/app/components/movie/MovieTabInfo";
 import MovieTabVideo from "@/app/components/movie/MovieTabVideo";
 import MovieTabPhotos from "@/app/components/movie/MovieTabPhotos";
 import { ICredits, IMovie, IMovieImages, IMovieReviews } from "@/app/interfaces";
-import { ImageIcon } from "@radix-ui/react-icons";
 import { GalleryIcon } from "@/app/icons/GalleryIcon";
 import { VideoIcon } from "@/app/icons/VideoIcon";
 import { Server, TagUser } from "@/app/icons/Icons";
 import MovieTabReview from "@/app/components/movie/MovieTabReview";
 import MovieTabCredits from "./MovieTabCredits";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { getMovieCredits, getMovieImages, getMovieReviews } from "@/app/api/FetchMovieDB";
+// import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export function MovieTabs({ movieId, movie }: { movieId: string; movie: IMovie }) {
-	const searchParams = useSearchParams();
+	// const searchParams = useSearchParams();
 	const [tabSelected, setTabSelected] = useState<string>();
-
-	// const [movieImages, setMovieImages] = useState<IMovieImages>();
-	// const [movieCredits, setMovieCredits] = useState<ICredits>();
-	// const [movieReviews, setMovieReviews] = useState<IMovieReviews>();
-
-	// useEffect(() => {
-	// 	const getMovieTabsData = async () => {
-	// 		const dataReviews = await getMovieReviews({
-	// 			movieId: movieId,
-	// 			language: "en",
-	// 		});
-	// 		const dataImages = await getMovieImages({
-	// 			movieId: movieId,
-	// 			language: "en",
-	// 		});
-	// 		const dataCredits = await getMovieCredits({
-	// 			movieId: movieId,
-	// 			language: "en",
-	// 		});
-
-	// 		setMovieImages(dataImages);
-	// 		setMovieReviews(dataReviews);
-	// 		setMovieCredits(dataCredits);
-	// 		console.log("Fetch done");
-	// 		const tabParam = searchParams?.get("tab");
-	// 		if (tabParam && tabParam.length > 0) {
-	// 			setTimeout(function () {
-	// 				setTabSelected(tabParam);
-	// 			}, 1000);
-	// 		}
-	// 	};
-
-	// 	getMovieTabsData();
-	// }, [movieId]);
-
-	// useEffect(() => {
-	//   const tabParam = searchParams.get("tab");
-	//   if (tabParam && tabParam.length > 0) {
-	//     setTimeout(function () {
-	//       setTabSelected(tabParam);
-	//     }, 3000);
-	//   }
-	// }, [searchParams]);
 
 	useEffect(() => {
 		if (tabSelected) window.history.replaceState({}, "", "?tab=" + tabSelected);
 	}, [tabSelected]);
-
-	//console.log(movieImages);
 
 	const totalImages = movie?.images
 		? movie.images.backdrops.length +

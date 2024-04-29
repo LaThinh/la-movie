@@ -41,9 +41,7 @@ export default async function HomePage({ params }: { params: { lang: string } })
 	return (
 		<div className="home-page main bg-gradient-to-r from-gray-200 to-gray-50 dark:from-slate-800 dark:to-slate-700">
 			<MovieNowPlaying dataMovie={dataMoviePlaying.results} lang={lang} />
-			<h1 className="text-c-blue-light font-script text-3xl lg:text-4xl xl:text-5xl my-5 lg:my-10">
-				Welcome to La Movies
-			</h1>
+			<h1 className="page-title font-bold my-5">Welcome to La Movies</h1>
 			<div className="home-sections w-full m-auto p-3 lg:p-6 max-w-screen-2xl">
 				<TrendingMovie
 					language={lang}

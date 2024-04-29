@@ -20,6 +20,7 @@ type MovieGridScroll = {
 	genreId?: string;
 	fromPage?: number;
 	toPage?: number;
+	pageParam?: boolean;
 };
 
 export default function MovieGridScrollInfinite(props: MovieGridScroll) {
@@ -105,10 +106,12 @@ export default function MovieGridScrollInfinite(props: MovieGridScroll) {
 
 	useEffect(() => {
 		loadMoreData(page);
-		//searchParam.set("page", page);
-		const newPath = pathname + "?" + createQueryString("page", page.toString());
-		// router.push(newPath);
-		window.history.replaceState(null, "", newPath);
+
+		if (props.pageParam) {
+			const newPath = pathname + "?" + createQueryString("page", page.toString());
+			// router.push(newPath);
+			window.history.replaceState(null, "", newPath);
+		}
 	}, [page]);
 
 	const handleLoadMore = () => {

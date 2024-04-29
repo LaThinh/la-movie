@@ -1,4 +1,4 @@
-import { baseUrl, fetchHeader, options } from "@/app/lib/fetchData";
+import { baseUrl, fetchHeader, optionCache, optionNoCache } from "@/app/lib/fetchData";
 const defaultLanguage = "en";
 
 //Get getMovieGenre
@@ -82,7 +82,7 @@ export async function getDiscoverTvGenres({
 	const shortBy = sort_by ? "&sort_by=" + sort_by : "";
 
 	const url = `${baseUrl}/discover/tv?with_genres=${genreId}&page=${p}&language=${lang}${shortBy}`;
-	const res = await fetch(url, options);
+	const res = await fetch(url, optionCache);
 	if (!res.ok) {
 		throw new Error("Failed to fetch getDiscoverTvGenres. URL Link: " + url);
 	}
@@ -108,7 +108,7 @@ export async function getTVTrending({
 	const pageCurrent: number = page || 1;
 
 	const url = `${baseUrl}/trending/tv/${time}?page=${pageCurrent}&language=${language}`;
-	const res = await fetch(url, options);
+	const res = await fetch(url, optionNoCache);
 
 	if (!res.ok) {
 		// This will activate the closest `error.js` Error Boundary
@@ -124,7 +124,7 @@ export async function getTVPopular({ page, lang }: { page?: number; lang?: strin
 	const pageCurrent: number = page || 1;
 
 	const url = `${baseUrl}/tv/popular?page=${pageCurrent}&language=${language}`;
-	const res = await fetch(url, options);
+	const res = await fetch(url, optionCache);
 
 	if (!res.ok) {
 		// This will activate the closest `error.js` Error Boundary
@@ -145,17 +145,16 @@ export async function getTVDetails({
 	append_to_response?: string | undefined;
 }) {
 	language = language || "en";
+	const isCached = Number(tvId) > 100000;
+
+	console.log("Cache: " + isCached);
+
 	const appendResponse = append_to_response
 		? `append_to_response=${append_to_response}&`
 		: "";
 	const url = `${baseUrl}/tv/${tvId}?${appendResponse}language=${language}`;
-	const res = await fetch(url, options);
+	const res = await fetch(url, isCached ? optionNoCache : optionNoCache);
 
-	// console.log(res);
-
-	// if (res?.status_code === 34) {
-	// 	console.log("Not found");
-	// }
 	if (!res.ok) {
 		return res.json();
 		//throw new Error("Failed to fetch data TV Detail. URL Link: " + url);

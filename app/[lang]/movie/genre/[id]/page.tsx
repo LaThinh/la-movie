@@ -21,7 +21,6 @@ export default async function MovieGenre({
 }: {
 	params: { lang: string; id: string };
 }) {
-	console.log(params.id);
 	const lang = params.lang || "en";
 	const genreId = params.id || "1";
 
@@ -57,6 +56,7 @@ export default async function MovieGenre({
 								genreId={genreId}
 								lang={lang}
 								MovieItem={genreMovies.results}
+								pageParam={true}
 							/>
 						</div>
 					</div>

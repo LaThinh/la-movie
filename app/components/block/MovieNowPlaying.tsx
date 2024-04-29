@@ -70,7 +70,7 @@ export default function MovieNowPlaying({
 		<div className="movie-now-playing">
 			<div className="w-full m-auto max-w-[1920px] aspect-[2/3] md:aspect-[16/7] bg-gray-200 min-h-[63vh] overflow-hidden">
 				<Swiper
-					className="mySwiper"
+					className="mySwiper swiper-banner"
 					slidesPerView={1}
 					spaceBetween={0}
 					grabCursor={true}

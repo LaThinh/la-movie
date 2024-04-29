@@ -1,23 +1,4 @@
-import { revalidateTag } from "next/cache";
-// const baseUrl = "https://api.themoviedb.org/3";
-// const options: RequestInit = {
-// 	method: "GET",
-// 	headers: {
-// 		accept: "application/json",
-// 		Authorization: "Bearer " + process.env.NEXT_PUBLIC_MOVIE_API,
-// 	},
-// 	next: {
-// 		revalidate: 300,
-// 	},
-// 	cache: "force-cache",
-// };
-
-import { baseUrl, fetchHeader, options } from "@/app/lib/fetchData";
-
-// const fetchHeader = {
-// 	accept: "application/json",
-// 	Authorization: "Bearer " + process.env.NEXT_PUBLIC_MOVIE_API,
-// };
+import { baseUrl, fetchHeader, optionCache, optionNoCache } from "@/app/lib/fetchData";
 
 const defaultLanguage = "en";
 
@@ -56,7 +37,7 @@ export async function getDiscoverMovieGenres({
 	const shortBy = sort_by ? "&sort_by=" + sort_by : "";
 
 	const url = `${baseUrl}/discover/movie?with_genres=${genreId}&page=${p}&language=${lang}${shortBy}`;
-	const res = await fetch(url, options);
+	const res = await fetch(url, optionCache);
 	if (!res.ok) {
 		throw new Error("Failed to fetch getGenreList. URL Link: " + url);
 	}
@@ -76,8 +57,10 @@ export async function getMovieRecommendations({
 	language?: string;
 }) {
 	const lang = language || defaultLanguage;
+	const isCached = Number(movieId) > 1000000;
+
 	const url = `${baseUrl}/movie/${movieId}/recommendations?language=${lang}&page=1`;
-	const res = await fetch(url, options);
+	const res = await fetch(url, isCached ? optionCache : optionNoCache);
 	if (!res.ok) {
 		// This will activate the closest `error.js` Error Boundary
 		throw new Error("Failed to fetch data url " + url);
@@ -100,7 +83,7 @@ export async function getMovieTrending({
 	const pageCurrent: number = page || 1;
 
 	const url = `${baseUrl}/trending/movie/${pTime}?page=${pageCurrent}&language=${language}`;
-	const res = await fetch(url, options);
+	const res = await fetch(url, optionNoCache);
 
 	console.log(url);
 
@@ -120,7 +103,7 @@ export async function getMoviePopular({ page, lang }: { page?: number; lang?: st
 
 	console.log(url);
 
-	const res = await fetch(url, options);
+	const res = await fetch(url, optionCache);
 
 	if (!res.ok) {
 		// This will activate the closest `error.js` Error Boundary
@@ -144,7 +127,7 @@ export async function getMovieNowPlaying({
 
 	console.log(url);
 
-	const res = await fetch(url, options);
+	const res = await fetch(url, optionNoCache);
 
 	if (!res.ok) {
 		// This will activate the closest `error.js` Error Boundary

@@ -54,7 +54,7 @@ export default async function HomePage() {
 	return (
 		<div className="home-page main">
 			<MovieNowPlaying dataMovie={dataMoviePlaying.results} lang={lang} />
-			<h1 className="page-title font-bold my-5">Welcome to La Movies</h1>
+			<h1 className="page-title font-bold my-5">Welcome to La Movie</h1>
 			<div className="">{/* <CarouselSliderMovie movieList={dataPopular} /> */}</div>
 
 			<div className="home-sections w-full m-auto p-3 lg:p-6 max-w-screen-2xl">

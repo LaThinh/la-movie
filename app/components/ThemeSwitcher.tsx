@@ -34,15 +34,25 @@ export function ThemeSwitcher() {
 
 	return (
 		<>
-			{/* <Link href={`/${lang}/search`} title="Go to Search Pages">
+			<Link href={`/${lang}/search`} title="Go to Search Pages" prefetch={false}>
 				<MagnifyingGlassIcon
 					width="36"
 					height="36"
 					className="text-white hover:text-yellow-400 font-semibold"
 				/>
-			</Link> */}
+			</Link>
 			<SelectLanguages size="small" />
-			<div
+			<Button
+				isIconOnly
+				aria-label="Change Theme"
+				onClick={changeTheme}
+				size="sm"
+				color={theme === "light" ? "default" : "warning"}
+			>
+				{theme === "light" ? <MoonIcon /> : <SunIcon />}
+			</Button>
+
+			{/* <div
 				title={`Click here  ${
 					theme == "light" ? "Change theme to Dark Mode" : "Back to Light Mode"
 				}`}
@@ -57,7 +67,7 @@ export function ThemeSwitcher() {
 					name="switch-theme"
 					aria-label="Switch Theme"
 				/>
-			</div>
+			</div> */}
 		</>
 	);
 }
