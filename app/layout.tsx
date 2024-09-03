@@ -74,6 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 					name="google-site-verification"
 					content="AEBdKA2ofkzRezhsUitEoSaRB3Emx5mVVRJspLyIIO8"
 				/>
+				<meta name="robots" content="noindex,nofollow" />
 			</head>
 
 			<GoogleTagManager gtmId="GTM-WZ4XMWS8" />

@@ -30,7 +30,13 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage({ params }: { params: { lang: string } }) {
-	const lang = params?.lang || "en";
+	let lang = "en";
+	if (params?.lang) {
+		const paramLang = params.lang;
+		if (paramLang.length > 0 && paramLang.length < 3) {
+			lang = paramLang;
+		}
+	}
 	const dataPopular: IMovieListPage = await getPopular({ lang: lang });
 
 	const dataTrendingDay = await getMovieTrending({ time: "day", lang });
